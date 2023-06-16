@@ -1,0 +1,24 @@
+<div>
+
+  <mat-form-field appearance="fill" class="espace">
+    <mat-label>{{'info.encoding'|translate}}</mat-label>
+    <mat-select [(ngModel)]="encodingSelected">
+      <mat-option *ngFor="let encoding of encodingFormats | keyvalue" [value]="encoding.value">
+        {{'info.' + encoding.value|translate}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="espace">
+    <mat-label>{{'info.level'|translate}}</mat-label>
+    <mat-select [(ngModel)]="typeSelected">
+      <mat-option *ngFor="let adminType of administrationTypes | keyvalue:returnZero" [value]="adminType.value">
+        {{'db.administrationTypes.' + adminType.value | translate}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <app-database-export-run-button [justLastActiveSurvey]="typeSelected"
+    (readyToDownload)="downloadLastActiveSurveyFile()">
+  </app-database-export-run-button>
+
+</div>

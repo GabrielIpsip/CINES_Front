@@ -1,0 +1,127 @@
+<mat-sidenav-container autosize class="main-container">
+
+  <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+    <app-survey-reply-button #surveyReplyButton class="app-reply-button" [administration]="docStruct">
+    </app-survey-reply-button>
+    <mat-divider class="app-divider"></mat-divider>
+    <app-documentary-structure-relation></app-documentary-structure-relation>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <div class="doc-struct-info" *ngIf="docStruct">
+
+      <div class="consult-section">
+        <div class="header">
+          <app-return-button id="return-button"></app-return-button>
+          <h1>{{docStruct.useName}}</h1>
+        </div>
+        <app-info-chips class="info-chips">ID : {{docStruct.id}}</app-info-chips>
+        <div *ngIf="docStruct.active; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <app-info-chips class="info-chips" color="rgba(63, 191, 63, 0.2)">{{'docStruct.view.enabled'|translate}}
+          </app-info-chips>
+        </ng-template>
+        <ng-template #elseBlock>
+          <app-info-chips class="info-chips" color="rgba(206, 13, 13, 0.2)">
+            {{'docStruct.view.disabled'|translate}}
+          </app-info-chips>
+        </ng-template>
+
+        <div>
+          <button mat-flat-button class="action-button" routerLink="/documentary-structures/update/{{docStruct.id}}"
+            color="primary" [disabled]="!canEdit">{{'docStruct.view.edit'|translate}}</button>
+
+          <app-export-administration-menu [administration]="docStruct" [surveys]="surveyReplyButton.surveys">
+          </app-export-administration-menu>
+        </div>
+
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="{{'docStruct.view.descriptionTab'|translate}}">
+            <mat-list class="list">
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.officialName'|translate}}</p>
+                <p mat-line>{{docStruct.officialName}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.acronym'|translate}}</p>
+                <p mat-line>{{docStruct.acronym}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.address'|translate}}</p>
+                <p mat-line>{{docStruct.address}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.city'|translate}}</p>
+                <p mat-line>{{docStruct.city}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.postalCode'|translate}}</p>
+                <p mat-line>{{docStruct.postalCode}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.department'|translate}}</p>
+                <p mat-line>{{docStruct.department.name}} ({{docStruct.department.code}})</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.region'|translate}}</p>
+                <p mat-line>{{docStruct.department.region.name}} ({{docStruct.department.region.code}})</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.website'|translate}}</p>
+                <a target="_blank" rel="noopener noreferrer" href="{{docStruct.website}}"
+                  mat-line>{{docStruct.website}}</a>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item *ngIf="establishment">
+                <p mat-line>{{'docStruct.view.establishment'|translate}}</p>
+                <a mat-line routerLink="/establishments/{{establishment.id}}"
+                  title="{{establishment.useName}}">{{establishment.useName}}</a>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'docStruct.view.instruction'|translate}}</p>
+              </mat-list-item>
+            </mat-list>
+
+            <div class="html" [innerHTML]="docStruct?.instruction|noSanitize">
+            </div>
+
+          </mat-tab>
+
+          <mat-tab label="{{'docStruct.view.libraries'|translate}}">
+            <app-documentary-structure-physic-lib-list [docStructId]="docStruct.id"
+              [surveys]="surveyReplyButton.surveys">
+            </app-documentary-structure-physic-lib-list>
+          </mat-tab>
+
+          <mat-tab label="{{'info.stateHistory'|translate}}">
+            <app-administration-active-history [administration]="docStruct" [surveys]="surveyReplyButton.surveys">
+            </app-administration-active-history>
+          </mat-tab>
+
+          <mat-tab label="{{'info.linkHistory'|translate}}">
+            <app-documentary-structure-link-history [docStruct]="docStruct" [surveys]="surveyReplyButton.surveys"
+              [defaultEstablishment]="establishment"
+              (defaultEstablishmentEmitter)="updateEstablishmentFromHistory($event)">
+            </app-documentary-structure-link-history>
+          </mat-tab>
+
+          <mat-tab label="{{'docStruct.linkedUser'|translate}}">
+            <app-documentary-structure-user-list *ngIf="docStruct" [docStructId]="docStruct.id">
+            </app-documentary-structure-user-list>
+          </mat-tab>
+
+        </mat-tab-group>
+      </div>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

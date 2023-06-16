@@ -1,0 +1,14 @@
+<p *ngIf="!justLastActiveSurvey">
+  {{'broadcast.exportData.info'|translate}}
+</p>
+
+<button mat-flat-button (click)="runExport()" [disabled]="!canExport" class="inline" color="primary">
+  <mat-spinner *ngIf="!canExport" [diameter]="20" class="inline"></mat-spinner>
+  <strong class="inline margin-left">{{(justLastActiveSurvey ? 'action.download' : 'info.exportUpdate')
+    |translate}}</strong>
+</button>
+
+<em *ngIf="!canExport" class="margin-left">{{'info.updateInProgress'|translate}}</em>
+<em *ngIf="canExport && lastExportDate != null && lastExportDate.dateWithoutHours != null"
+  class="margin-left">{{'broadcast.exportData.lastExport'|translate}}
+  {{lastExportDate?.dateWithoutHours | date :'longDate':'':locale}}</em>

@@ -1,0 +1,124 @@
+<mat-sidenav-container autosize class="main-container">
+
+  <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+    <app-survey-reply-button #surveyReplyButton class="app-reply-button" [administration]="physicLib">
+    </app-survey-reply-button>
+    <mat-divider></mat-divider>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <div class="physic-lib-info" *ngIf="physicLib">
+
+      <div class="consult-section">
+        <div class="header">
+          <app-return-button id="return-button"></app-return-button>
+          <h1 class="bib-title">{{physicLib.useName}}</h1>
+        </div>
+        <app-info-chips class="info-chips">ID : {{physicLib.id}}</app-info-chips>
+
+        <div *ngIf="physicLib.fictitious; then thenBlockFictitious else elseBlockFictitious"></div>
+        <ng-template #thenBlockFictitious>
+          <app-info-chips class="info-chips">{{'physicLib.view.fictitious'|translate}}
+          </app-info-chips>
+        </ng-template>
+        <ng-template #elseBlockFictitious>
+          <app-info-chips class="info-chips">
+            {{'physicLib.view.physic'|translate}}
+          </app-info-chips>
+        </ng-template>
+
+        <div *ngIf="physicLib.active; then thenBlockActive else elseBlockActive"></div>
+        <ng-template #thenBlockActive>
+          <app-info-chips class="info-chips" color="rgba(63, 191, 63, 0.2)">{{'physicLib.view.enabled'|translate}}
+          </app-info-chips>
+        </ng-template>
+        <ng-template #elseBlockActive>
+          <app-info-chips class="info-chips" color="rgba(206, 13, 13, 0.2)">
+            {{'physicLib.view.disabled'|translate}}
+          </app-info-chips>
+        </ng-template>
+
+        <div>
+          <button mat-flat-button class="action-button" routerLink="/physical-libraries/update/{{physicLib.id}}"
+            color="primary" [disabled]="!canEdit">{{'physicLib.view.edit'|translate}}</button>
+          <app-export-administration-menu [administration]="physicLib" [surveys]="surveyReplyButton.surveys">
+          </app-export-administration-menu>
+        </div>
+
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="{{'physicLib.view.descriptionTab'|translate}}">
+            <mat-list class="list">
+              <mat-list-item>
+                <p mat-line>{{'physicLib.view.officialName'|translate}}</p>
+                <p mat-line>{{physicLib.officialName}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'physicLib.view.address'|translate}}</p>
+                <p mat-line>{{physicLib.address}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'physicLib.view.city'|translate}}</p>
+                <p mat-line>{{physicLib.city}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'physicLib.view.postalCode'|translate}}</p>
+                <p mat-line>{{physicLib.postalCode}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'physicLib.view.department'|translate}}</p>
+                <p mat-line>{{physicLib.department.name}} ({{physicLib.department.code}})</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'physicLib.view.region'|translate}}</p>
+                <p mat-line>{{physicLib.department.region.name}} ({{physicLib.department.region.code}})</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'physicLib.view.sortOrder'|translate}} <mat-icon matSuffix id="help" color="primary"
+                    #tooltip="matTooltip" matTooltipPosition="right" (click)="tooltip.toggle()"
+                    matTooltip="{{'physicLib.view.sortOrderinfo'|translate}}" matTooltipClass="help-tooltip">
+                    help
+                  </mat-icon>
+                </p>
+                <p mat-line>{{physicLib.sortOrder}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item *ngIf="docStruct">
+                <p mat-line>{{'physicLib.view.docStruct'|translate}}</p>
+                <a mat-line routerLink="/documentary-structures/{{docStruct.id}}"
+                  title="{{docStruct.useName}}">{{docStruct.useName}}</a>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'physicLib.view.instruction'|translate}}</p>
+              </mat-list-item>
+            </mat-list>
+
+            <div class="html" [innerHTML]="physicLib?.instruction|noSanitize">
+            </div>
+          </mat-tab>
+
+          <mat-tab label="{{'info.stateHistory'|translate}}">
+            <app-administration-active-history [administration]="physicLib" [surveys]="surveyReplyButton.surveys">
+            </app-administration-active-history>
+          </mat-tab>
+
+          <mat-tab label="{{'info.linkHistory'|translate}}">
+            <app-physical-library-link-history [physicLib]="physicLib" [surveys]="surveyReplyButton.surveys"
+              [defaultDocStruct]="docStruct" (defaultDocStructEmitter)="updateDocStructFromHistory($event)">
+            </app-physical-library-link-history>
+          </mat-tab>
+
+        </mat-tab-group>
+
+      </div>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

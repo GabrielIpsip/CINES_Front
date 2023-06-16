@@ -1,0 +1,52 @@
+<mat-sidenav-container class="group-menu" autosize>
+
+  <mat-sidenav #groupSidenav mode="side" class="group-tree">
+    <app-group-tree #groupTree [editMode]="editMode"></app-group-tree>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="group-content">
+    <div class="header">
+      <button mat-flat-button class="header-button" color="primary" (click)="groupSidenav.toggle()">
+        <ng-container *ngIf="groupSidenav.opened; else showBlock">
+          {{'survey.hideGroup'|translate}}
+        </ng-container>
+        <ng-template #showBlock>
+          {{'survey.showGroup'|translate}}
+        </ng-template>
+      </button>
+      <ng-container *ngIf="editMode">
+        <button mat-stroked-button class="header-button" color="primary" (click)="openUpdateGroupDialog()">
+          <mat-icon>edit</mat-icon>{{'group.edit'|translate}}
+        </button>
+        <button mat-stroked-button class="header-button" color="primary" (click)="openCreateDataTypeDialog()">
+          <mat-icon>add</mat-icon>{{'group.addDataType'|translate}}
+        </button>
+      </ng-container>
+      <a mat-button routerLink="/surveys/{{survey?.id}}">
+        <h2>{{survey?.name}}</h2>
+      </a>
+    </div>
+    <mat-divider></mat-divider>
+    <h2 class="inline">{{groupTitle|async}}</h2>
+
+    <ng-container *ngIf="!editMode">
+      <ng-container *ngIf="group | async as g">
+        <button *ngIf="groupInstruction; else addInstruction" mat-stroked-button color="primary"
+          (click)="openGroupInstructionDialog(g)">
+          <mat-icon class="icon-button">insert_comment</mat-icon>{{'survey.updateGroupInstruction'|translate}}
+        </button>
+        <ng-template #addInstruction>
+          <button mat-stroked-button color="primary" (click)="openGroupInstructionDialog(g)">
+            <mat-icon class="icon-button">add_comment</mat-icon>{{'survey.createGroupInstruction'|translate}}
+          </button>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+
+    <p id="instruction">{{groupInstruction?.instruction}}</p>
+    <app-group-config-data-list #dataTypeList [editMode]="editMode" [groupList]="groupTree.allGroupList"
+      [nodes]="groupTree.nodes"></app-group-config-data-list>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

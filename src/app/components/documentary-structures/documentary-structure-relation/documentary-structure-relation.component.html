@@ -1,0 +1,29 @@
+<h2>{{'docStruct.relation'|translate}}</h2>
+<button *ngIf="modificationMode" class="add" mat-icon-button color="primary" (click)="openAddRelationDialog()">
+  <mat-icon>add</mat-icon>
+</button>
+
+<mat-list class="relation-list">
+  <ng-container *ngFor="let type of listRelationTypes">
+    <h3 mat-subheader class="relation-name">{{'db.relationTypes.'+type.name|translate}}</h3>
+    <ng-container *ngFor="let origin of listResult">
+      <mat-list-item *ngIf="origin.type.id == type.id">
+        <button *ngIf="modificationMode" mat-icon-button color="warn"
+          (click)="removeRelation(origin.originDocumentaryStructure.id, origin.resultDocumentaryStructure.id, origin.type.id)"
+          class="delete">
+          <mat-icon>cancel</mat-icon>
+        </button>
+        <h4 mat-line class="doc-struct-name">
+          <a routerLink="/documentary-structures/{{origin.originDocumentaryStructure.id}}"
+            title="{{origin.originDocumentaryStructure.useName}}">({{origin.originDocumentaryStructure.id}})
+            {{origin.originDocumentaryStructure.useName}}</a>
+        </h4>
+        <p mat-line class="relation-date">{{origin.startDate|date: datePattern}}
+          <ng-container *ngIf="origin.endDate">
+            - {{origin.endDate|date:datePattern}}
+          </ng-container>
+        </p>
+      </mat-list-item>
+    </ng-container>
+  </ng-container>
+</mat-list>

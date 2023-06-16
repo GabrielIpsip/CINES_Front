@@ -1,0 +1,17 @@
+<mat-sidenav-container autosize class="main-container">
+  <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+    <app-establishment-relation [modificationMode]="true"></app-establishment-relation>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div *ngIf="establishmentToUpdate">
+      <div class="update-form">
+        <button *ngIf="establishmentView" mat-flat-button mat-line color="accent" (click)="updateEstablishment()"
+          [disabled]="!establishmentView.establishmentForm.valid">{{'establishment.update'|translate}}</button>
+        <button mat-stroked-button mat-line
+          routerLink="/establishments/{{establishmentId}}">{{'action.cancel'|translate}}</button>
+        <app-establishment-view class="app-view" [establishment]="establishmentToUpdate"></app-establishment-view>
+      </div>
+
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

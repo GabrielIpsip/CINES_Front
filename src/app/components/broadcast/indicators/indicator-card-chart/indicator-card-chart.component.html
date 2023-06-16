@@ -1,0 +1,16 @@
+<div class="card-container">
+    <ng-container *ngFor="let indicator of indicators;let index = index">
+        <div *ngIf="!isHiddenCard(index)" class="card" [style.borderBottom]="'10px solid ' + getColor(index)">
+            <button mat-icon-button class="card-info-button" [color]="getColor(index)" #tooltip="matTooltip"
+                matTooltipPosition="below" (click)="tooltip.toggle()" matTooltip="{{indicator.description 
+                    ? indicator.description : ('error.noDescription'|translate)}}">
+                <mat-icon [style.color]="getColor(index)">info</mat-icon>
+            </button>
+            <button mat-icon-button class="card-info-button" [color]="getColor(index)" (click)="hideCard(index)">
+                <mat-icon [style.color]="getColor(index)">visibility_off</mat-icon>
+            </button>
+            <p><strong>{{formatNumber(indicator)}}</strong></p>
+            <h4>{{indicator.name}}</h4>
+        </div>
+    </ng-container>
+</div>

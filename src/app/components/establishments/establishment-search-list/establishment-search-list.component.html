@@ -1,0 +1,72 @@
+<table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index;" [ngSwitch]="column">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'establishment.view.'+column|translate}}</th>
+
+    <ng-container *ngSwitchCase="'active'">
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element[column]; else disable">
+          <mat-icon color="primary">check_circle_outline</mat-icon>
+        </ng-container>
+        <ng-template #disable>
+          <mat-icon color="warn">remove_circle_outline</mat-icon>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'progress'">
+      <td mat-cell *matCellDef="let element" class="td-progress">
+        <mat-progress-bar class="progress" [value]="element[column]">
+        </mat-progress-bar>
+        <strong>{{element[column]|number:'.0-2'}}%</strong>
+      </td>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'totalProgress'">
+      <td mat-cell *matCellDef="let element" class="td-progress">
+        <mat-progress-bar class="progress" [value]="element[column]" color="accent">
+        </mat-progress-bar>
+        <strong>{{element[column]|number:'.0-2'}}%</strong>
+      </td>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    </ng-container>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail" *ngIf="totalProgressMode || progressMode">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <button mat-button color="primary" class="expand-button" routerLink="/establishments/{{element.id}}">
+          {{'survey.consultEstablishment'|translate}}
+        </button>
+        <button *ngIf="survey" mat-button class="expand-button" color="primary" (click)="onClickReplyButton(element)"
+          routerLink="/surveys/reply/{{survey.id}}">{{'survey.reply'|translate}}</button>
+        <div class="doc-struct-survey-list">
+          <app-survey-consult-current-doc-struct [survey]="survey" [establishmentId]="element.id" [DiCoDocMode]="true"
+            [loadDocStruct]="element == expandedElement">
+          </app-survey-consult-current-doc-struct>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+
+  <ng-container *ngIf="!totalProgressMode || !progressMode; else progressBlock">
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+      routerLink="/establishments/{{element.id}}">
+    </tr>
+  </ng-container>
+
+  <ng-template #progressBlock>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="progress-element-row element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+  </ng-template>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>

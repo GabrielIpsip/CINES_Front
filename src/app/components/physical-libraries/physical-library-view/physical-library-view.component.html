@@ -1,0 +1,123 @@
+<h1>{{'physicLib.view.description'|translate}}</h1>
+
+<app-info-chips *ngIf="physicLib.id" id="id">ID : {{physicLib.id}}</app-info-chips>
+
+<mat-radio-group *ngIf="physicLib.id == null" [(ngModel)]="active" class="radio-group" name="status-radio">
+  <mat-radio-button *ngFor="let status of statusList|keyvalue" [value]="status.value" class="radio-button">
+    {{ status.key }}
+  </mat-radio-button>
+</mat-radio-group>
+
+<form [formGroup]="physicLibForm" class="physic-lib-update-form" (keydown)="onKeyDown($event)">
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'physicLib.view.useName'|translate}}" formControlName="useNameForm" required>
+    <mat-error *ngIf="f.useNameForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.useNameForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'physicLib.view.officialName'|translate}}" formControlName="officialNameForm"
+      required>
+    <mat-error *ngIf="f.officialNameForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.officialNameForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'physicLib.view.address'|translate}}" formControlName="addressForm" required>
+    <mat-error *ngIf="f.addressForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.addressForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="{{'physicLib.view.postalCode'|translate}}" formControlName="postalCodeForm"
+      maxlength="5" (ngModelChange)="onChangePostalCode()" required>
+    <mat-error *ngIf="f.postalCodeForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.postalCodeForm.hasError('minlength')">
+      {{'error.tooShort'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.postalCodeForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.postalCodeForm.hasError('min') ||
+      f.postalCodeForm.hasError('max') ||
+      f.postalCodeForm.hasError('pattern')">
+      {{'error.badPostalCode'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="select-form">
+    <mat-label>{{'physicLib.view.department'|translate}}</mat-label>
+    <mat-select formControlName="departmentForm" (selectionChange)="updateDepartmentId($event)" required>
+      <mat-option *ngFor="let department of departments" [value]="department.id">
+        {{department.name}} ({{department.code}})
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="f.departmentForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <p id="region-title">{{'physicLib.view.region'|translate}}</p>
+  <p>{{currentDepartment.region != null
+    ? currentDepartment.region.name + ' (' + currentDepartment.region.code + ')'
+    : '---'}}</p>
+
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'physicLib.view.city'|translate}}" formControlName="cityForm" required>
+    <mat-error *ngIf="f.cityForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.cityForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="number" matInput placeholder="{{'physicLib.view.sortOrder'|translate}}"
+      formControlName="sortOrderForm">
+    <mat-icon matSuffix id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="right"
+      (click)="tooltip.toggle()" matTooltip="{{'physicLib.view.sortOrderinfo'|translate}}"
+      matTooltipClass="help-tooltip">
+      help
+    </mat-icon>
+    <mat-error *ngIf="f.sortOrderForm.hasError('min')">
+      {{'error.min'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'physicLib.view.docStruct'|translate}} *" formControlName="docStructForm" required
+      title="{{docStruct?.useName}}">
+    <button mat-button matSuffix color="accent"
+      (click)="openDialog()">{{('action.link'|translate)+' / '+('action.modify'|translate)}}</button>
+  </mat-form-field>
+
+  <mat-radio-group [(ngModel)]="fictitious" class="radio-group physical-radio" name="fictitious-radio"
+    [ngModelOptions]="{standalone: true}">
+    <mat-radio-button *ngFor="let fictitious of fictitiousList|keyvalue" [value]="fictitious.value"
+      class="radio-button">
+      {{ fictitious.key }}
+    </mat-radio-button>
+  </mat-radio-group>
+
+
+  <mat-label class="label">{{('physicLib.view.instruction'|translate)+' :'}}</mat-label>
+  <angular-editor formControlName="instructionForm" [config]="editorConfig"
+    placeholder="{{'action.addComment'|translate}}"></angular-editor>
+</form>

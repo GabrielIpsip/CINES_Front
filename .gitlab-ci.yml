@@ -1,0 +1,36 @@
+.machine: &sandbox53
+  tags:
+    - esgbu
+
+variables:
+  GIT_STRATEGY: clone
+
+stages:
+  - update_sandbox_stage
+
+update_sandbox:
+  stage: update_sandbox_stage
+  <<: *sandbox53
+  script:
+    # Build project
+    - npm install
+    - ng build --configuration production
+
+    # Copy files
+    - sudo setfacl -m g:gitlab-runner:r-x /var/www/html/sandbox53.cines.fr
+    - cd /var/www/html/sandbox53.cines.fr
+    - sudo rm -rf !\(api\)
+    - cd -
+    - sudo cp -r dist/esgbu-webapp/. /var/www/html/sandbox53.cines.fr
+    - cd /var/www/html/sandbox53.cines.fr
+
+    # Create env file
+    - sudo sed -i 's/http:\/\/localhost:8000/https:\/\/sandbox53.cines.fr\/api/g' assets/environment.json
+    - sudo sed -i 's/http:\/\/localhost:3000/https:\/\/sandbox53.cines.fr\/hub/g' assets/environment.json
+    - sudo sed -i 's/local/sandbox53/g' assets/environment.json
+
+    # Set rights for apache
+    - sudo chown -R apache:apache /var/www/html/sandbox53.cines.fr
+
+    # Restart daemon
+    - sudo systemctl restart httpd

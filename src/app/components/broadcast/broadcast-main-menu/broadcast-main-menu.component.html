@@ -1,0 +1,41 @@
+<mat-accordion>
+
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{'broadcast.mainMenu.title'|translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-list>
+
+      <mat-list-item><button mat-button color="primary" [ngClass]="{ 'background-highlight': activeMenu === editorial }"
+          (click)="activeMenu = editorial"
+          [routerLink]="editorial">{{'broadcast.mainMenu.editorialData'|translate}}</button>
+      </mat-list-item>
+
+      <mat-list-item><button mat-button color="primary"
+          [ngClass]="{ 'background-highlight': activeMenu === databaseExport }" (click)=" activeMenu = databaseExport"
+          [routerLink]="databaseExport">{{'broadcast.mainMenu.fileAndAnnualReviews'|translate}}</button>
+      </mat-list-item>
+
+      <mat-list-item><button mat-button [routerLink]="dataSelector"
+          [ngClass]="{ 'background-highlight': activeMenu === dataSelector }" (click)=" activeMenu = dataSelector"
+          color="primary">{{'broadcast.mainMenu.dataBySelection'|translate}}</button>
+      </mat-list-item>
+
+      <mat-list-item><a mat-button color="primary" (click)="activeMenu = keyFigures"  (click)="activeMenu = keyFigures"
+        [ngClass]="{ 'background-highlight': activeMenu === keyFigures }" [routerLink]="keyFigures">
+        {{'broadcast.mainMenu.keyFigures'|translate}}</a>
+    </mat-list-item>
+
+      <mat-list-item><a mat-button color="primary" (click)="activeMenu = indicators"  (click)="activeMenu = indicators"
+          [ngClass]="{ 'background-highlight': activeMenu === indicators }" [routerLink]="indicators">
+          {{'broadcast.mainMenu.standardIndicator'|translate}}</a>
+      </mat-list-item>
+
+    </mat-list>
+
+  </mat-expansion-panel>
+
+</mat-accordion>

@@ -1,0 +1,83 @@
+.doc-struct-progress-list {
+  margin-right: 15px;
+}
+
+.total-progress-margin {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.total-progress-bar {
+  max-width: 200px;
+}
+
+.inline {
+  display: inline;
+}
+
+.doc-struct-total-progress {
+  flex-grow: 0;
+}
+
+.center-align {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.progress-physic-lib {
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+:host ::ng-deep .progress-item .mat-list-item-content {
+  padding-left: 0px !important;
+}
+
+.progress-item-button {
+  margin-right: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.valid-button {
+  height: 36px;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.use-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+  width: 40%;
+}
+
+.spacer {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+h4 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.valid {
+  color: #2e7d32;
+  margin-right: 5px;
+}
+
+.validated-tooltip {
+  font-size: 15px;
+}
+
+.reply-button {
+  margin-left: 10px;
+}

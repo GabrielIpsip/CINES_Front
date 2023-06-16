@@ -1,0 +1,5 @@
+<button *ngIf="establishmentView" mat-flat-button mat-line color="primary" (click)="createEstablishment()"
+  [disabled]="!establishmentView.establishmentForm.valid">{{'establishment.create'|translate}}</button>
+<div *ngIf="establishmentToCreate">
+  <app-establishment-view [establishment]="establishmentToCreate"></app-establishment-view>
+</div>

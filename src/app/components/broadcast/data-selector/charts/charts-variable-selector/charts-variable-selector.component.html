@@ -1,0 +1,31 @@
+<ng-container *ngIf="variables != null && variables.length > 0; else noVariables">
+
+  <mat-form-field *ngIf="multiple" appearance="fill" class="variable-form">
+    <mat-label>{{'broadcast.chart.chooseVariable'|translate}}</mat-label>
+    <mat-select (selectionChange)="onChangeValue($event)" multiple>
+      <mat-option *ngFor="let variable of variables" [value]="variable" [title]="dataTypes.get(variable).name">
+        {{dataTypes.get(variable).name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field *ngIf="!multiple" appearance="fill" class="variable-form">
+    <mat-label>{{'broadcast.chart.chooseVariable'|translate}}</mat-label>
+    <mat-select (selectionChange)="onChangeValue($event)" [multiple]="multiple">
+      <mat-option *ngFor="let variable of variables" [value]="variable" [title]="dataTypes.get(variable).name">
+        {{dataTypes.get(variable).name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</ng-container>
+
+<ng-template #noVariables>
+  <mat-form-field appearance="fill" class="variable-form">
+    <mat-label>{{'broadcast.chart.noVariable'|translate}}</mat-label>
+    <mat-select disabled>
+
+    </mat-select>
+  </mat-form-field>
+</ng-template>

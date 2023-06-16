@@ -1,0 +1,33 @@
+#graphic-view {
+  margin-left: 5px;
+
+  #chart-selector-nav {
+    margin-top: 5px;
+  }
+
+  ::ng-deep #chart-selector-nav {
+    mat-form-field {
+      margin-bottom: -1.34375em;
+    }
+
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+      border-radius: 0px;
+    }
+  }
+
+  #chart-selector-form {
+    width: 390px;
+  }
+
+}
+
+::ng-deep.chart-img-tooltip {
+  background: white !important;
+  max-width: unset !important;
+  max-height: unset !important;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+  * {
+    color: black;
+  }
+}

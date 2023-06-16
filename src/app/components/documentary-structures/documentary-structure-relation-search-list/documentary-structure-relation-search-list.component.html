@@ -1,0 +1,22 @@
+<app-loader></app-loader>
+<ng-container *ngIf="!(loaderService.isLoading|async)">
+  <div *ngIf="searchResult | async as result">
+    <div *ngIf="result.length > 0; else noResult">
+      <ng-container *ngFor="let docStruct of result">
+        <mat-card *ngIf="resultDocStructId != docStruct.id">
+          <div class="doc-struct-name" title="{{docStruct.useName}}">({{docStruct.id}}) {{ docStruct.useName }}</div>
+          <button class="add-relation-button" mat-flat-button color="accent" [disabled]="!validForm"
+            (click)="onAddRelation(docStruct.id)">{{'action.add'|translate}}</button>
+        </mat-card>
+      </ng-container>
+    </div>
+    <ng-template #noResult>
+      <div class="error-message" *ngIf="(hasSearch | async)">
+        {{'error.noDocStructFound'|translate}}
+        <button class="create-doc-struct-button" mat-flat-button color="accent"
+          [disabled]="rightsChecker.disabled('/documentary-structures/create')"
+          (click)="onCreateRelation()">{{'app.docStruct.create'|translate}}</button></div>
+    </ng-template>
+    <div *ngIf="result.length === 1 && result[0].id == resultDocStructId; then noResult"></div>
+  </div>
+</ng-container>

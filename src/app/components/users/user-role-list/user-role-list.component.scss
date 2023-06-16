@@ -1,0 +1,56 @@
+#edit-role-card {
+  max-height: 50px;
+  padding-top: 5px;
+}
+
+.doc-struct-input {
+  margin-left: 15px;
+  width: 450px;
+}
+
+mat-card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 700px;
+}
+
+.role-select mat-select {
+  max-width: 250px;
+}
+
+.role-select {
+  position: relative;
+  top: 3px;
+}
+
+input.mat-input-element {
+  color: black;
+}
+
+#add-role-icon {
+  font-size: 30px;
+}
+
+#add-role-button {
+  position: relative;
+  left: 25px;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  right: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#delete-icon {
+  font-size: 20px;
+}
+
+#delete-button {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+}

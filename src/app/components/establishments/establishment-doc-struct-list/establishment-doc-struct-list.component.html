@@ -1,0 +1,30 @@
+<mat-card class=".list-item" *ngFor="let docStruct of docStructList" mat-stroked-button mat-line
+  routerLink="/documentary-structures/{{docStruct.id}}" title="{{docStruct.useName}}">{{docStruct.useName}}</mat-card>
+
+<p *ngIf="showNoDocStructMessage"><em>{{'error.noDocStructLinked'|translate}}</em></p>
+
+<div id="doc-struct-history" *ngIf="docStructHistory.size > 0 && surveyList.size > 0 
+  && !(docStructHistory.size === 1 && docStructHistory.has(lastSurvey?.id))">
+  <h2>{{'establishment.oldDocStruct'|translate}}</h2>
+
+  <mat-accordion>
+
+    <ng-container *ngFor="let historyBySurvey of docStructHistory|keyvalue:keyDescOrder">
+      <mat-expansion-panel *ngIf="surveyList?.has(historyBySurvey.key)">
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>{{surveyList.get(historyBySurvey.key).dataCalendarYear|date:'yyyy'}}</strong>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-card class=".list-item" *ngFor="let historyLine of historyBySurvey.value" mat-stroked-button mat-line
+          routerLink="/documentary-structures/{{historyLine.docStruct.id}}" title="{{historyLine.docStruct.useName}}">
+          {{historyLine.docStruct.useName}}</mat-card>
+
+      </mat-expansion-panel>
+    </ng-container>
+
+  </mat-accordion>
+
+</div>

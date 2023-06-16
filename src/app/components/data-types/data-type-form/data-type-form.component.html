@@ -1,0 +1,33 @@
+<div class="ND"
+  *ngIf="dataType.type.name != TypesEnum.operation && dataType.type.name != TypesEnum.boolean && !textField?.isSelectMenu">
+  <mat-checkbox [(ngModel)]="NDchecked" (change)="onChangeNDState()"></mat-checkbox>
+  <h4>ND</h4>
+</div>
+
+<ng-container [ngSwitch]="dataType.type.name">
+
+  <ng-container *ngSwitchCase="TypesEnum.number">
+    <app-data-type-number-form [surveyForm]="surveyForm" [dataType]="dataType" [constraint]="constraint"
+      [initialValue]="initialValue" [oldValue]="oldValue" (value)="onChangeNumberValue($event)" [enable]="!NDchecked">
+    </app-data-type-number-form>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="TypesEnum.text">
+    <app-data-type-text-form #textField [longText]="longText" [surveyForm]="surveyForm" [dataType]="dataType"
+      [constraint]="constraint" [initialValue]="initialValue" (value)="onChangeTextValue($event)" [enable]="!NDchecked">
+    </app-data-type-text-form>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="TypesEnum.operation">
+    <app-data-type-operation-form [surveyForm]="surveyForm" [dataType]="dataType" [dataValues]="dataValues"
+      [constraint]="constraint" [initialValue]="initialValue" [updateOperation]="updateOperation">
+    </app-data-type-operation-form>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="TypesEnum.boolean">
+    <app-data-type-boolean-form [dataType]="dataType" [initialValue]="initialValue"
+      (value)="onChangeBooleanValue($event)" [enable]="!NDchecked">
+    </app-data-type-boolean-form>
+  </ng-container>
+
+</ng-container>

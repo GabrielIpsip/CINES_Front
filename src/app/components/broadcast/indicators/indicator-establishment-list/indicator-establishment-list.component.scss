@@ -1,0 +1,53 @@
+.select-establishment {
+  margin-top: 5px;
+  width: 500px;
+  display: inline-block;
+}
+
+#establishment-filter {
+  margin-left: 10px;
+  width: 300px;
+  display: inline-block;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.mat-form-field {
+  margin-bottom: -1.34375em;
+}
+
+#clean-all {
+  display: block;
+  margin-top: 5px;
+}
+
+.delete-icon-button {
+  position: relative;
+  bottom: 2px;
+}
+
+.no-top-margin {
+  margin-top: 0px;
+}
+
+h3 {
+  margin-top: 5px;
+}
+
+h2 {
+  margin-bottom: 0px;
+}
+
+mat-divider {
+  margin-top: 5px;
+}
+
+.display-all-button {
+  margin-top: 5px;
+
+  mat-icon {
+    margin-right: 5px;
+  }
+}

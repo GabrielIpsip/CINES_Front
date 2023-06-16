@@ -1,0 +1,95 @@
+<ng-container *ngIf="!firstConnection">
+
+  <h1>{{'user.view.description'|translate}}</h1>
+
+  <ng-container *ngIf="user.eppn">
+    <div *ngIf="user.valid; then validThenBlock else validElseBlock"></div>
+    <ng-template #validThenBlock>
+      <app-info-chips class="info-chips" color="rgba(63, 191, 63, 0.2)">{{'user.view.valid'|translate}}
+      </app-info-chips>
+    </ng-template>
+    <ng-template #validElseBlock>
+      <app-info-chips class="info-chips" color="rgba(206, 13, 13, 0.2)">
+        {{'user.view.notValid'|translate}}
+      </app-info-chips>
+    </ng-template>
+  </ng-container>
+
+  <mat-radio-group [(ngModel)]="active" class="user-active-radio-group" name="status-radio">
+    <mat-radio-button *ngFor="let status of statusList|keyvalue" [value]="status.value"
+      class="user-status-radio-button">
+      {{ status.key }}
+    </mat-radio-button>
+  </mat-radio-group>
+
+</ng-container>
+
+<form [formGroup]="userForm" class="user-update-form" (keydown)="onKeyDown($event)">
+
+  <mat-form-field class="user-form-full-width">
+    <input matInput placeholder="{{'user.view.eppn'|translate}}" formControlName="eppnForm" required>
+    <mat-icon matSuffix class="help" color="primary" #tooltipHelpEppn="matTooltip" matTooltipPosition="right"
+      (click)="tooltipHelpEppn.toggle()" [matTooltip]="'user.view.eppnHelp'|translate" matTooltipClass="tooltip">help
+    </mat-icon>
+    <mat-error *ngIf="f.eppnForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.eppnForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-full-width">
+    <mat-label>{{'user.view.mail'|translate}}</mat-label>
+    <input matInput placeholder="{{'user.view.mailPlaceHolder'|translate}}" formControlName="mailForm"
+      (focus)="onFocusMail()" required>
+    <mat-icon matSuffix class="help" color="primary" #tooltipHelpMail="matTooltip" matTooltipPosition="right"
+      (click)="tooltipHelpMail.toggle()" [matTooltip]="'user.view.mailHelp'|translate" matTooltipClass="tooltip">help
+    </mat-icon>
+    <mat-icon *ngIf="showMailAlert" matSuffix color="primary" #tooltipInfoMail="matTooltip" matTooltipPosition="right"
+      (click)="tooltipInfoMail.toggle()" [matTooltip]="'user.view.mailInfo'|translate" matTooltipClass="tooltip"
+      class="tooltip tooltipInfo">info
+    </mat-icon>
+    <mat-error *ngIf="f.mailForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.mailForm.hasError('email')">
+      {{'error.mail'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'user.view.phone'|translate}}</mat-label>
+    <input matInput placeholder="{{'user.view.phonePlaceHolder'|translate}}" formControlName="phoneForm">
+    <mat-icon matSuffix>phone</mat-icon>
+    <mat-error *ngIf="f.phoneForm.hasError('pattern')">
+      {{'error.phone'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.phoneForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-full-width">
+    <input matInput placeholder="{{'user.view.firstname'|translate}}" formControlName="firstnameForm">
+    <mat-icon matSuffix class="help" color="primary" #tooltipHelpFirstname="matTooltip" matTooltipPosition="right"
+      (click)="tooltipHelpFirstname.toggle()" [matTooltip]="'user.view.firstnameHelp'|translate"
+      matTooltipClass="tooltip">help
+    </mat-icon>
+    <mat-error *ngIf="f.firstnameForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-full-width">
+    <input matInput placeholder="{{'user.view.lastname'|translate}}" formControlName="lastnameForm">
+    <mat-icon matSuffix class="help" color="primary" #tooltipHelpLastname="matTooltip" matTooltipPosition="right"
+      (click)="tooltipHelpLastname.toggle()" [matTooltip]="'user.view.lastnameHelp'|translate"
+      matTooltipClass="tooltip">help
+    </mat-icon>
+    <mat-error *ngIf="f.lastnameForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+</form>

@@ -1,0 +1,34 @@
+table {
+  width: 100%;
+}
+
+th {
+  font-size: 14px;
+}
+
+.menu-button {
+  margin-bottom: 3px;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: #4a5bb92d;
+  cursor: pointer;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}

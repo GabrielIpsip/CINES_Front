@@ -1,0 +1,22 @@
+<div class="survey-reply-button-list">
+  <h2>{{'survey.surveys'|translate}}</h2>
+  <div class="list-button" *ngIf="surveys; else noSurvey">
+    <ng-container *ngFor="let survey of surveys">
+      <ng-container [ngSwitch]="survey.state.name">
+        <button *ngSwitchCase="stateEnum.published" mat-flat-button class="survey-button" color="primary"
+          (click)="onClickReplyButton(survey)" routerLink="/surveys/reply/{{survey.id}}">{{survey.name}}</button>
+        <button *ngSwitchCase="stateEnum.open" mat-flat-button class="survey-button" color="accent"
+          (click)="onClickReplyButton(survey)" routerLink="/surveys/reply/{{survey.id}}">{{survey.name}}</button>
+        <button *ngSwitchCase="stateEnum.close" mat-stroked-button class="survey-button"
+          (click)="onClickReplyButton(survey)" routerLink="/surveys/reply/{{survey.id}}">{{survey.name}}</button>
+        <div *ngSwitchCase="stateEnum.created">
+          <button *ngIf="rightsChecker.isADMIN()" mat-stroked-button class="survey-button" color="primary"
+            (click)="onClickReplyButton(survey)" routerLink="/surveys/reply/{{survey.id}}">{{survey.name}}</button>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <ng-template #noSurvey>
+    <p class="no-survey">{{'survey.noSurvey'|translate}}</p>
+  </ng-template>
+</div>

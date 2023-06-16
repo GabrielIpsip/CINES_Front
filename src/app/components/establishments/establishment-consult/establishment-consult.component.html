@@ -1,0 +1,115 @@
+<mat-sidenav-container autosize class="main-container">
+  <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+    <app-survey-reply-button #surveyReplyButton class="app-reply-button" [administration]="establishment">
+    </app-survey-reply-button>
+    <mat-divider class="app-divider"></mat-divider>
+    <app-establishment-relation></app-establishment-relation>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <div class="establishment-info" *ngIf="establishment">
+
+      <div class="consult-section">
+        <div class="header">
+          <app-return-button id="return-button"></app-return-button>
+          <h1>{{establishment.useName}}</h1>
+        </div>
+        <app-info-chips class="info-chips">ID : {{establishment.id}}</app-info-chips>
+        <div *ngIf="establishment.active; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <app-info-chips class="info-chips" color="rgba(63, 191, 63, 0.2)">{{'establishment.view.enabled'|translate}}
+          </app-info-chips>
+        </ng-template>
+        <ng-template #elseBlock>
+          <app-info-chips class="info-chips" color="rgba(206, 13, 13, 0.2)">
+            {{'establishment.view.disabled'|translate}}
+          </app-info-chips>
+        </ng-template>
+
+        <button mat-flat-button class="action-button" routerLink="/establishments/update/{{establishment.id}}"
+          color="primary"
+          [disabled]="rightsChecker.disabled('/establishments/update/:id')">{{'establishment.view.edit'|translate}}</button>
+
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="{{'establishment.view.descriptionTab'|translate}}">
+            <mat-list class="list">
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.officialName'|translate}}</p>
+                <p mat-line>{{establishment.officialName}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.acronym'|translate}}</p>
+                <p mat-line>{{establishment.acronym}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.brand'|translate}}</p>
+                <p mat-line>{{establishment.brand}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.address'|translate}}</p>
+                <p mat-line>{{establishment.address}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.city'|translate}}</p>
+                <p mat-line>{{establishment.city}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.postalCode'|translate}}</p>
+                <p mat-line>{{establishment.postalCode}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.department'|translate}}</p>
+                <p mat-line>{{establishment.department.name}} ({{establishment.department.code}})</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.region'|translate}}</p>
+                <p mat-line>{{establishment.department.region.name}} ({{establishment.department.region.code}})</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.website'|translate}}</p>
+                <a target="_blank" rel="noopener noreferrer" href="{{establishment.website}}"
+                  mat-line>{{establishment.website}}</a>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.type'|translate}}</p>
+                <p mat-line>{{establishment.type.name}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <p mat-line>{{'establishment.view.instruction'|translate}}</p>
+              </mat-list-item>
+            </mat-list>
+
+            <div class="html" [innerHTML]="establishment?.instruction|noSanitize">
+            </div>
+
+          </mat-tab>
+
+          <mat-tab label="{{'establishment.view.docStruct'|translate}}">
+            <app-establishment-doc-struct-list [establishmentId]="establishment.id"
+              [surveys]="surveyReplyButton.surveys">
+            </app-establishment-doc-struct-list>
+          </mat-tab>
+
+          <mat-tab label="{{'info.stateHistory'|translate}}">
+            <app-administration-active-history [administration]="establishment" [surveys]="surveyReplyButton.surveys">
+            </app-administration-active-history>
+          </mat-tab>
+
+        </mat-tab-group>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,32 @@
+<section id="info-search-section">
+  <div id="nb-result">
+    <mat-icon>location_city</mat-icon>
+    <strong>{{nbResult ? nbResult : 0}}
+      {{'db.administrationTypes.plural.' + currentAdministrationType|translate|lowercase}}</strong>
+  </div>
+  <mat-icon class="inline">keyboard_arrow_right</mat-icon>
+  <button mat-flat-button color="accent" [disabled]="nbResult == null || nbResult === 0"
+    (click)="onClickUseSelectionButton()" id="use-result-button">
+    <mat-icon class="button-icon">check</mat-icon>{{'info.useThisResult'|translate}}
+  </button>
+  <app-data-selector-basket-button id="basket-button"></app-data-selector-basket-button>
+</section>
+
+
+
+<mat-tab-group mat-stretch-tabs dynamicHeight (selectedIndexChange)="onChangeSelectedIndex($event)"
+  class="tab-custom-overflow">
+  <mat-tab label="{{'db.administrationTypes.institution'|translate}}" name="institution">
+    <app-data-selector-institution-search-list *ngIf="institutionList != null" [institutionList]="institutionList"
+      class>
+    </app-data-selector-institution-search-list>
+  </mat-tab>
+  <mat-tab label="{{'db.administrationTypes.documentaryStructure'|translate}}">
+    <app-data-selector-doc-struct-search-list *ngIf="docStructList != null" [docStructList]="docStructList">
+    </app-data-selector-doc-struct-search-list>
+  </mat-tab>
+  <mat-tab label="{{'db.administrationTypes.physicalLibrary'|translate}}">
+    <app-data-selector-physic-lib-search-list *ngIf="physicLibList != null" [physicLibList]="physicLibList">
+    </app-data-selector-physic-lib-search-list>
+  </mat-tab>
+</mat-tab-group>

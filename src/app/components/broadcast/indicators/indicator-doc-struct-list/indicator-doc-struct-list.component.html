@@ -1,0 +1,57 @@
+<mat-form-field appearance="fill" class="select-doc-struct">
+    <mat-label>{{'indicator.docStructList'|translate}}</mat-label>
+    <mat-select (selectionChange)="addDocStructId($event.value)" [disabled]="filterDocStructList?.length === 0">
+        <mat-option *ngFor="let docStruct of filterDocStructList" [value]="docStruct.id"
+            (click)="addDocStructId(docStruct.id)">
+            {{docStruct.useName}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field id="doc-struct-filter">
+    <mat-label>{{'indicator.filterDocStructList'|translate}}</mat-label>
+    <input matInput type="text" [(ngModel)]="selectionFilter">
+    <button mat-button *ngIf="selectionFilter" matSuffix mat-icon-button aria-label="Clear"
+        (click)="selectionFilter=''">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+
+<button *ngIf="docStructIdUsed.length > 0" mat-stroked-button color="warn" (click)="docStructIdUsed = []"
+    id="clean-all">
+    {{'action.cleanSelection'|translate}}</button>
+
+<app-indicator-export *ngIf="docStructIdUsed.length > 0" [isKeyFigure]="isKeyFigure"
+    [aggregationType]="aggregationType.byDocStruct" [dateUsed]="dateUsed" [indicators]="docStructIndicators"
+    [keysUsed]="docStructIdUsed">
+</app-indicator-export>
+
+
+<button mat-flat-button color="primary" *ngIf="hasHiddenCard()" class="display-all-button" (click)="resetHiddenCard()">
+    <mat-icon>visibility</mat-icon>{{'indicator.displayAll'|translate}}
+</button>
+
+<mat-divider></mat-divider>
+
+<div [id]="indicatorExportComponent.getCardListId(aggregationType.byDocStruct)">
+    <div *ngFor="let docStructId of docStructIdUsed; let i = index">
+        <h2 class="inline no-top-margin">{{getDocStructUseNameById(docStructId)}}
+        </h2>
+        <button mat-button class="inline" matSuffix mat-icon-button aria-label="Clear"
+            (click)="docStructIdUsed.splice(i, 1)" class="delete-icon-button">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <ng-container *ngFor="let year of dateUsed">
+            <ng-container *ngIf="docStructIndicators.get(year)?.has(docStructId)">
+                <h3>{{year}}</h3>
+
+                <app-indicator-card-chart [indicators]="docStructIndicators.get(year).get(docStructId).indicators"
+                    [keyFigure]="isKeyFigure" [aggregationType]="aggregationType.byDocStruct">
+                </app-indicator-card-chart>
+
+            </ng-container>
+        </ng-container>
+        <mat-divider *ngIf="i !== docStructIdUsed.length - 1"></mat-divider>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<section id="info-my-section">
+  <button mat-flat-button color="accent"
+    [disabled]="nbrAdministrationInBasket == null || nbrAdministrationInBasket === 0"
+    (click)="onClickUseMySelectionButton()">
+    {{'info.useMySelection'|translate}}</button>
+
+  <mat-icon class="arrow">keyboard_arrow_left</mat-icon>
+
+  <button id="basket-button" mat-flat-button color="broadcast" [matBadge]="nbrAdministrationInBasket"
+    matBadgeDescription="test" matBadgePosition="below before" matBadgeColor="accent"
+    [matBadgeHidden]="nbrAdministrationInBasket == null || nbrAdministrationInBasket === 0" (click)="openDialog()"
+    [matTooltip]="matToolTipMessage" matTooltipClass="administration-list-tooltip">
+    <mat-icon>shopping_bag</mat-icon>{{'broadcast.selectedAdministrations'|translate}}
+  </button>
+</section>

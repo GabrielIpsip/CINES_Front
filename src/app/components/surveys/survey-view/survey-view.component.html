@@ -1,0 +1,85 @@
+<h1>{{'survey.view.description'|translate}}</h1>
+
+<form [formGroup]="surveyForm" class="survey-update-form" (keydown)="onKeyDown($event)">
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'survey.view.name'|translate}}" formControlName="nameForm" required>
+    <mat-error *ngIf="f.nameForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.nameForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'survey.view.state'|translate}}</mat-label>
+    <mat-select formControlName="stateForm" (selectionChange)="updateStateIndex($event)" required>
+      <mat-option *ngFor="let state of states" [value]="state.id">
+        {{'db.states.'+state.name|translate}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="f.stateForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width date-form">
+    <mat-label>{{'survey.view.calendarYear'|translate}}</mat-label>
+    <input matInput #calendarYear placeholder="{{currentDate | date:'yyyy'}}" formControlName="calendarYearForm"
+      maxlength="4" required (change)="updateValidators();">
+    <mat-hint align="end">{{calendarYear.value.length}} / 4</mat-hint>
+    <mat-error *ngIf="f.calendarYearForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.calendarYearForm.hasError('strMin')">
+      {{'error.calendarYearError'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.calendarYearForm.hasError('pattern')">
+      {{'error.value'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width date-form">
+    <mat-label>{{'survey.view.dataCalendarYear'|translate}}</mat-label>
+    <input matInput #dataCalendarYear placeholder="{{lastYear | date:'yyyy'}}" formControlName="dataCalendarYearForm"
+      maxlength="4" required (change)="updateValidators();">
+    <mat-hint align="end">{{dataCalendarYear.value.length}} / 4</mat-hint>
+    <mat-error *ngIf="f.dataCalendarYearForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.dataCalendarYearForm.hasError('strMax')">
+      {{'error.dataCalendarYearError'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.dataCalendarYearForm.hasError('pattern')">
+      {{'error.value'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width date-form">
+    <mat-label>{{'survey.view.start'|translate}}</mat-label>
+    <input matInput [matDatepicker]="pickerStart" [max]="f.endForm.value"
+      placeholder="{{'pattern.datePlaceHolder'|translate}}" formControlName="startForm" required>
+    <mat-hint align="start"><strong>{{f.startForm.value| date :'longDate':'':locale}}</strong> </mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+    <mat-datepicker #pickerStart></mat-datepicker>
+    <mat-error *ngIf="f.startForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width date-form">
+    <mat-label>{{'survey.view.end'|translate}}</mat-label>
+    <input matInput [matDatepicker]="pickerEnd" [min]="f.startForm.value"
+      placeholder="{{'pattern.datePlaceHolder'|translate}}" formControlName="endForm" required>
+    <mat-hint align="start"><strong>{{f.endForm.value| date :'longDate':'':locale}}</strong> </mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+    <mat-datepicker #pickerEnd></mat-datepicker>
+    <mat-error *ngIf="f.endForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <angular-editor formControlName="instructionForm" [config]="editorConfig"></angular-editor>
+
+</form>

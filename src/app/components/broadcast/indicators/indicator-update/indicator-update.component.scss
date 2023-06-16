@@ -1,0 +1,16 @@
+.indicator-button {
+  margin-left: 10px;
+}
+
+:host ::ng-deep json-editor,
+:host ::ng-deep json-editor .jsoneditor,
+:host ::ng-deep json-editor > div,
+:host ::ng-deep json-editor jsoneditor-outer {
+  width: 99%;
+  height: 450px;
+}
+
+#save-test-button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

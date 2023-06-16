@@ -1,0 +1,163 @@
+<div id="survey-list">
+  <ng-container *ngIf="dataTypes?.length > 0; else elseBlock">
+    <form [formGroup]="surveyForm" (keydown)="onKeyDown($event)">
+      <table mat-table [dataSource]="dataTypes" multiTemplateDataRows>
+
+        <ng-container *ngFor="let column of columnsToDisplay" matColumnDef="{{column}}">
+          <ng-container [ngSwitch]="true">
+
+            <ng-container *ngSwitchCase="column === 'value'">
+              <th mat-header-cell *matHeaderCellDef>{{'dataType.'+column|translate}}</th>
+              <td mat-cell *matCellDef="let element" class="input {{element.type.name}}">
+                <app-data-type-form *ngIf="!isLongText(element)" [dataType]="element" [surveyForm]="surveyForm"
+                  [constraint]="element.constraint" [initialValue]="dataValues[element.id]" [dataValues]="dataValues"
+                  [updateOperation]="updateOperation.asObservable()" [oldValue]="getOldValue(element.id)"
+                  [longText]="false" (value)="onChangeValue($event)">
+                </app-data-type-form>
+              </td>
+            </ng-container>
+
+            <!-- Old survey value part begin -------------------------------------------------------------------------->
+            <ng-container *ngSwitchCase="column === 'oldSurvey1'|| column === 'oldSurvey2'">
+
+              <!-- header -->
+              <th mat-header-cell *matHeaderCellDef>
+                <ng-container *ngIf="column == 'oldSurvey1'">{{oldSurvey1.dataCalendarYear}}
+                </ng-container>
+                <ng-container *ngIf="column == 'oldSurvey2'">{{oldSurvey2.dataCalendarYear}}
+                </ng-container>
+              </th>
+
+              <!-- value -->
+              <ng-container *ngIf="oldDataValues1 || oldDataValues2; else noOldDataValue">
+                <ng-container *matCellDef="let element">
+                  <td mat-cell *ngIf="!isLongText(element)">
+
+                    <!-- Case old survey 1 -->
+                    <ng-container *ngIf="column === 'oldSurvey1'">
+                      <ng-container *ngIf="oldDataValues1[element.id] != null &&
+                                            oldDataValues1[element.id] !== 'ERROR' &&
+                                            oldDataValues1[element.id] !== 'NaN'; else noValue">
+                        <ng-container *ngIf="element.type.name !== TypesEnum.boolean; else checkBox1">
+                          {{ (element.type.name === TypesEnum.number && oldDataValues1[element.id]?.trim() !== 'ND')
+                          || element.type.name === TypesEnum.operation
+                          ? (oldDataValues1[element.id]|number:'.2':defaultLang)
+                          : oldDataValues1[element.id] }}
+                        </ng-container>
+                        <ng-template #checkBox1>
+                          <ng-container *ngIf="oldDataValues1[element.id] !== 'ND'; else NDvalue">
+                            <mat-checkbox disabled [checked]="oldDataValues1[element.id] === 'true'">
+                            </mat-checkbox>
+                          </ng-container>
+                        </ng-template>
+                      </ng-container>
+                    </ng-container>
+
+                    <!-- Case old survey 2 -->
+                    <ng-container *ngIf="column === 'oldSurvey2'">
+                      <ng-container *ngIf="oldDataValues2[element.id] != null &&
+                                            oldDataValues2[element.id] !== 'ERROR' &&
+                                            oldDataValues2[element.id] !== 'NaN'; else noValue">
+                        <ng-container *ngIf="element.type.name != TypesEnum.boolean; else checkBox2">
+                          {{ (element.type.name === TypesEnum.number && oldDataValues1[element.id]?.trim() !== 'ND')
+                          || element.type.name === TypesEnum.operation
+                          ? (oldDataValues2[element.id]|number:'.2':defaultLang)
+                          : oldDataValues2[element.id] }}
+                        </ng-container>
+                        <ng-template #checkBox2>
+                          <ng-container *ngIf="oldDataValues2[element.id] !== 'ND'; else NDvalue">
+                            <mat-checkbox disabled [checked]="oldDataValues2[element.id] === 'true'">
+                            </mat-checkbox>
+                          </ng-container>
+                        </ng-template>
+                      </ng-container>
+                    </ng-container>
+
+                    <!-- Case no value -->
+                    <ng-template #noValue>
+                      - - -
+                    </ng-template>
+
+                    <!-- Case ND -->
+                    <ng-template #NDvalue>
+                      ND
+                    </ng-template>
+
+                  </td>
+                </ng-container>
+              </ng-container>
+
+              <!-- Case no old survey -->
+              <ng-template #noOldDataValue>
+                <td mat-cell *matCellDef="let element">- - -</td>
+              </ng-template>
+
+            </ng-container>
+            <!-- Old survey value part end ---------------------------------------------------------------------------->
+
+            <ng-container *ngSwitchCase="column === 'info'">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element" class="{{element.type.name}}"><button mat-icon-button
+                  color="primary" (click)="expandedElement = expandedElement === element ? null : element">
+                  <mat-icon>info</mat-icon>
+                </button>{{element[column]}}
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <th mat-header-cell *matHeaderCellDef>{{'dataType.'+column|translate}}</th>
+              <td mat-cell *matCellDef="let element" class="{{element.type.name}}"
+                [ngClass]="{ 'missing-data-type' : missingDataTypesAnswered?.includes(element.id) }">
+                {{element[column]}}
+              </td>
+            </ng-container>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+            <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <mat-list class="full-width">
+                <ng-container *ngIf="element.definition">
+                  <h3 mat-subheader>{{'dataType.definition'|translate}}</h3>
+                  <mat-list-item class="info">
+                    <p class="detail">{{element.definition}}</p>
+                  </mat-list-item>
+                </ng-container>
+                <ng-container *ngIf="element.instruction">
+                  <h3 mat-subheader>{{'dataType.instructionDiCoDoc'|translate}}</h3>
+                  <mat-list-item class="info">
+                    <p class="detail">{{element.instruction}}</p>
+                  </mat-list-item>
+                </ng-container>
+                <mat-list-item class="info">
+                  <app-documentary-structure-comment class="full-width" [loadComment]="element == expandedElement"
+                    [surveyId]="surveyId" [dataTypeId]="element.id" [docStructId]="associatedDocStructId"
+                    [docStructName]="associatedDocStructName">
+                  </app-documentary-structure-comment>
+                </mat-list-item>
+              </mat-list>
+            </div>
+
+            <app-data-type-form [longText]="true" *ngIf="isLongText(element)" [dataType]="element"
+              [surveyForm]="surveyForm" [constraint]="element.constraint" [initialValue]="dataValues[element.id]"
+              [dataValues]="dataValues" [updateOperation]="updateOperation.asObservable()"
+              [oldValue]="getOldValue(element.id)" (value)="onChangeValue($event)">
+            </app-data-type-form>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+          [class.expanded-row]="expandedElement === element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      </table>
+    </form>
+  </ng-container>
+  <ng-template #elseBlock>
+    <div *ngIf="loaded" class="error-data">{{'error.noDataTypes'|translate}}</div>
+  </ng-template>
+</div>

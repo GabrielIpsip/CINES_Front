@@ -1,0 +1,107 @@
+<mat-accordion id="main-menu">
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header
+      [routerLink]="rightsChecker.disabled(surveyConsultCurrent) ? [] : [surveyConsultCurrent]">
+      <mat-panel-title>
+        {{'app.surveys.title'|translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item *ngIf="!rightsChecker.disabled(surveyConsultCurrent)"><button mat-button color="primary"
+          [routerLink]="surveyConsultCurrent"
+          [ngClass]="{ 'background-highlight': activeMenu === surveyConsultCurrent }">
+          {{'app.surveys.consult'|translate}}</button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!rightsChecker.disabled(surveyList)"><button mat-button color="primary"
+          [routerLink]="surveyList"
+          [ngClass]="{ 'background-highlight': activeMenu === surveyList }">{{'app.surveys.search'|translate}}</button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!rightsChecker.disabled(surveyCreate)"><button mat-button color="primary"
+          [routerLink]="surveyCreate" [ngClass]="{ 'background-highlight': activeMenu === surveyCreate }">
+          {{'app.surveys.create'|translate}}</button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!rightsChecker.disabled(dataTypeEdit)"><button mat-button color="primary"
+          [routerLink]="dataTypeEdit" [ngClass]="{ 'background-highlight': activeMenu === dataTypeEdit }">
+          {{'app.surveys.editSurvey'|translate}}</button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!rightsChecker.disabled(indicatorEdit)"><button mat-button color="primary"
+          [routerLink]="indicatorEdit" [ngClass]="{ 'background-highlight': activeMenu === indicatorEdit }">
+          {{'app.surveys.editIndicator'|translate}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header [routerLink]="rightsChecker.disabled(establishmentSearch) ? [] : [establishmentSearch]">
+      <mat-panel-title>
+        {{'app.establishments.title'|translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item *ngIf="!rightsChecker.disabled(establishmentSearch)"><button mat-button color="primary"
+          [routerLink]="establishmentSearch" [ngClass]="{ 'background-highlight': activeMenu === establishmentSearch }">
+          {{'app.establishments.search'|translate}}</button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!rightsChecker.disabled(establishmentCreate)"><button mat-button color="primary"
+          [routerLink]="establishmentCreate" [ngClass]="{ 'background-highlight': activeMenu === establishmentCreate }">
+          {{'app.establishments.create'|translate}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header [routerLink]="rightsChecker.disabled(docStructSearch) ? [] : [docStructSearch]">
+      <mat-panel-title>
+        {{'app.docStruct.title'|translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item *ngIf="!rightsChecker.disabled(docStructSearch)"><button mat-button color="primary"
+          [routerLink]="docStructSearch" [ngClass]="{ 'background-highlight': activeMenu === docStructSearch }">
+          {{'app.docStruct.search'|translate}}</button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!rightsChecker.disabled(docStructCreate)"><button mat-button color="primary"
+          [routerLink]="docStructCreate" [ngClass]="{ 'background-highlight': activeMenu === docStructCreate }">
+          {{'app.docStruct.create'|translate}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header [routerLink]="rightsChecker.disabled(physicLibSearch) ? [] : [physicLibSearch]">
+      <mat-panel-title>
+        {{'app.physical_libraries.title'|translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item *ngIf="!rightsChecker.disabled(physicLibSearch)"><button mat-button color="primary"
+          [routerLink]="physicLibSearch" [ngClass]="{ 'background-highlight': activeMenu === physicLibSearch }">
+          {{'app.physical_libraries.search'|translate}}</button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!rightsChecker.disabled(physicLibCreate)"><button mat-button color="primary"
+          [routerLink]="physicLibCreate" [ngClass]="{ 'background-highlight': activeMenu === physicLibCreate }">
+          {{'app.physical_libraries.create'|translate}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header [routerLink]="rightsChecker.disabled(userList) ? [] : [userList]">
+      <mat-panel-title>
+        {{'app.users.title'|translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item *ngIf="!rightsChecker.disabled(userList)"><button mat-button color="primary"
+          [routerLink]="userList"
+          [ngClass]="{ 'background-highlight': activeMenu === userList }">{{'app.users.search'|translate}}</button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!rightsChecker.disabled(userCreate)"><button mat-button color="primary"
+          [routerLink]="userCreate"
+          [ngClass]="{ 'background-highlight': activeMenu === userCreate }">{{'app.users.create'|translate}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+
+</mat-accordion>

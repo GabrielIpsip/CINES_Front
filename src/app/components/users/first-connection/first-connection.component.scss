@@ -1,0 +1,11 @@
+::ng-deep .mat-horizontal-stepper-header {
+  pointer-events: none !important;
+}
+
+button {
+  margin-right: 10px;
+}
+
+mat-horizontal-stepper {
+  margin-right: 10px;
+}

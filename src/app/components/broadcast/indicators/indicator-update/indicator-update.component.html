@@ -1,0 +1,11 @@
+<app-return-button [locationBack]="'/indicators/list'"></app-return-button>
+<button mat-flat-button color="accent" class="indicator-button" [disabled]="!isADMIN || !isValidForm"
+    (click)="updateIndicator()">{{'action.apply'|translate}}</button>
+<app-indicator-view #indicatorView *ngIf="indicator" [indicator]="indicator"
+    (initialValueEmitter)="setInitialIndicatorValue($event)">
+</app-indicator-view>
+
+<button mat-flat-button id="save-test-button" color="primary" [disabled]="!isADMIN || !isValidForm"
+    (click)="onClickSaveAndTestButton()">{{'indicator.saveAndTest'|translate}}</button>
+
+<json-editor [options]="editorOptions" [data]="jsonResponse"></json-editor>

@@ -1,0 +1,30 @@
+<section class="static-section">
+  <app-return-button></app-return-button>
+  <button mat-flat-button color="accent" id="selection-button" (click)="onClickUseSelectionButton()">
+    <mat-icon class="button-icon">check</mat-icon>{{'broadcast.useThisVariables'|translate}}
+  </button>
+</section>
+
+<section id="tree-list-section">
+
+  <app-data-selector-types-tree #establishmentTree class="flexbox-item" *ngIf="establishmentsData && hasEstablishment"
+    [data]="establishmentsData" [administrationType]="administrationTypeEnum.ESTABLISHMENT"
+    [title]="'db.administrationTypes.institution'|translate"
+    [alreadySelectedDataType]="alreadySelectedEstablishmentNode">
+  </app-data-selector-types-tree>
+
+
+  <app-data-selector-types-tree #docStructTree class="flexbox-item" *ngIf="docStructsData && hasDocStruct"
+    [data]="docStructsData" [administrationType]="administrationTypeEnum.DOC_STRUCT"
+    [title]="'db.administrationTypes.documentaryStructure'|translate"
+    [alreadySelectedDataType]="alreadySelectedDocStructNode">
+  </app-data-selector-types-tree>
+
+
+  <app-data-selector-types-tree #physicLibTree class="flexbox-item" *ngIf="physicLibsData && hasPhysicLib"
+    [data]="physicLibsData" [administrationType]="administrationTypeEnum.PHYSIC_LIB"
+    [title]="'db.administrationTypes.physicalLibrary'|translate"
+    [alreadySelectedDataType]="alreadySelectedPhysicLibNode">
+  </app-data-selector-types-tree>
+
+</section>

@@ -1,0 +1,30 @@
+.form-full-width {
+  width: 200px;
+}
+
+.warning {
+  color: orange;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+mat-form-field {
+  line-height: 1em;
+}
+
+.dynamic-input .mat-form-field-infix {
+  padding-top: 0px;
+}
+
+.mat-input-element.right {
+  text-align: right;
+}

@@ -1,0 +1,20 @@
+<mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let survey of surveys; let index = index"
+        [ngClass]="{'default' : index === 0}">
+
+        <strong>{{survey.dataCalendarYear}}</strong><em>{{survey.name}}</em>
+        <mat-icon *ngIf="index === 0" matPrefix id="help" color="primary" #tooltip="matTooltip"
+            matTooltipPosition="right" (click)="tooltip.toggle()" [matTooltip]="'info.defaultValue'|translate"
+            matTooltipClass="tooltip" class="tooltip">help
+        </mat-icon>
+
+        <div *ngIf="activeHistory.get(survey.id); let activeToggleInfo" class="right">
+            <em *ngIf="activeToggleInfo.default" class="grey">({{'info.default'|translate}})</em>
+            <mat-slide-toggle (change)="onChangeToggle($event, survey.id)" [checked]="activeToggleInfo.active"
+                [disabled]="!isDiCoDoc">
+            </mat-slide-toggle>
+        </div>
+
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>

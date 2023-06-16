@@ -1,0 +1,21 @@
+<mat-sidenav-container autosize class="main-container">
+    <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+        <app-routes-files-list [routeName]="editorialRouteName" [editMode]="true" [showDocument]="true"
+            [showImage]="true">
+        </app-routes-files-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+        <mat-tab-group #tabGroup>
+            <mat-tab *ngFor="let lang of availableLang" [label]="'app.langName.' + lang.language | translate">
+                <ng-template matTabContent>
+                    <app-editorial-route-editor #editor [locale]="lang.language" (canQuit)="updateCanQuit($event)">
+                    </app-editorial-route-editor>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

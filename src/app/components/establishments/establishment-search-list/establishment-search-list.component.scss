@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+}
+
+th {
+  font-size: 14px;
+}
+
+.menu-button {
+  margin-bottom: 3px;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: #4a5bb92d;
+  cursor: pointer;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: block;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.progress {
+  max-width: 200px;
+}
+
+.td-progress {
+  padding-right: 5px;
+}
+
+.progress-element-row td {
+  border-bottom-width: 0;
+}
+
+.expand-button {
+  margin: 10px;
+}
+
+.doc-struct-survey-list {
+  width: 100%;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}

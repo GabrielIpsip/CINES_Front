@@ -1,0 +1,25 @@
+<ng-container *ngFor="let userRole of userRoles">
+    <mat-card *ngIf="userRole.role.name === roleEnum.VALID_SURVEY_RESP" mat-stroked-button mat-line
+        routerLink="/users/{{userRole.user.id}}">
+        <strong>{{'db.roles.' + userRole.role.name|translate}}</strong>
+        <div class="align">{{userRole.user.firstname + ' ' + userRole.user.lastname}}</div>
+    </mat-card>
+</ng-container>
+
+<ng-container *ngFor="let userRole of userRoles">
+    <mat-card *ngIf="userRole.role.name === roleEnum.SURVEY_ADMIN" mat-stroked-button mat-line
+        routerLink="/users/{{userRole.user.id}}">
+        <strong>{{'db.roles.' + userRole.role.name|translate}}</strong>
+        <div class="align">{{userRole.user.firstname + ' ' + userRole.user.lastname}}</div>
+    </mat-card>
+</ng-container>
+
+<ng-container *ngFor="let userRole of userRoles">
+    <mat-card *ngIf="userRole.role.name === roleEnum.USER" mat-stroked-button mat-line
+        routerLink="/users/{{userRole.user.id}}">
+        <strong>{{'db.roles.' + userRole.role.name|translate}}</strong>
+        <div class="align">{{userRole.user.firstname + ' ' + userRole.user.lastname}}</div>
+    </mat-card>
+</ng-container>
+
+<p *ngIf="noUserRoles"><em>{{'error.noUserForThisDocStruct'|translate}}</em></p>

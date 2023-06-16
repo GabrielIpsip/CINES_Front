@@ -1,0 +1,4 @@
+<button *ngIf="!mailSend" mat-flat-button color="accent"
+  (click)="onClickSendMailButton()">{{'info.sendMail'|translate}}</button>
+
+<p *ngIf="mailSend">{{'info.redirectionMessage'|translate}}</p>

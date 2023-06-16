@@ -1,0 +1,9 @@
+<mat-form-field class="dynamic-input" [formGroup]=surveyForm *ngIf="f.value; else errorBlock">
+
+  <input class="right" type="text" matInput [formControl]="f" [lang]="defaultLang">
+  <mat-icon matPrefix id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="left"
+    (click)="tooltip.toggle()" class="tooltip" matTooltip="{{constraint.formula}}" matTooltipClass="tooltip">help
+  </mat-icon>
+</mat-form-field>
+
+<ng-template #errorBlock>{{'error.formula'|translate}}</ng-template>

@@ -1,0 +1,32 @@
+<mat-form-field appearance="fill">
+    <mat-label>{{'info.years'|translate}}</mat-label>
+    <mat-select (selectionChange)="updateDateUsed($event.value)" [(ngModel)]="dateUsed" multiple>
+        <mat-option *ngFor="let date of dateList" [value]="date">{{date}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-tab-group mat-stretch-tabs dynamicHeight>
+    <mat-tab label="{{'indicator.global'|translate}}">
+        <app-indicator-global-list #keyFigureIndicatorList [dateUsed]="dateUsed" [globalIndicators]="globalIndicators"
+            [isKeyFigure]="iskeyFigureRoute">
+        </app-indicator-global-list>
+    </mat-tab>
+
+    <mat-tab label="{{'info.region'|translate}}">
+        <app-indicator-region-list #regionIndicatorList [dateUsed]="dateUsed" [regionIndicators]="regionIndicators"
+            [isKeyFigure]="iskeyFigureRoute">
+        </app-indicator-region-list>
+    </mat-tab>
+
+    <mat-tab label="{{'db.administrationTypes.plural.institution'|translate}}">
+        <app-indicator-establishment-list #establishmentIndicatorList [dateUsed]="dateUsed"
+            [isKeyFigure]="iskeyFigureRoute" [establishmentIndicators]="establishmentIndicators">
+        </app-indicator-establishment-list>
+    </mat-tab>
+
+    <mat-tab label="{{'db.administrationTypes.plural.documentaryStructure'|translate}}">
+        <app-indicator-doc-struct-list #docStructIndicatorList [dateUsed]="dateUsed" [isKeyFigure]="iskeyFigureRoute"
+            [docStructIndicators]="docStructIndicators"></app-indicator-doc-struct-list>
+    </mat-tab>
+
+</mat-tab-group>

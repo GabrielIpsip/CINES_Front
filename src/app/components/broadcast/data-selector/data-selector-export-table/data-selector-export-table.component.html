@@ -1,0 +1,21 @@
+<button mat-flat-button color="primary" [matMenuTriggerFor]="download">
+  <mat-icon>get_app</mat-icon>
+</button>
+
+<mat-menu #download="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="downloadExcel">{{'info.exportToExcel'|translate}}</button>
+  <button mat-menu-item [matMenuTriggerFor]="downloadCSV">{{'info.exportToCSV'|translate}}</button>
+</mat-menu>
+
+<mat-menu #downloadCSV="matMenu">
+  <button mat-menu-item (click)="exportToCSV(encodingEnum.CP1252)">{{'info.' + encodingEnum.CP1252|translate}}</button>
+  <button mat-menu-item (click)="exportToCSV(encodingEnum.UTF8)">{{'info.' + encodingEnum.UTF8|translate}}</button>
+</mat-menu>
+
+<mat-menu #downloadExcel="matMenu" class="long-menu-export">
+  <button mat-menu-item (click)="exportToXLSX()">
+    {{'broadcast.exportData.onlyTable'|translate}}
+    <em>{{'db.administrationTypes.' + administrationType|translate}}</em>
+  </button>
+  <button mat-menu-item (click)="exportAllToXLSX()">{{'broadcast.exportData.allTable'|translate}}</button>
+</mat-menu>

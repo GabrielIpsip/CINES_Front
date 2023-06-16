@@ -1,0 +1,7 @@
+<div *ngIf="surveyToCreate">
+  <button *ngIf="surveyView" mat-flat-button mat-line color="primary" (click)="createSurvey()"
+    [disabled]="!surveyView.surveyForm.valid">{{'survey.create'|translate}}</button>
+  <button mat-stroked-button mat-line *ngIf="surveyToCreate.name"
+    (click)="onGoBack()">{{'action.cancel'|translate}}</button>
+  <app-survey-view [survey]="surveyToCreate" [createMode]="true"></app-survey-view>
+</div>

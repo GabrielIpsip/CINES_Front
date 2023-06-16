@@ -1,0 +1,14 @@
+<mat-form-field *ngIf="!isSelected; else selectMenu" class="full-width no-padding-bottom text-form"
+  [appearance]="appearance" [formGroup]=searchFields>
+  <mat-label>{{dataType.name}}</mat-label>
+  <input matInput type="text" [formControlName]="controlName">
+</mat-form-field>
+
+<ng-template #selectMenu>
+  <mat-form-field [formGroup]=searchFields class="full-width no-padding-bottom text-form" [appearance]="appearance">
+    <mat-label>{{dataType.name}}</mat-label>
+    <mat-select [formControlName]="controlName" multiple>
+      <mat-option *ngFor="let value of options" [value]="value">{{value}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>

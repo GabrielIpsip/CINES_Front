@@ -1,0 +1,19 @@
+#not-active-user-container {
+  max-width: 600px;
+  display: inline-block;
+
+  .mat-expansion-panel-header, .mat-expansion-panel-content {
+    background-color: #232837;
+    h2 {
+      color: whitesmoke;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    mat-icon {
+      color: orange;
+      top: 12px;
+    }
+  }
+
+}

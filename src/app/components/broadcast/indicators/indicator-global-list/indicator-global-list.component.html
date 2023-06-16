@@ -1,0 +1,17 @@
+<app-indicator-export [isKeyFigure]="isKeyFigure" [aggregationType]="aggregationType.global" [dateUsed]="dateUsed"
+    [indicators]="formattedIndicatorsForExport">
+</app-indicator-export>
+
+<button mat-flat-button color="primary" *ngIf="hasHiddenCard()" class="display-all-button" (click)="resetHiddenCard()">
+    <mat-icon>visibility</mat-icon>{{'indicator.displayAll'|translate}}
+</button>
+
+<div [id]="indicatorExportComponent.getCardListId(aggregationType.global)">
+    <ng-container *ngFor="let year of dateUsed; let index = index">
+        <h2>{{year}}</h2>
+        <app-indicator-card-chart [indicators]="globalIndicators.get(year)" [keyFigure]="isKeyFigure"
+            [aggregationType]="aggregationType.global">
+        </app-indicator-card-chart>
+        <mat-divider class="divider" *ngIf="index !== dateUsed.length - 1"></mat-divider>
+    </ng-container>
+</div>

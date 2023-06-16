@@ -1,0 +1,11 @@
+<footer id="footer">
+  <a mat-button [routerLink]="about">{{'home.about'|translate}}</a>
+  <a mat-button [routerLink]="cgu">{{'home.cgu'|translate}}</a>
+  <a mat-button [routerLink]="credits">{{'home.credits'|translate}}</a>
+  <a mat-button [routerLink]="rgpd">{{'home.rgpd'|translate}}</a>
+  <a mat-button [routerLink]="contact">{{'home.contact'|translate}}</a>
+  <a mat-button [routerLink]="usefulLinks">{{'home.usefulLinks'|translate}}</a>
+  <button mat-button id="api-version" (click)="onClickApiUrl()">ESGBU API v{{apiVersion}}</button>
+  <a mat-button id="powered-cines" target="_blank" href="https://www.cines.fr/" rel="noopener noreferrer">Powered by <strong
+      id="cines">CINES</strong></a>
+</footer>

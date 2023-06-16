@@ -1,0 +1,34 @@
+<form [formGroup]="searchFields">
+
+    <ng-container *ngFor="let dataType of dataSelector.simpleDataTypeText|keyvalue:returnZero">
+        <ng-container
+            *ngIf="dataSelector.getSimpleDataTypeFormName(dataType.key, fieldTypeEnum.text); let formControlName">
+            <app-data-selector-data-type-text *ngIf="hasDataTypeFormWithThisName(formControlName)"
+                [controlName]="formControlName" [dataType]="dataType.value" [searchFields]="searchFields"
+                appearance="fill">
+            </app-data-selector-data-type-text>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngFor="let dataType of dataSelector.simpleDataTypeNumber|keyvalue:returnZero">
+        <ng-container
+            *ngIf="dataSelector.getSimpleDataTypeFormName(dataType.key, fieldTypeEnum.number); let formControlName">
+            <app-data-selector-data-type-number *ngIf="hasDataTypeFormWithThisName(formControlName)" class="number-form"
+                [controlName]="formControlName" [searchFields]="searchFields"
+                [administrationType]="dataSelector.getAdministrationType()" [dataSelector]="dataSelector"
+                [dataType]="dataType.value" appearance="fill">
+            </app-data-selector-data-type-number>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngFor="let dataType of dataSelector.simpleDataTypeBool|keyvalue:returnZero">
+        <ng-container
+            *ngIf="dataSelector.getSimpleDataTypeFormName(dataType.key, fieldTypeEnum.bool); let formControlName">
+            <mat-checkbox *ngIf="hasDataTypeFormWithThisName(formControlName)" class="block margin-left"
+                [formControlName]="formControlName">
+                {{dataType.value.name}}
+            </mat-checkbox>
+        </ng-container>
+    </ng-container>
+
+</form>

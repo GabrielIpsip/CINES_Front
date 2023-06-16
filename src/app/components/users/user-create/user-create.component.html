@@ -1,0 +1,6 @@
+<button *ngIf="userView" mat-flat-button mat-line color="primary" (click)="createUser()"
+  [disabled]="!userView.userForm.valid">{{'user.create'|translate}}</button>
+
+<div *ngIf="userToCreate">
+  <app-user-view [user]="userToCreate"></app-user-view>
+</div>

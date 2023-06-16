@@ -1,0 +1,62 @@
+<div class="survey-info" *ngIf="survey">
+
+  <div class=".consult-section">
+    <div>
+      <app-return-button></app-return-button>
+      <button mat-flat-button routerLink="/surveys/update/{{survey.id}}"
+        [disabled]="rightsChecker.disabled('/surveys/update/:id')" color="primary">{{'survey.edit'|translate}}</button>
+      <button mat-flat-button mat-line color="primary" routerLink="/surveys/update/groups/{{survey.id}}"
+        [disabled]="rightsChecker.disabled('/surveys/update/groups/:id')">{{'survey.editData'|translate}}</button>
+      <button mat-flat-button mat-line color="accent"
+        routerLink="/editorials/{{survey.id}}">{{'editorial.consult'|translate}}</button>
+      <button mat-stroked-button routerLink="/surveys/update/{{survey.id}}" color="" (click)="onOpenCreate(this.survey)"
+        [disabled]="rightsChecker.disabled('/surveys/update/:id')">{{'survey.copyAndCreate'|translate}}</button>
+    </div>
+    <h1>{{'survey.view.description'|translate}}</h1>
+
+    <mat-list>
+      <mat-list-item>
+        <p mat-line>{{'survey.view.name'|translate}}</p>
+        <p mat-line>{{survey.name}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'survey.view.state'|translate}}</p>
+        <p mat-line>{{'db.states.'+survey.state.name|translate}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'survey.view.calendarYear'|translate}}</p>
+        <p mat-line>{{survey.calendarYear}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'survey.view.dataCalendarYear'|translate}}</p>
+        <p mat-line>{{survey.dataCalendarYear}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'survey.view.creation'|translate}}</p>
+        <p mat-line>{{survey.creation|date: 'dd/MM/yyyy'}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'survey.view.start'|translate}}</p>
+        <p mat-line>{{survey.start|date:'dd/MM/yyyy'}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'survey.view.end'|translate}}</p>
+        <p mat-line>{{survey.end|date:'dd/MM/yyyy'}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'survey.view.instruction'|translate}}</p>
+      </mat-list-item>
+    </mat-list>
+
+    <div class="html" [innerHTML]="survey?.instruction|noSanitize">
+    </div>
+
+  </div>
+</div>

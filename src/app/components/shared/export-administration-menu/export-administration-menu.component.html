@@ -1,0 +1,19 @@
+<button mat-stroked-button class="action-button" color="primary" [matMenuTriggerFor]="downloadMenu">
+  <mat-icon>get_app</mat-icon>{{'info.downloadData'|translate}}
+</button>
+
+<mat-menu #downloadMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="csv">{{'info.downloadCSV'|translate}}</button>
+  <button mat-menu-item [matMenuTriggerFor]="pdf">{{'info.downloadPDF'|translate}}</button>
+</mat-menu>
+
+<mat-menu #csv="matMenu">
+  <button mat-menu-item (click)="downloadCSV(encodingEnum.CP1252)">Excel ({{encodingEnum.CP1252}})</button>
+  <button mat-menu-item (click)="downloadCSV(encodingEnum.UTF8)">{{'info.other'|translate}}
+    ({{encodingEnum.UTF8}})</button>
+</mat-menu>
+
+
+<mat-menu #pdf="matMenu">
+  <button *ngFor="let survey of surveys" mat-menu-item (click)="downloadPDF(survey.id)">{{survey.name}}</button>
+</mat-menu>

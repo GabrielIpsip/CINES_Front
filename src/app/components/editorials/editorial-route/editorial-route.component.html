@@ -1,0 +1,25 @@
+<mat-sidenav-container autosize class="main-container">
+    <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+      <app-routes-files-list [routeName]="routeName" [showDocument]="true"></app-routes-files-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+      <app-return-button class="inline"></app-return-button>
+
+          <a mat-flat-button color="accent" *ngIf="isDiCoDoc"
+            routerLink="/editorials/global/edit">{{'editorial.update'|translate}}</a>
+
+          <mat-tab-group dynamicHeight>
+            <mat-tab *ngFor="let tab of editorial" [label]="tab.title">
+
+              <div *ngIf="tab.content?.trim().length > 0" class="editorial-content"
+                [innerHTML]="tab.content|noSanitize">
+              </div>
+
+            </mat-tab>
+          </mat-tab-group>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>

@@ -1,0 +1,79 @@
+$app-toolbar-size: 50px;
+
+.mat-drawer-container {
+  background: white;
+}
+
+.content-viewer {
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 50px;
+}
+
+.main-container {
+  padding-top: $app-toolbar-size;
+  height: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.main-menu {
+  padding-top: $app-toolbar-size;
+  background: whitesmoke;
+}
+
+.menu {
+  position: fixed;
+}
+
+.app-toolbar {
+  z-index: 2;
+  height: $app-toolbar-size;
+  background: #000091;
+  color: whitesmoke;
+}
+
+.clickable {
+  text-decoration: none;
+  color: whitesmoke;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.title-bar {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#app-version {
+  font-size: 13px;
+  position: relative;
+  bottom: 10px;
+  left: 5px;
+}
+
+::ng-deep .tooltipUpdateInfo {
+  font-size: 14px;
+  background-color: rgba(59, 59, 59, 0.911);
+}
+
+#info-update {
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.vertical-space {
+  height: 10px;
+}
+
+#platform {
+  font-size: 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+}

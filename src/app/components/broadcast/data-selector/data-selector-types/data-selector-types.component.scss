@@ -1,0 +1,26 @@
+.button-icon {
+  margin-right: 10px;
+}
+
+#selection-button {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.static-section {
+  position: fixed;
+  z-index: 2;
+  background-color: white;
+  border-bottom: 1px solid whitesmoke;
+  margin-right: 5px;
+  margin-left: -15px;
+  padding-top: 10px;
+  padding-left: 15px;
+  margin-top: -10px;
+  width: 100%;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),0px 5px 8px 0px rgba(0, 0, 0, 0.14),0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+}
+
+#tree-list-section {
+  margin-top: 48px;
+}

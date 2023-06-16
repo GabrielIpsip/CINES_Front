@@ -1,0 +1,19 @@
+<div *ngIf="requests?.length > 0" class="request-container">
+  <mat-card *ngFor="let request of requests">
+    <p><strong>{{'user.for'|translate}} : </strong><a routerLink="/users/{{request.user.id}}">{{request.user.eppn}}</a>
+      <ng-container *ngIf="request.user.firstname || request.user.lastname">
+        ( {{request.user.firstname}} {{request.user.lastname}} )</ng-container>
+    </p>
+    <p><strong>{{'user.role'|translate}} : </strong>{{'db.roles.'+request.role.name|translate}}</p>
+    <p *ngIf="request.documentaryStructure">
+      <strong>{{'user.structure'|translate}} : </strong><a
+        routerLink="/documentary-structures/{{request.documentaryStructure.id}}">{{request.documentaryStructure.useName}}
+      </a>
+    </p>
+    <p><strong>{{'user.askDate'|translate}} :
+      </strong>{{request.creation | datetools: 'date' | date :'longDate':'':locale}}
+    </p>
+    <button mat-button color="primary" (click)="onAccept(request)">{{'action.accept'|translate}}</button>
+    <button mat-button color="warn" (click)="onDecline(request)">{{'action.refuse'|translate}}</button>
+  </mat-card>
+</div>

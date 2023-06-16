@@ -1,0 +1,23 @@
+<button mat-stroked-button color="primary" [matMenuTriggerFor]="export" class="export-button">
+    <mat-icon>file_download</mat-icon>{{'indicator.export'|translate}}
+    {{(isKeyFigure ? 'indicator.keyFigures' :'indicator.simpleIndicators')|translate|lowercase}}
+</button>
+
+<mat-menu #export="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="downloadCSV">{{'info.downloadCSV'|translate}}</button>
+    <button mat-menu-item (click)="exportToXLSX()">{{'info.downloadExcel'|translate}}</button>
+    <button mat-menu-item (click)="exportToPDF()">{{'info.downloadPDF'|translate}}</button>
+    <button mat-menu-item [matMenuTriggerFor]="downloadImage">{{'info.downloadImage'|translate}}</button>
+</mat-menu>
+
+<mat-menu #downloadCSV="matMenu">
+    <button mat-menu-item (click)="exportToCSV(encodingEnum.CP1252)">{{'info.' +
+        encodingEnum.CP1252|translate}}</button>
+    <button mat-menu-item (click)="exportToCSV(encodingEnum.UTF8)">{{'info.' + encodingEnum.UTF8|translate}}</button>
+</mat-menu>
+
+<mat-menu #downloadImage="matMenu">
+    <button mat-menu-item (click)="exportToImage(imgEnum.jpg)">{{imgEnum.jpg|uppercase}}</button>
+    <button mat-menu-item (click)="exportToImage(imgEnum.png)">{{imgEnum.png|uppercase}}</button>
+    <button mat-menu-item (click)="exportToImage(imgEnum.svg)">{{imgEnum.svg|uppercase}}</button>
+</mat-menu>

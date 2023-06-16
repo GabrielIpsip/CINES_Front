@@ -1,0 +1,70 @@
+<div class="user-info" *ngIf="user">
+
+  <div class="consult-section">
+    <div class="header">
+      <app-return-button id="return-button"></app-return-button>
+      <h1>{{'user.view.description'|translate}}</h1>
+    </div>
+
+    <div *ngIf="user.active; then activeThenBlock else activeElseBlock"></div>
+    <ng-template #activeThenBlock>
+      <app-info-chips class="info-chips" color="rgba(63, 191, 63, 0.2)">{{'user.view.enabled'|translate}}
+      </app-info-chips>
+    </ng-template>
+    <ng-template #activeElseBlock>
+      <app-info-chips class="info-chips" color="rgba(206, 13, 13, 0.2)">
+        {{'user.view.disabled'|translate}}
+      </app-info-chips>
+    </ng-template>
+
+    <div *ngIf="user.valid; then validThenBlock else validElseBlock"></div>
+    <ng-template #validThenBlock>
+      <app-info-chips class="info-chips" color="rgba(63, 191, 63, 0.2)">{{'user.view.valid'|translate}}
+      </app-info-chips>
+    </ng-template>
+    <ng-template #validElseBlock>
+      <app-info-chips class="info-chips" color="rgba(206, 13, 13, 0.2)">
+        {{'user.view.notValid'|translate}}
+      </app-info-chips>
+    </ng-template>
+
+    <div>
+      <button mat-flat-button class="action-button" routerLink="/users/update/{{user.id}}" color="primary"
+        [disabled]="rightsChecker.disabled('/users/update/:id', user.id)">{{'action.modify'|translate}}</button>
+
+      <button mat-flat-button *ngIf="isDiCoDoc && !user.valid" (click)="forceValidUser()"
+        class="action-button" color="warn">{{'user.validUser.validUserDiCoDoc'|translate}}</button>
+    </div>
+
+    <mat-list class="list">
+      <mat-list-item>
+        <p mat-line>{{'user.view.eppn'|translate}}</p>
+        <p mat-line>{{user.eppn}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'user.view.mail'|translate}}</p>
+        <p mat-line>{{user.mail}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'user.view.phone'|translate}}</p>
+        <p mat-line>{{user.phone}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'user.view.firstname'|translate}}</p>
+        <p mat-line>{{user.firstname}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <p mat-line>{{'user.view.lastname'|translate}}</p>
+        <p mat-line>{{user.lastname}}</p>
+      </mat-list-item>
+    </mat-list>
+
+  </div>
+</div>
+
+<app-user-not-valid class="inline" *ngIf="isCurrentUser"></app-user-not-valid>
+<app-user-role-list class="inline" *ngIf="user" [userId]="user.id" [editMode]="false"></app-user-role-list>

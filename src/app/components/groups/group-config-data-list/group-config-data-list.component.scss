@@ -1,0 +1,39 @@
+table {
+  width: 100%;
+  padding-bottom: 47px;
+}
+
+th {
+  font-size: 14px;
+}
+
+.menu-button {
+  margin-bottom: 3px;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+p {
+  margin-top: 0px;
+}
+
+.mat-subheader {
+  padding: 0px;
+  height: 20px;
+}
+
+.info {
+  height: auto;
+  font-size: 13px;
+}

@@ -1,0 +1,16 @@
+<ng-container *ngIf="currentUser|async as user; else loginButton">
+  <button mat-flat-button [matMenuTriggerFor]="userMenu" *ngIf="useName">{{useName}}</button>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item aria-label="logout" *ngIf="user.id && user.id != 1" routerLink="/users/{{user.id}}">
+      <mat-icon color="primary">person</mat-icon>
+      <span>{{'user.profile'|translate}}</span>
+    </button>
+    <button mat-menu-item aria-label="logout" (click)="logout()">
+      <mat-icon color="warn">power_settings_new</mat-icon>
+      <span>{{'user.logout'|translate}}</span>
+    </button>
+  </mat-menu>
+</ng-container>
+<ng-template #loginButton>
+  <button mat-flat-button color="accent" (click)="login()">{{'user.login'|translate}}</button>
+</ng-template>

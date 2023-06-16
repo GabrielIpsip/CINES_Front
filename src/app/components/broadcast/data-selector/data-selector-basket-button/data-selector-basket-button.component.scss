@@ -1,0 +1,40 @@
+#basket-button {
+  mat-icon {
+    margin-right: 10px;
+  }
+
+  ::ng-deep.mat-badge-content {
+    z-index: 2;
+    width: max-content;
+    height: max-content;
+    line-height: 22px;
+    padding: 3px 6px;
+  }
+}
+
+::ng-deep.administration-list-tooltip {
+  background: white !important;
+  height: fit-content;
+  width: fit-content;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+  * {
+    color: black;
+  }
+}
+
+#info-my-section {
+  display: flex;
+}
+
+#info-my-section > .arrow {
+  display: inline-block;
+}
+
+#info-my-section > button, .arrow {
+  display: table-cell;
+  vertical-align: middle;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 5px;
+}

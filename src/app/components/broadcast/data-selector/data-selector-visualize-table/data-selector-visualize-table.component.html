@@ -1,0 +1,22 @@
+<div class="container">
+  <ag-grid-angular #topGrid class="ag-theme-alpine custom-ag-grid" [style]="'height:'+height+'px'"
+    [rowData]="administrations" [columnDefs]="columnsToDisplay" [gridOptions]="topOptions" tooltipShowDelay="0"
+    [frameworkComponents]="frameworkComponents">
+  </ag-grid-angular>
+
+  <ag-grid-angular #bottomGrid class="ag-theme-alpine footer-ag-grid" [rowData]="dataTypeOperationResult"
+    [columnDefs]="columnsToDisplay" style="flex: none; height: 60px;" [gridOptions]="bottomOptions" headerHeight="0"
+    [rowStyle]="{ fontWeight: 'bold' }">
+  </ag-grid-angular>
+</div>
+
+<div id="table-menu">
+  <app-data-selector-export-table class="export-button" [administrationType]="administrationType">
+  </app-data-selector-export-table>
+
+  <mat-select [(value)]="selectedOperation" (selectionChange)="computeOperation()" class="operation-selector">
+    <mat-option *ngFor="let operation of operationEnum|keyvalue" [value]="operation.key">
+      {{'info.' + (operation.key|lowercase)|translate}}
+    </mat-option>
+  </mat-select>
+</div>

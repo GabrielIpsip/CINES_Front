@@ -1,0 +1,178 @@
+<form [formGroup]="dataTypeForm">
+
+  <mat-form-field class="full-width" *ngIf="dataType.groupId != null">
+    <mat-label>{{'dataType.group'|translate}}</mat-label>
+    <mat-select formControlName="groupForm" required>
+      <ng-container *ngFor="let g of allAdministrationTypeGroup">
+        <ng-container *ngIf="groupsService.createGroupTitle(g.id, nodes) as name">
+          <mat-option [value]="g.id" [title]="name">
+            {{name}}
+          </mat-option>
+        </ng-container>
+      </ng-container>
+    </mat-select>
+    <mat-error *ngIf="f.groupForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-tab-group mat-stretch-tabs (selectedTabChange)="onChangeTab($event)" [selectedIndex]="selectedTabIndex">
+    <mat-tab *ngFor="let lang of langs; index as i" [label]="getTabLabel(i, lang)|translate">
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>{{'dataType.name'|translate}}</mat-label>
+        <input type="text" matInput [formControlName]="'names_' + lang.language"
+          placeholder="{{'dataType.name'|translate}}" [required]="lang.language === esgbuService.DEFAULT_LANG" />
+        <mat-error *ngIf="f['names_' + lang.language].hasError('required')">
+          {{'error.required'|translate}}
+        </mat-error>
+        <mat-error *ngIf="f['names_' + lang.language].hasError('maxlength')">
+          {{'error.tooLong'|translate}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>{{'dataType.instruction'|translate}}</mat-label>
+        <textarea matInput [formControlName]="'instructions_' + lang.language"
+          placeholder="{{'dataType.instruction'|translate}}"></textarea>
+        <mat-error *ngIf="f['instructions_' + lang.language].hasError('maxlength')">
+          {{'error.tooLong'|translate}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>{{'dataType.definition'|translate}}</mat-label>
+        <textarea matInput [formControlName]="'definitions_' + lang.language"
+          placeholder="{{'dataType.definition'|translate}}"></textarea>
+        <mat-error *ngIf="f['definitions_' + lang.language].hasError('maxlength')">
+          {{'error.tooLong'|translate}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>{{'dataType.measureUnit'|translate}}</mat-label>
+        <input type="text" matInput [formControlName]="'measureUnits_' + lang.language"
+          placeholder="{{'dataType.measureUnit'|translate}}" />
+        <mat-error *ngIf="f['measureUnits_' + lang.language].hasError('maxlength')">
+          {{'error.tooLong'|translate}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>{{'dataType.date'|translate}}</mat-label>
+        <input type="text" matInput [formControlName]="'dates_' + lang.language"
+          placeholder="{{'dataType.date'|translate}}" />
+        <mat-error *ngIf="f['dates_' + lang.language].hasError('maxlength')">
+          {{'error.tooLong'|translate}}
+        </mat-error>
+      </mat-form-field>
+
+    </mat-tab>
+  </mat-tab-group>
+
+  <mat-divider class="divider"></mat-divider>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'dataType.code'|translate}}</mat-label>
+    <input type="text" matInput formControlName="codeForm" placeholder="{{'dataType.code'|translate}}" required />
+    <mat-error *ngIf="f.codeForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.codeForm.hasError('pattern')">
+      {{'error.value'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.codeForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'dataType.codeEu'|translate}}</mat-label>
+    <input type="text" matInput formControlName="codeEUForm" placeholder="{{'dataType.codeEu'|translate}}" />
+    <mat-error *ngIf="f.codeEUForm.hasError('pattern')">
+      {{'error.value'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.codeEUForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'dataType.groupOrder'|translate}}</mat-label>
+    <input type="number" matInput formControlName="groupOrderForm" placeholder="{{'dataType.groupOrder'|translate}}"
+      required />
+    <mat-error *ngIf="f.groupOrderForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.groupOrderForm.hasError('min')">
+      {{'error.min'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <div class="checkbox-form-field">
+    <mat-icon id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="left" (click)="tooltip.toggle()"
+      [matTooltip]="'dataType.administratorExplanation'|translate" class="data-type-tooltip">help
+    </mat-icon>
+    <mat-checkbox class="checkbox-data-type" formControlName="administratorForm">{{'dataType.administrator'|translate}}
+    </mat-checkbox>
+  </div>
+
+  <div class="checkbox-form-field">
+    <mat-icon id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="left" (click)="tooltip.toggle()"
+      [matTooltip]="'dataType.privateExplanation'|translate" class="data-type-tooltip">help
+    </mat-icon>
+    <mat-checkbox class="checkbox-data-type" formControlName="privateForm" (change)="changeDisableValueFacetCheckBox()">
+      {{'dataType.private'|translate}}
+    </mat-checkbox>
+  </div>
+
+  <div class="checkbox-form-field">
+    <mat-icon id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="left" (click)="tooltip.toggle()"
+      [matTooltip]="'dataType.facetExplanation'|translate" class="data-type-tooltip">help
+    </mat-icon>
+    <mat-checkbox class="checkbox-data-type" formControlName="facetForm">
+      {{'dataType.facet'|translate}}
+    </mat-checkbox>
+  </div>
+
+  <div class="checkbox-form-field last-check-box">
+    <mat-icon id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="left" (click)="tooltip.toggle()"
+      [matTooltip]="'dataType.simplifiedFacetExplanation'|translate" class="data-type-tooltip">help
+    </mat-icon>
+    <mat-checkbox class="checkbox-data-type" formControlName="simplifiedFacetForm">
+      {{'dataType.simplifiedFacet'|translate}}
+    </mat-checkbox>
+  </div>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'dataType.type'|translate}}</mat-label>
+    <mat-select formControlName="typeForm" [compareWith]="compareType" required>
+      <ng-container *ngFor="let type of allTypes">
+        <mat-option [value]="type">
+          {{'db.types.' + type.name | translate}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+    <mat-error *ngIf="f.typeForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+</form>
+
+<ng-container *ngIf="f.typeForm?.value">
+  <mat-divider *ngIf="constraintForm" class="divider"></mat-divider>
+
+  <ng-container [ngSwitch]="f.typeForm?.value.name">
+
+    <app-data-type-text-view #constraintForm *ngSwitchCase="TypeEnum.text" [dataType]="dataType">
+    </app-data-type-text-view>
+
+    <app-data-type-number-view #constraintForm *ngSwitchCase="TypeEnum.number" [dataType]="dataType">
+    </app-data-type-number-view>
+
+    <app-data-type-operation-view #constraintForm *ngSwitchCase="TypeEnum.operation" [dataType]="dataType">
+    </app-data-type-operation-view>
+
+  </ng-container>
+</ng-container>

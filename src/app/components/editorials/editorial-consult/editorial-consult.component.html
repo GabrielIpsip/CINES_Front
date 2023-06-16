@@ -1,0 +1,46 @@
+<mat-sidenav-container autosize class="main-container">
+  <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+    <app-editorial-file-list [surveyId]="surveyId"></app-editorial-file-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <app-return-button class="inline"></app-return-button>
+
+    <ng-container *ngIf="hasEditorial; else noEditorialBlock">
+      <ng-container *ngIf="editorial != null">
+
+        <a mat-flat-button color="accent" *ngIf="DiCoDocMode"
+          routerLink="/editorials/update/{{surveyId}}">{{'editorial.update'|translate}}</a>
+        <h2 id="editorial-title">
+          {{(editorial.title?.trim().length > 0)
+            ? editorial.title
+            : ('editorial.surveyEditorial'|translate)}}
+        </h2>
+
+        <mat-tab-group dynamicHeight>
+          <mat-tab *ngFor="let tab of editorial?.content" [label]="tab.title">
+
+            <div *ngIf="tab.content?.trim().length > 0; else noContent" class="editorial-content"
+              [innerHTML]="tab.content|noSanitize">
+            </div>
+
+          </mat-tab>
+        </mat-tab-group>
+
+        <ng-template #noContent>
+          <p id="editorial-content">{{'editorial.noContent'|translate}}</p>
+        </ng-template>
+
+      </ng-container>
+    </ng-container>
+
+    <ng-template #noEditorialBlock>
+      <p>{{'editorial.blankEditorial'|translate}}</p>
+      <button mat-flat-button color="accent" id="init-button" routerLink="/editorials/update/{{surveyId}}">
+        {{'editorial.initEdito'|translate}}</button>
+    </ng-template>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

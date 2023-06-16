@@ -1,0 +1,56 @@
+<mat-list>
+
+  <ng-container *ngIf="showDocument">
+
+    <h3 mat-subheader class="file-list-name">{{'route.fileListTitle'|translate}}</h3>
+
+    <mat-list-item *ngIf="editMode">
+      <button mat-stroked-button color="primary" (click)="fileInput.click()">
+        <mat-icon>attach_file</mat-icon>{{'route.addFile'|translate}}
+      </button>
+      <input hidden #fileInput (change)="onFileSelected($event)" type="file" id="file"
+        [accept]="fileItem.AVAILABLE_FILE_TYPE" multiple>
+    </mat-list-item>
+
+    <mat-list-item *ngFor="let file of associatedFiles">
+      <ng-container *ngIf="fileItem.getIconName(file.name) as iconName">
+
+        <button *ngIf="editMode" mat-icon-button (click)="deleteFile(file.url)" class="delete-button">
+          <mat-icon>cancel</mat-icon>
+        </button>
+
+        <mat-icon mat-list-icon [class]="iconName">{{iconName}}</mat-icon>
+        <button *ngIf="editMode" mat-icon-button color="primary" [cdkCopyToClipboard]="file.url">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+        <div mat-line [title]="file.name"><a mat-button [href]="file.url" class="file-list-item"
+            [target]="iconName === 'image' || iconName === 'insert_drive_file'  || iconName === 'picture_as_pdf' ? '_blank' : ''">
+            {{file.name}}</a>
+        </div>
+      </ng-container>
+    </mat-list-item>
+
+  </ng-container>
+
+  <ng-container *ngIf="editMode && showImage">
+    <h3 mat-subheader class="file-list-name">{{'route.imageListTitle'|translate}}</h3>
+
+    <mat-list-item *ngFor="let image of associatedImages">
+      <ng-container *ngIf="fileItem.getIconName(image.name) as iconName">
+
+        <button *ngIf="editMode" mat-icon-button (click)="deleteFile(image.url, true)" class="delete-button">
+          <mat-icon>cancel</mat-icon>
+        </button>
+
+        <mat-icon mat-list-icon [class]="iconName">{{iconName}}</mat-icon>
+        <button *ngIf="editMode" mat-icon-button color="primary" [cdkCopyToClipboard]="image.url">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+        <div mat-line [title]="image.name"><a mat-button [href]="image.url" class="file-list-item" target="_blank"
+            rel="noopener noreferrer">
+            {{image.name}}</a>
+        </div>
+      </ng-container>
+    </mat-list-item>
+  </ng-container>
+</mat-list>

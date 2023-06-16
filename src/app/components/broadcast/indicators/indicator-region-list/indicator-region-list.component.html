@@ -1,0 +1,35 @@
+<mat-form-field appearance="fill" class="select-region">
+    <mat-label>{{'info.region'|translate}}</mat-label>
+    <mat-select [(ngModel)]="regionUsed" multiple>
+        <mat-option *ngFor="let region of regions" [value]="region">{{region}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<app-indicator-export *ngIf="regionUsed.length > 0" [isKeyFigure]="isKeyFigure"
+    [aggregationType]="aggregationType.byRegion" [dateUsed]="dateUsed" [indicators]="regionIndicators"
+    [keysUsed]="regionUsed">
+</app-indicator-export>
+
+<button mat-flat-button color="primary" *ngIf="hasHiddenCard()" class="display-all-button" (click)="resetHiddenCard()">
+    <mat-icon>visibility</mat-icon>{{'indicator.displayAll'|translate}}
+</button>
+
+<mat-divider></mat-divider>
+
+<div [id]="indicatorExportComponent.getCardListId(aggregationType.byRegion)">
+    <div *ngFor="let region of regionUsed; let index = index">
+        <h2 class="inline no-top-margin">{{region}}</h2>
+
+        <ng-container *ngFor="let year of dateUsed">
+            <ng-container *ngIf="regionIndicators.get(year)?.has(region)">
+                <h3>{{year}}</h3>
+
+                <app-indicator-card-chart [indicators]="regionIndicators.get(year).get(region).indicators"
+                    [keyFigure]="isKeyFigure" [aggregationType]="aggregationType.byRegion">
+                </app-indicator-card-chart>
+
+            </ng-container>
+        </ng-container>
+        <mat-divider *ngIf="index !== regionUsed.length - 1"></mat-divider>
+    </div>
+</div>

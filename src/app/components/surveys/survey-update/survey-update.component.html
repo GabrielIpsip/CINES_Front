@@ -1,0 +1,10 @@
+<div *ngIf="surveyToUpdate">
+    <div class="update-form">
+      <button *ngIf="surveyView" mat-flat-button mat-line color="accent" (click)="updateSurvey()"
+            [disabled]="!surveyView.surveyForm.valid">{{'survey.update'|translate}}</button>
+        <button mat-flat-button mat-line color="primary"
+            (click)="onClickButtonModifVar()">{{'survey.editData'|translate}}</button>
+        <button mat-stroked-button mat-line (click)="onGoBack()">{{'action.cancel'|translate}}</button>
+        <app-survey-view class="app-view" [survey]="surveyToUpdate"></app-survey-view>
+    </div>
+</div>

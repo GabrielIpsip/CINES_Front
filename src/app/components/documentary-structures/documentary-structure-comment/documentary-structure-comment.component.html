@@ -1,0 +1,10 @@
+<form [formGroup]="commentFormGroup" *ngIf="loaded">
+  <mat-form-field *ngFor="let params of formParams | keyvalue" appearance="outline" class="comment">
+    <mat-label class="comment-label">{{('docStruct.instruction'|translate)}}
+      {{docStructIdToShow.length > 1 ? '\"' + docStructName.get(params.key) + '\"' : ''}}
+    </mat-label>
+    <textarea class="comment-textarea" matInput (blur)="onUpdateComment(params.key)"
+      [placeholder]="'info.longTextPlaceHolder'|translate"
+      [formControlName]="params.key">{{params.value.comment?.comment}}</textarea>
+  </mat-form-field>
+</form>

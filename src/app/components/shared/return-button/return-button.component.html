@@ -1,0 +1,9 @@
+<button *ngIf="!raised" mat-stroked-button color="green" class="return-button large" aria-label="return"
+  (click)="return()">
+  <mat-icon id="return-button-icon">arrow_back</mat-icon>
+</button>
+
+<button *ngIf="raised" mat-raised-button color="green" class="return-button large" aria-label="return"
+  (click)="return()">
+  <mat-icon id="return-button-icon">arrow_back</mat-icon>
+</button>

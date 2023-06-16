@@ -1,0 +1,29 @@
+mat-card {
+    margin-top: 10px;
+    margin-bottom: 1px;
+    width: 600px;
+}
+
+.add-relation-button {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+}
+
+.create-doc-struct-button {
+    display: block;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.error-message {
+    margin-top: 10px;
+}
+
+.doc-struct-name {
+  white-space: nowrap;
+  overflow: hidden;
+  margin-right: 100px;
+  text-overflow: ellipsis;
+}

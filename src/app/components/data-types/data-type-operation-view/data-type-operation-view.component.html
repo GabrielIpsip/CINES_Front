@@ -1,0 +1,23 @@
+<form [formGroup]="constraintForm">
+
+  <p>
+    {{'dataType.operations.availableSymbol'|translate}} <strong>+ - * / ( )</strong><br>
+    <em class="comment">{{'dataType.operations.example'|translate}}</em>
+  </p>
+  <h4 id="function-title">{{'dataType.operations.availableFunction'|translate}}<br>
+    <em class="comment">({{'dataType.operations.availableFunctionComment'|translate}})</em></h4>
+  <ul>
+    <li>{{'dataType.operations.sumFunction'|translate}}</li>
+    <li>{{'dataType.operations.avgFunction'|translate}}</li>
+  </ul>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'dataType.operations.formula'|translate}}</mat-label>
+    <input type="text" matInput formControlName="formulaForm" placeholder="{{'dataType.operations.formula'|translate}}"
+      required />
+    <mat-error *ngIf="f.formulaForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+</form>

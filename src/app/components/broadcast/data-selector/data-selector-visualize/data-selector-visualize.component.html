@@ -1,0 +1,33 @@
+<section>
+  <app-return-button class="relative" [raised]="true"></app-return-button>
+  <nav class="custom-tab-container">
+    <button mat-button *ngIf="hasEstablishmentInfoToShow"
+      [ngClass]="showEstablishmentTable ? 'selected' : 'not-selected'"
+      (click)="onChangeTab(administrationTypeEnum.ESTABLISHMENT)">{{'db.administrationTypes.institution'|translate}}
+    </button>
+    <button mat-button *ngIf="hasDocStructInfoToShow" [ngClass]="showDocStructTable ? 'selected' : 'not-selected'"
+      (click)="onChangeTab(administrationTypeEnum.DOC_STRUCT)">{{'db.administrationTypes.documentaryStructure'|translate}}
+    </button>
+    <button mat-button *ngIf="hasPhysicLibInfoToShow" [ngClass]="showPhysicLibTable ? 'selected' : 'not-selected'"
+      (click)="onChangeTab(administrationTypeEnum.PHYSIC_LIB)">{{'db.administrationTypes.physicalLibrary'|translate}}
+    </button>
+  </nav>
+
+  <app-data-selector-visualize-table [hidden]="!showEstablishmentTable" *ngIf="hasEstablishmentInfoToShow"
+    [administrations]="establishments" [dataTypes]="establishmentDataTypes"
+    [administrationType]="administrationTypeEnum.ESTABLISHMENT">
+  </app-data-selector-visualize-table>
+
+  <app-data-selector-visualize-table [hidden]="!showDocStructTable" *ngIf="hasDocStructInfoToShow"
+    [administrations]="docStructs" [dataTypes]="docStructDataTypes"
+    [administrationType]="administrationTypeEnum.DOC_STRUCT">
+  </app-data-selector-visualize-table>
+
+  <app-data-selector-visualize-table [hidden]="!showPhysicLibTable" *ngIf="hasPhysicLibInfoToShow"
+    [administrations]="physicLibs" [dataTypes]="physicLibDataTypes"
+    [administrationType]="administrationTypeEnum.PHYSIC_LIB">
+  </app-data-selector-visualize-table>
+
+  <app-charts-selector *ngIf="false" class="charts-view"></app-charts-selector>
+
+</section>

@@ -1,0 +1,10 @@
+@import "../data-selector/data-selector.component.scss";
+
+.block {
+  display: block;
+}
+
+:host ::ng-deep .data-type-selector .mat-form-field-wrapper {
+  padding-bottom: 0px;
+  margin: 2px 0;
+}

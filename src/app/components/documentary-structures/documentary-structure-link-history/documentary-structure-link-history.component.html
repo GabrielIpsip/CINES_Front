@@ -1,0 +1,20 @@
+<div *ngFor="let survey of surveys; let index = index" [ngClass]="{'default' : index === 0}">
+
+    <div class="flex-box">
+        <strong>{{survey.dataCalendarYear}}</strong><em>{{survey.name}}</em>
+        <mat-icon *ngIf="index === 0" matPrefix id="help" color="primary" #tooltip="matTooltip"
+            matTooltipPosition="right" (click)="tooltip.toggle()" [matTooltip]="'info.defaultValue'|translate"
+            matTooltipClass="tooltip" class="tooltip">help
+        </mat-icon>
+
+        <div *ngIf="linkHistory.get(survey.id); let linkInfo" class="right">
+            <em *ngIf="linkInfo.default" class="grey">({{'info.default'|translate}})</em>
+            <a mat-button color="primary"
+                routerLink="/establishments/{{linkInfo.establishment.id}}">{{linkInfo.establishment.useName}}</a>
+            <button mat-stroked-button matSuffix color="accent" *ngIf="isDiCoDoc"
+                (click)="openDialog(survey.id)">{{'action.modify'|translate}}</button>
+        </div>
+
+    </div>
+    <mat-divider></mat-divider>
+</div>

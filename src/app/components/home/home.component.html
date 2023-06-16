@@ -1,0 +1,71 @@
+<!-- Non connected user -->
+<ng-container *ngIf="(currentUser|async)?.eppn == null; else connectedBlock">
+
+  <section class="static-content">
+    <h1>{{'home.title'|translate}}</h1>
+    <a target="_blank" href="https://www.enseignementsup-recherche.gouv.fr/" rel="noopener noreferrer">
+      <img id="logo-mesr" src="assets/img/1_MESR_RVB.svg" /></a>
+    <img id="logo-esgbu" src="assets/img/ESGBU_signature_RVB.svg" />
+    <p><strong>{{'home.generalPresentation'|translate}}</strong></p>
+
+    <p *ngIf="globalEditorial != null && collapsed" [innerHTML]="globalEditorialSummary|noSanitize"></p>
+
+    <section [@collapse]="collapsed">
+      <p *ngIf="globalEditorial != null" [innerHTML]="globalEditorial|noSanitize"></p>
+      <button id="read-more-button" color="accent" *ngIf="globalEditorial != null" mat-button
+        [routerLink]="'/editorials/global'">{{'info.readMore'|translate}}</button>
+    </section>
+
+    <button mat-stroked-button color="primary" (click)="toggleDetail()">{{'home.learnMoreAboutESGBU'|translate}}
+      <mat-icon>{{collapsed ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}</mat-icon>
+    </button>
+    <mat-divider *ngIf="!collapsed" class="divider"></mat-divider>
+
+    <section *ngIf="lastEditorial != null">
+      <a mat-button color="primary" routerLink="/editorials/{{lastEditorial.survey.id}}" class="middle">
+        <h2>{{lastEditorial.title}}</h2>
+      </a>
+      <div *ngIf="lastEditorial.content.length > 0" class="html"
+        [innerHTML]="lastEditorial.content[0].content|noSanitize">
+      </div>
+      <a mat-stroked-button color="primary"
+        routerLink="/editorials/{{lastEditorial.survey.id}}">{{'info.learnMore'|translate}}</a>
+    </section>
+
+  </section>
+
+
+
+</ng-container>
+
+
+<!-- Connected user -->
+<ng-template #connectedBlock>
+
+  <!-- Not signed user -->
+  <ng-container *ngIf="(currentUser|async)?.id === 1; else connectedUserBlock">
+    <app-first-connection></app-first-connection>
+  </ng-container>
+
+  <!-- Signed user -->
+  <ng-template #connectedUserBlock>
+    <app-user-not-valid></app-user-not-valid>
+    <section class="static-content">
+      <h1>{{'home.title'|translate}}</h1>
+      <a target="_blank" href="https://www.enseignementsup-recherche.gouv.fr/" rel="noopener noreferrer"><img
+          id="logo-mesr" src="assets/img/1_MESR_RVB.svg" /></a>
+      <img id="logo-esgbu" src="assets/img/ESGBU_signature_RVB.svg" />
+      <p><strong>{{'home.generalPresentation'|translate}}</strong></p>
+    </section>
+
+    <app-user-role-requests></app-user-role-requests>
+
+    <ng-container *ngIf="lastOpenSurvey?.instruction">
+      <mat-divider></mat-divider>
+      <p [innerHTML]="lastOpenSurvey?.instruction|noSanitize" class="html">
+      </p>
+    </ng-container>
+
+  </ng-template>
+
+</ng-template>

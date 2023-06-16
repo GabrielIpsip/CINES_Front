@@ -1,0 +1,16 @@
+<ng-container *ngIf="hasAdministration; else noAdministrationMessage">
+  <button mat-stroked-button color="warn" id="clean-button" (click)="cleanList()">
+    <mat-icon>delete_sweep</mat-icon>{{'action.cleanList'|translate}}
+  </button>
+  <mat-card *ngFor="let administration of administrations; let index = index" mat-stroked-button mat-line
+    title="{{administration.useName}}">
+    <span class="admin-name">({{administration.year}}) {{administration.useName}}</span>
+    <button mat-icon-button class="remove-button" color="warn" (click)="deleteAdministration(index)">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-card>
+</ng-container>
+
+<ng-template #noAdministrationMessage>
+  <p>{{'info.emptyList'|translate}}</p>
+</ng-template>

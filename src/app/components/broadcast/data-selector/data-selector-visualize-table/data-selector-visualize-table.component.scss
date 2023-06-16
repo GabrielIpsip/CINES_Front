@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-ag-grid {
+  flex: 1 1 auto;
+}
+
+.footer-ag-grid {
+  flex: none;
+  height: 60px;
+}
+
+.bold-row {
+  font-weight: bold;
+}
+
+.export-button {
+  display: inline-block;
+}
+
+.operation-selector {
+  display: inline-block;
+  max-width: 100px;
+  margin-left: 100px;
+}
+
+#table-menu {
+  width: 270px;
+  position: relative;
+  top: -55px;
+  left: 5px;
+  background-color: white;
+}

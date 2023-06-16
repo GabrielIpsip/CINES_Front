@@ -1,0 +1,4 @@
+<button *ngIf="isDiCoDoc" mat-flat-button color="primary" id="edit-button"
+    routerLink="/footer/edit/{{routeContent?.route.name}}">{{'action.modify'|translate}}</button>
+
+<div *ngIf="routeContent != null" class="static-content" [innerHtml]="routeContent.content|noSanitize"></div>

@@ -1,0 +1,10 @@
+<ng-container *ngIf="userToUpdate">
+  <div class="update-form">
+    <button *ngIf="userView" mat-flat-button mat-line color="accent" (click)="updateUser()"
+      [disabled]="!userView.userForm.valid">{{'action.apply'|translate}}</button>
+    <button mat-stroked-button mat-line routerLink="/users/{{userId}}">{{'action.cancel'|translate}}</button>
+    <button mat-stroked-button mat-line color="warn" (click)="onDeleteUser()">{{'action.delete'|translate}}</button>
+    <app-user-view class="app-view" [user]="userToUpdate"></app-user-view>
+  </div>
+  <app-user-role-list [userId]="userToUpdate.id" [editMode]="true"></app-user-role-list>
+</ng-container>

@@ -1,0 +1,85 @@
+<ng-container *ngIf="survey">
+
+  <ng-container *ngIf="!DiCoDocMode">
+    <app-return-button *ngIf="establishmentId != null"></app-return-button>
+    <button mat-button routerLink="/surveys/{{survey.id}}">
+      <h1>{{survey.name}}</h1>
+    </button>
+  </ng-container>
+
+  <mat-accordion *ngIf="docStructList?.length > 0; else noDocStruct">
+    <ng-container *ngFor="let docStruct of docStructList">
+      <mat-expansion-panel *ngIf="docStruct.active" class="doc-struct-progress-list"
+        (click)="onClickDocStruct(docStruct)">
+        <mat-expansion-panel-header>
+
+          <mat-panel-title class="doc-struct-total-progress use-name">
+            <ng-container *ngIf="canValidate">
+              <ng-container *ngIf="validationListInit">
+                <button *ngIf="!validationList[docStruct.id]?.valid; else unvalidButton" mat-flat-button color="accent"
+                  class="progress-item-button valid-button" [disabled]="!canValidate || docStruct.totalProgress != 100"
+                  (click)="$event.stopPropagation();onClickValid(true, docStruct)">{{'action.valid'|translate}}</button>
+                <ng-template #unvalidButton>
+                  <button mat-flat-button color="warn" class="progress-item-button valid-button"
+                    [disabled]="!canValidate" (click)="$event.stopPropagation();onClickValid(false, docStruct)">
+                    {{'action.invalidate'|translate}}
+                  </button>
+                </ng-template>
+              </ng-container>
+              <mat-icon class="valid" *ngIf="validationList[docStruct.id]?.valid" #tooltip="matTooltip"
+                matTooltip="{{'info.validatedOn'|translate}}{{validationList[docStruct.id]?.validationDate|datetools: 'date'|date :'longDate':'':locale}}"
+                (click)="tooltip.toggle()" matTooltipClass="validated-tooltip">
+                check_circle</mat-icon>
+            </ng-container>
+            <h4 mat-button color="primary" title="{{docStruct.useName}}">{{docStruct.useName}}</h4>
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <mat-progress-bar [value]="docStruct.totalProgress" color="accent"
+              class="center-align total-progress-bar total-progress-margin right">
+            </mat-progress-bar>
+            <strong class="center-align">{{docStruct.totalProgress|number:'.0-2'}}%</strong>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <mat-list>
+
+          <mat-list-item class="progress-item">
+            <button mat-button class="use-name" title="{{docStruct.useName}}" color="primary"
+              routerLink="/documentary-structures/{{docStruct.id}}">{{docStruct.useName}}</button>
+            <button mat-stroked-button color="primary" class="progress-item-button reply-button"
+              (click)="onClickReplyButtonDocStruct(docStruct)" *ngIf="!validationList[docStruct.id]?.valid"
+              routerLink="/surveys/reply/{{survey.id}}">{{'action.reply'|translate}}</button>
+            <mat-progress-bar [value]="docStruct.progress" class="progress-physic-lib">
+            </mat-progress-bar><strong>{{docStruct.progress|number:'.0-2'}}%</strong>
+          </mat-list-item>
+
+          <ng-container *ngIf="physicLibList[docStruct.id]?.length > 0">
+            <mat-divider></mat-divider>
+            <mat-list>
+              <ng-container *ngFor="let physicLib of physicLibList[docStruct.id]">
+                <mat-list-item class="progress-item" *ngIf="physicLib.active">
+                  <ng-container *ngIf="physicLib.active">
+                    <button mat-button class="use-name" title="{{physicLib.useName}}" color="success"
+                      routerLink="/physical-libraries/{{physicLib.id}}">{{physicLib.useName}}</button>
+                    <button mat-stroked-button color="success" class="progress-item-button reply-button"
+                      (click)="onClickReplyButtonPhysicLib(physicLib)" *ngIf="!validationList[docStruct.id]?.valid"
+                      routerLink="/surveys/reply/{{survey.id}}">{{'action.reply'|translate}}</button>
+                    <mat-progress-bar [value]="physicLib.progress" class="progress-physic-lib" color="success">
+                    </mat-progress-bar><strong>{{physicLib.progress|number:'.0-2'}}%</strong>
+                  </ng-container>
+                </mat-list-item>
+              </ng-container>
+            </mat-list>
+          </ng-container>
+
+        </mat-list>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
+
+  <ng-template #noDocStruct>
+    <p>{{errorMessage}}</p>
+  </ng-template>
+
+</ng-container>

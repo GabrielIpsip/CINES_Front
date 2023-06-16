@@ -1,0 +1,39 @@
+.survey-info {
+  max-width: 1000px;
+}
+
+.mat-list-base .mat-list-item .mat-line:nth-child(n + 2) {
+  margin-left: 15px;
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+.mat-list-base .mat-list-item .mat-line:nth-child(1) {
+  color: grey;
+  margin-bottom: 3px;
+}
+
+button {
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.consult-section {
+  display: inline-block;
+}
+
+h1 {
+  display: inline;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.html {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  min-height: 20px;
+  overflow: auto;
+}

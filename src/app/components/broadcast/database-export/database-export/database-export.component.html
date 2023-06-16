@@ -1,0 +1,25 @@
+<mat-card *ngIf="isDiCoDoc">
+  <app-database-export-run-button [lastExportDate]="lastExportDate"></app-database-export-run-button>
+</mat-card>
+
+<h1>{{'broadcast.exportData.title'|translate}}</h1>
+
+<p class="explanation">{{'broadcast.exportData.explanation1'|translate}}</p>
+<p class="explanation">{{'broadcast.exportData.explanation2'|translate}}</p>
+
+<p *ngIf="lastExportDate != null && lastExportDate.dateWithoutHours != null">
+  <em>{{'broadcast.exportData.dataWasDated'|translate}}
+    <strong>{{lastExportDate?.dateWithoutHours | date :'longDate':'':locale}}</strong>.</em>
+</p>
+<app-database-export-selector></app-database-export-selector>
+
+<h1>{{'broadcast.exportData.kibanaTitle'|translate}}</h1>
+
+<p class="explanation">{{'broadcast.exportData.kibanaExplanation1'|translate}}</p>
+
+<a mat-flat-button color="primary" class="kibana-button" target="_blank"
+  [href]="getApiUrl + 'database_export/elasticsearch/mapping_esgbu_institutions.json'">
+  {{'broadcast.exportData.kibanaSchemaDownload'|translate}}</a>
+<a mat-flat-button color="primary" class="kibana-button" target="_blank"
+  [href]="getApiUrl + 'database_export/elasticsearch/esgbu_institutions.json'">
+  {{'broadcast.exportData.kibanaIndexDownload'|translate}}</a>

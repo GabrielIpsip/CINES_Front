@@ -1,0 +1,59 @@
+<mat-sidenav-container autosize class="main-container">
+  <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+    <app-editorial-file-list [surveyId]="surveyId" [editMode]="true"></app-editorial-file-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content *ngIf="editorialForm != null">
+    <button mat-stroked-button mat-line routerLink="/editorials/{{surveyId}}"
+      class="button">{{'action.cancel'|translate}}</button>
+    <button mat-flat-button mat-line color="accent" (click)="saveEditorial(true)"
+      class="button" [disabled]="!editorialForm.valid">{{'action.apply'|translate}}</button>
+    <button mat-flat-button mat-line color="primary" (click)="saveEditorial(false)"
+      class="button" [disabled]="!editorialForm.valid">{{'action.save'|translate}}</button>
+
+    <em *ngIf="lastSave">{{'info.lastSave'|translate}} {{lastSave|date:'mediumTime':'':locale}}</em>
+
+    <div id="saveInfo" class="margin-top">
+      <mat-checkbox id="autosave-checkbox" [(ngModel)]="autoSave">{{'info.autoSave'|translate}}</mat-checkbox>
+    </div>
+
+    <form [formGroup]="editorialForm" class="margin">
+
+      <mat-form-field class="form-full-width" appearance="fill">
+        <mat-label>{{'editorial.title'|translate}}</mat-label>
+        <input matInput placeholder="{{'editorial.title'|translate}}" formControlName="titleForm">
+        <mat-error *ngIf="f.titleForm.hasError('maxlength')">
+          {{'error.tooLong'|translate}}
+        </mat-error>
+      </mat-form-field>
+
+
+      <button mat-stroked-button color="primary" (click)="addTab()" class="margin-bottom">
+        <mat-icon>add</mat-icon>{{'editorial.addSection'|translate}}
+      </button>
+
+
+      <mat-tab-group dynamicHeight animationDuration="0ms" *ngIf="initialized">
+
+        <mat-tab *ngFor="let tab of editorial?.content; let index = index" [label]="f[titleKey + index].value">
+
+          <mat-form-field class="margin margin-top form-title">
+            <mat-label>{{'editorial.sectionTitle'|translate}}</mat-label>
+            <input matInput [formControlName]="titleKey + index" type="text" required>
+          </mat-form-field>
+
+          <button mat-stroked-button color="warn" (click)="removeTab(index)">
+            <mat-icon>delete</mat-icon>{{'action.delete'|translate}}
+          </button>
+
+          <angular-editor [formControlName]="contentKey + index" [config]="editorConfig"
+            placeholder="{{'editorial.content'|translate}}">
+          </angular-editor>
+        </mat-tab>
+
+      </mat-tab-group>
+    </form>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

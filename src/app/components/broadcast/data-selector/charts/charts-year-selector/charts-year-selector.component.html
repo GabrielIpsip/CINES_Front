@@ -1,0 +1,17 @@
+<mat-form-field *ngIf="multiple" appearance="fill">
+  <mat-label>{{'info.years'|translate}}</mat-label>
+  <mat-select [(ngModel)]="yearFormValue" (selectionChange)="onChangeValue($event)" multiple>
+    <mat-option *ngFor="let year of years" [value]="year">
+      {{year}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field *ngIf="!multiple" appearance="fill">
+  <mat-label>{{'info.years'|translate}}</mat-label>
+  <mat-select [(ngModel)]="yearFormValue" (selectionChange)="onChangeValue($event)" [multiple]="multiple">
+    <mat-option *ngFor="let year of years" [value]="year">
+      {{year}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

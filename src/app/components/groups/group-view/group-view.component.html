@@ -1,0 +1,54 @@
+<form [formGroup]="groupForm">
+  <mat-tab-group mat-stretch-tabs (selectedTabChange)="onChangeTab($event)" [selectedIndex]="selectedTabIndex">
+    <mat-tab *ngFor="let lang of langs; index as i" [label]="getTabLabel(i, lang)|translate">
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>{{'group.groupName'|translate}}</mat-label>
+        <input type="text" matInput [formControlName]="lang.language" placeholder="{{'group.groupName'|translate}}"
+          [required]="lang.language === esgbuService.DEFAULT_LANG" />
+        <mat-error *ngIf="f[lang.language].hasError('maxlength')">
+          {{'error.tooLong'|translate}}
+        </mat-error>
+        <mat-error *ngIf="f[lang.language].hasError('required')">
+          {{'error.required'|translate}}
+        </mat-error>
+      </mat-form-field>
+
+    </mat-tab>
+  </mat-tab-group>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'group.adminType'|translate}}</mat-label>
+    <mat-select formControlName="administrationTypeForm" (selectionChange)="updateAdministrationTypeIndex($event)"
+      [compareWith]="compareObjects" required>
+      <ng-container *ngFor="let type of allAdminstrationType">
+        <mat-option [value]="type">
+          {{'db.administrationTypes.' + type.name | translate}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+    <mat-error *ngIf="f.administrationTypeForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'group.parentGroup'|translate}}</mat-label>
+    <mat-select formControlName="parentGroupForm" [compareWith]="compareObjects" ng-options required>
+      <mat-option value="root" id="option-no-parent">{{'group.noParent'|translate}}</mat-option>
+      <ng-container *ngFor="let g of allGroupCopy">
+        <ng-container *ngIf="g?.administrationType.id === administrationType?.id && g.id !== group.id">
+          <ng-container *ngIf="groupService.createGroupTitle(g.id, nodes) as name">
+            <mat-option [value]="g" [title]="name">
+              {{name}}
+            </mat-option>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </mat-select>
+    <mat-error *ngIf="f.parentGroupForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+</form>

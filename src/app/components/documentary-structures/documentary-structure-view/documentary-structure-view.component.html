@@ -1,0 +1,122 @@
+<h1>{{'docStruct.view.description'|translate}}</h1>
+
+<app-info-chips *ngIf="docStruct.id" id="id">ID : {{docStruct.id}}</app-info-chips>
+
+<mat-radio-group *ngIf="docStruct.id == null" [(ngModel)]="active" class="active-radio-group" name="status-radio">
+  <mat-radio-button *ngFor="let status of statusList|keyvalue" [value]="status.value" class="status-radio-button">
+    {{ status.key }}
+  </mat-radio-button>
+</mat-radio-group>
+
+<form [formGroup]="docStructForm" class="doc-struct-update-form" (keydown)="onKeyDown($event)">
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'docStruct.view.useName'|translate}}" formControlName="useNameForm" required>
+    <mat-error *ngIf=" f.useNameForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.useNameForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'establishment.view.acronym'|translate}}" formControlName="acronymForm">
+    <mat-error *ngIf="f.acronymForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.acronymForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'docStruct.view.officialName'|translate}}" formControlName="officialNameForm"
+      required>
+    <mat-error *ngIf="f.officialNameForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.officialNameForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'docStruct.view.address'|translate}}" formControlName="addressForm" required>
+    <mat-error *ngIf="f.addressForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.addressForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="{{'docStruct.view.postalCode'|translate}}" formControlName="postalCodeForm"
+      maxlength="5" (ngModelChange)="onChangePostalCode()" required>
+    <mat-error *ngIf="f.postalCodeForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.postalCodeForm.hasError('minlength')">
+      {{'error.tooShort'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.postalCodeForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.postalCodeForm.hasError('min') ||
+      f.postalCodeForm.hasError('max') ||
+      f.postalCodeForm.hasError('pattern')">
+      {{'error.badPostalCode'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="select-form">
+    <mat-label>{{'docStruct.view.department'|translate}}</mat-label>
+    <mat-select formControlName="departmentForm" (selectionChange)="updateDepartmentId($event)" required>
+      <mat-option *ngFor="let department of departments" [value]="department.id">
+        {{department.name}} ({{department.code}})
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="f.departmentForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <p id="region-title">{{'docStruct.view.region'|translate}}</p>
+  <p>{{currentDepartment.region != null
+    ? currentDepartment.region.name + ' (' + currentDepartment.region.code + ')'
+    : '---'}}</p>
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'docStruct.view.city'|translate}}" formControlName="cityForm" required>
+    <mat-error *ngIf="f.cityForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.cityForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <mat-label>{{'docStruct.view.website'|translate}}</mat-label>
+    <input matInput placeholder="{{'info.wwwPlaceHolder'|translate}}" formControlName="websiteForm" required>
+    <mat-error *ngIf="f.websiteForm.hasError('pattern')">
+      {{'error.badAddress'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.websiteForm.hasError('required')">
+      {{'error.required'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput placeholder="{{'docStruct.view.establishment'|translate}} *" formControlName="establishmentForm"
+      required title="{{establishment?.useName}}">
+    <button mat-button matSuffix color="accent"
+      (click)="openDialog()">{{('action.link'|translate)+' / '+('action.modify'|translate)}}</button>
+  </mat-form-field>
+
+  <mat-label class="label">{{('docStruct.view.instruction'|translate)+' :'}}</mat-label>
+  <angular-editor formControlName="instructionForm" [config]="editorConfig"
+    placeholder="{{'action.addComment'|translate}}"></angular-editor>
+
+</form>

@@ -1,0 +1,43 @@
+<div>
+  <ng-container *ngIf="isExpanded; else collapseButton">
+    <button mat-icon-button color="accent" class="expandButton"
+      (click)="treeControl.collapseAll(); isExpanded = false;">
+      <mat-icon>unfold_less</mat-icon>
+    </button>
+  </ng-container>
+  <ng-template #collapseButton>
+    <button mat-icon-button color="accent" class="expandButton" (click)="treeControl.expandAll(); isExpanded = true;">
+      <mat-icon>unfold_more</mat-icon>
+    </button>
+  </ng-template>
+  <button mat-button color="accent" class="physic-lib-title" title="{{physicLib.useName}}"
+    (click)="isShowed = !isShowed">{{physicLib.useName}}</button>
+
+  <mat-tree #groupTree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="isShowed">
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node *matTreeNodeDef="let group" matTreeNodePadding matTreeNodePaddingIndent="12"
+      (click)="activeNode = group" [ngClass]="{ 'background-highlight': activeNode === group,
+    'missing-group': missingGroupsAnswered?.includes(group.id),
+    'missing-parent-group': missingParentGroupsAnswered?.includes(group.id) }">
+      <!-- use a disabled button to provide padding for tree leaf -->
+      <button mat-icon-button disabled></button>
+      <button mat-button class="button-title" (click)="onChangeSelectedGroup(group);"
+        title="{{group.title}}">{{group.title}}</button>
+    </mat-tree-node>
+
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node *matTreeNodeDef="let group;when: hasChild" matTreeNodePadding matTreeNodePaddingIndent="12"
+      (click)="activeNode = group" [ngClass]="{ 'background-highlight': activeNode === group,
+    'missing-group': missingGroupsAnswered?.includes(group.id),
+    'missing-parent-group': missingParentGroupsAnswered?.includes(group.id) }">
+      <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + group.title">
+        <mat-icon mat-button class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(group) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      <button mat-button class="button-title" title="{{group.title}}"
+        (click)="onChangeSelectedGroup(group);treeControl.expand(group)">{{group.title}}</button>
+    </mat-tree-node>
+
+  </mat-tree>
+</div>

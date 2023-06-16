@@ -1,0 +1,28 @@
+<mat-accordion id="not-active-user-container" *ngIf="userInfo != null && !userInfo.valid">
+  <mat-expansion-panel #notActiveUserContainer hideToggle (mouseenter)="notActiveUserContainer.open()"
+    (mouseleave)="notActiveUserContainer.close()">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>warning</mat-icon>
+        <h2>{{'user.validUser.title'|translate}}</h2>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <p>{{'user.validUser.message'|translate}}<br>
+      <strong>{{userInfo.mail}}</strong>.
+    </p>
+    <p>{{'user.validUser.notEmailMessage'|translate}}</p>
+    <app-send-confirmation-mail-button></app-send-confirmation-mail-button>
+    <p>{{'user.validUser.notGoodEmail?'|translate}}
+      <ng-container *ngIf="!inUserProfilPage">
+        <br>
+        {{'user.validUser.notGoodEmailExplanation'|translate}}
+      </ng-container>
+    </p>
+    <a mat-flat-button color="primary" [disabled]="rightsChecker.disabled('/users/update/:id', userInfo.id)"
+      [routerLink]="updateInfoButtonAdress">
+      {{(inUserProfilPage ? 'action.modify' : 'user.validUser.changeInfoButton')|translate}}
+    </a>
+
+  </mat-expansion-panel>
+</mat-accordion>

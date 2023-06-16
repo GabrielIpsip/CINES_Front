@@ -1,0 +1,38 @@
+<mat-card id="edit-role-card" *ngIf="editMode">
+
+  <form [formGroup]="userRoleForm">
+    <mat-form-field class="role-select">
+      <mat-select formControlName="roleForm" (selectionChange)="updateCurrentRole($event)"
+        placeholder="{{'user.role'|translate}}" required>
+        <mat-option *ngFor="let role of roleList" [value]="role">
+          {{'db.roles.'+role.name|translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="doc-struct-input">
+      <input matInput placeholder="{{'physicLib.view.docStruct'|translate}} *" formControlName="docStructForm"
+        title="{{docStruct?.useName}}">
+      <button mat-button matSuffix color="accent" [disabled]=disabledDocStruct
+        (click)="openDialog()">{{'action.choose'|translate}}</button>
+    </mat-form-field>
+
+    <button *ngIf="!firstConnection" mat-icon-button id="add-role-button" [disabled]="disabledAddRole" color="accent"
+      (click)="onAddUserRole()">
+      <mat-icon id="add-role-icon" inline="true">add_box</mat-icon>
+    </button>
+  </form>
+
+</mat-card>
+
+<ng-container *ngIf="!firstConnection && userRoleList.length> 0">
+  <mat-card *ngFor="let userRole of userRoleList">
+    <button *ngIf="editMode" mat-icon-button id="delete-button" color="warn" (click)="onDeleteUserRole(userRole.id)">
+      <mat-icon id="delete-icon">cancel</mat-icon>
+    </button>
+    {{'db.roles.'+userRole.role.name|translate}}
+    <a *ngIf="userRole.documentaryStructure" class="doc-struct-name" title="{{userRole.documentaryStructure.useName}}"
+      routerLink="/documentary-structures/{{userRole.documentaryStructure.id}}">{{userRole.documentaryStructure.useName}}
+    </a>
+  </mat-card>
+</ng-container>

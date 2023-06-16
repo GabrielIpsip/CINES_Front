@@ -1,0 +1,47 @@
+$width: 600px;
+
+.user-info {
+  width: $width;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.list {
+  width: $width;
+}
+
+.mat-list-base .mat-list-item .mat-line:nth-child(n + 2) {
+  margin-left: 15px;
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+.mat-list-base .mat-list-item .mat-line:nth-child(1) {
+  color: grey;
+  margin-bottom: 3px;
+}
+
+.action-button {
+  display: inline-block;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+.consult-section {
+  display: inline-block;
+}
+
+h1 {
+  display: inline;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.info-chips {
+  display: inline-block;
+}
+
+.inline {
+  display: inline-block;
+  vertical-align: top;
+}

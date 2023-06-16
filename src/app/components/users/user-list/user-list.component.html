@@ -1,0 +1,49 @@
+<div id="user-list">
+  <mat-form-field class="filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'user.searchUser'|translate}}">
+    <mat-icon matSuffix id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="right"
+      (click)="tooltip.toggle()" matTooltip="{{'user.searchInfo'|translate}}" matTooltipClass="help-tooltip">
+      help
+    </mat-icon>
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index;">
+      <ng-container *ngIf="column != 'edit' && column != 'active' && column != 'valid'; else elseBlock">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'user.view.'+column|translate}}</th>
+        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+      </ng-container>
+      <ng-template #elseBlock>
+        <ng-container *ngIf="column == 'edit'; else activeBlock">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" routerLink="/users/{{element.id}}">
+              <mat-icon>remove_red_eye</mat-icon>
+            </button>
+            <!--<button mat-icon-button color="primary" routerLink="/users/update/{{element.id}}">
+              <mat-icon>edit</mat-icon>
+            </button>-->
+          </td>
+        </ng-container>
+        <ng-template #activeBlock>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'user.view.'+column|translate}}</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element[column]; else disable">
+              <mat-icon color="primary">check_circle_outline</mat-icon>
+            </ng-container>
+            <ng-template #disable>
+              <mat-icon color="warn">remove_circle_outline</mat-icon>
+            </ng-template>
+          </td>
+        </ng-template>
+      </ng-template>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+      routerLink="/users/{{element.id}}">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+</div>

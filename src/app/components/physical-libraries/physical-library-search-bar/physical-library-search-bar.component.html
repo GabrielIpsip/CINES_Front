@@ -1,0 +1,13 @@
+<form class="search-physic-lib-form">
+  <mat-form-field class="physic-lib-form-full-width">
+      <input matInput [(ngModel)]="queryValue" name="searchBar"
+          placeholder="{{'physicLib.search.searchBar'|translate}}">
+      <mat-icon matSuffix id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="right"
+          (click)="tooltip.toggle()" matTooltip="{{'physicLib.search.info'|translate}}"
+          matTooltipClass="help-tooltip">
+          help
+      </mat-icon>
+  </mat-form-field>
+  <button class="search-button" mat-flat-button (click)="onSearch()"
+      color="primary">{{'physicLib.search.research'|translate}}</button>
+</form>

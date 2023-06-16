@@ -1,0 +1,50 @@
+<mat-form-field appearance="outline" class="margin-right">
+  <mat-label>{{'broadcast.chart.scheme'|translate}}</mat-label>
+  <mat-select [(ngModel)]="scheme">
+    <mat-option *ngFor="let scheme of availableScheme" [value]="scheme">{{scheme|titlecase}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline" class="margin-right" *ngIf="is3D">
+  <mat-label>{{'broadcast.chart.legendPosition'|translate}}</mat-label>
+  <mat-select [(ngModel)]="legendPosition" (selectionChange)="reloadViewSize()">
+    <mat-option *ngFor="let posisition of availableLegendPosition"
+    [value]="posisition">{{'info.' + posisition|translate}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-checkbox [(ngModel)]="showDataLabel" class="margin-right">
+  {{'broadcast.chart.showDataLabel'|translate}}</mat-checkbox>
+
+<mat-checkbox [(ngModel)]="roundDomains">{{'broadcast.chart.roundDomains'|translate}}</mat-checkbox>
+
+<ngx-charts-bar-horizontal *ngIf="is3D === false" class="chart-block"
+  [results]="data"
+  [scheme]="scheme"
+  [roundDomains]="roundDomains"
+  [showDataLabel]="showDataLabel"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel|translate"
+  [yAxisLabel]="yAxisLabel|translate">
+</ngx-charts-bar-horizontal>
+
+<ngx-charts-bar-horizontal-2d *ngIf="is3D === true" class="chart-block"
+[results]="data"
+[scheme]="scheme"
+[roundDomains]="roundDomains"
+[showDataLabel]="showDataLabel"
+[legendPosition]="legendPosition"
+[gradient]="gradient"
+[xAxis]="showXAxis"
+[yAxis]="showYAxis"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[legend]="showZAxisLabel"
+[xAxisLabel]="xAxisLabel|translate"
+[yAxisLabel]="yAxisLabel|translate"
+[legendTitle]="zAxisLabel|translate">
+</ngx-charts-bar-horizontal-2d>

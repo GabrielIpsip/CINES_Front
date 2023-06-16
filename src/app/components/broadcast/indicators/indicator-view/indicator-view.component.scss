@@ -1,0 +1,40 @@
+.full-width {
+  width: 100%;
+}
+
+.indicator-tooltip {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+  top: 7px;
+}
+
+.last-check-box {
+  margin-bottom: 15px;
+}
+
+.checkbox-indicator {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+:host ::ng-deep json-editor,
+:host ::ng-deep json-editor .jsoneditor,
+:host ::ng-deep json-editor > div,
+:host ::ng-deep json-editor jsoneditor-outer {
+  width: 99%;
+  height: 750px;
+}
+
+.tab-container {
+  margin-right: 10px;
+}
+
+.query-explanation {
+  max-width: 1024px;
+}
+
+.input-form {
+  display: block;
+  width: 200px;
+}

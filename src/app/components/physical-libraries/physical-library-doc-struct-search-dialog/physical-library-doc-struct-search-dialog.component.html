@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{'physicLib.search.searchDocStructLink'|translate}}</h1>
+<div mat-dialog-content>
+  <app-documentary-structure-search-bar [associated]="data?.associated"></app-documentary-structure-search-bar>
+  <app-physical-library-doc-struct-search-list (docStruct)="onChangeDocStruct($event)" (closeDialog)="onNoClick()">
+  </app-physical-library-doc-struct-search-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">{{'action.cancel'|translate}}</button>
+</div>

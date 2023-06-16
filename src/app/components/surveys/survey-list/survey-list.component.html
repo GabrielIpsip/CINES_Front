@@ -1,0 +1,36 @@
+<div id="survey-list">
+
+  <mat-form-field class="filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'survey.searchSurvey'|translate}}">
+    <mat-icon matSuffix id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="right"
+      (click)="tooltip.toggle()" matTooltip="{{'survey.searchInfo'|translate}}" matTooltipClass="help-tooltip">
+      help
+    </mat-icon>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index;">
+      <ng-container *ngIf="i === 0; else elseBlock">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'survey.view.'+column|translate}} </th>
+        <td mat-cell *matCellDef="let element">{{element[column]}}</td>
+      </ng-container>
+      <ng-container *ngIf="i === 1 || i === 2; else elseBlock">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'survey.view.'+column|translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column]|datetools:'yyyy'}} </td>
+      </ng-container>
+      <ng-template #elseBlock>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'survey.view.'+column|translate}} </th>
+        <td mat-cell *matCellDef="let element">
+          {{'db.states.'+element[column].name|translate}} </td>
+      </ng-template>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+      routerLink="/surveys/{{element.id}}">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+</div>

@@ -1,0 +1,32 @@
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+h1.mat-subheader {
+  font-size: 25px;
+}
+
+button.mat-flat-button.mat-line {
+  width: 300px;
+}
+
+.mat-expansion-panel-header {
+  background: white;
+}
+
+.mat-expansion-panel-header.mat-expanded,
+.mat-expansion-panel-header.mat-expanded:hover,
+.mat-expansion-panel-header.mat-expanded:focus {
+    background-color: #000091;
+}
+
+.mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-title,
+.mat-expansion-panel-header.mat-expanded:hover .mat-expansion-panel-header-title,
+.mat-expansion-panel-header.mat-expanded:focus .mat-expansion-panel-header-title {
+  color: whitesmoke;
+}
+
+.background-highlight {
+  background-color: #000091;
+  color: white;
+}

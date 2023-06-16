@@ -1,0 +1,40 @@
+<mat-form-field appearance="fill" id="administration-type-form">
+  <mat-label>{{'broadcast.chart.chooseAdministrationType'|translate}}</mat-label>
+  <mat-select [(ngModel)]="administrationType" (selectionChange)="updateAdministration()">
+    <mat-option *ngFor="let adminType of administrationTypeEnum|keyvalue:returnZero" [value]="adminType.value">
+      {{'db.administrationTypes.' + adminType.value|translate}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<ng-container
+  *ngIf="administrationsToShow != null && selectedYear != null && administrationsToShow?.length > 0; else noAdministration">
+  <mat-form-field *ngIf="multiple" appearance="fill" class="administration-form">
+    <mat-label>{{'broadcast.chart.chooseAdministration'|translate}}</mat-label>
+    <mat-select (selectionChange)="onChangeAdministration($event)" multiple>
+      <mat-option *ngFor="let administration of administrationsToShow" [value]="administration"
+        [title]="administration.useName">
+        {{administration.useName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="!multiple" appearance="fill" class="administration-form">
+    <mat-label>{{'broadcast.chart.chooseAdministration'|translate}}</mat-label>
+    <mat-select (selectionChange)="onChangeAdministration($event)">
+      <mat-option *ngFor="let administration of administrationsToShow" [value]="administration"
+        [title]="administration.useName">
+        {{administration.useName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-container>
+
+<ng-template #noAdministration>
+  <mat-form-field appearance="fill" *ngIf="administrationType != null" class="administration-form">
+    <mat-label>{{'broadcast.chart.noAdministration'|translate}}</mat-label>
+    <mat-select disabled>
+
+    </mat-select>
+  </mat-form-field>
+</ng-template>

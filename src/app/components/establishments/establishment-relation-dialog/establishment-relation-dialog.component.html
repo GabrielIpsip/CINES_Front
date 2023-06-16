@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>{{'establishment.view.addRelation'|translate}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="relationForm">
+        <mat-form-field>
+            <mat-label>{{'establishment.view.relationType'|translate}}</mat-label>
+            <mat-select formControlName="typeForm">
+                <mat-option *ngFor="let type of listRelationTypes" [value]="type.id">
+                    {{'db.relationTypes.'+type.name|translate}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="date-form">
+            <mat-label>{{'establishment.view.chooseStartDate'|translate}}</mat-label>
+            <input matInput [matDatepicker]="pickerStartDate" placeholder="{{'pattern.datePlaceHolder'|translate}}"
+                formControlName="startDateForm" [max]="f.endDateForm.value" required>
+            <mat-hint align="start"><strong>{{f.startDateForm.value| date :'longDate':'':locale}}</strong> </mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStartDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="date-form">
+            <mat-label>{{'establishment.view.chooseEndDate'|translate}}</mat-label>
+            <input matInput [matDatepicker]="pickerEndDate" placeholder="{{'pattern.datePlaceHolder'|translate}}"
+                formControlName="endDateForm" [min]="f.startDateForm.value">
+            <mat-hint align="start"><strong>{{f.endDateForm.value| date :'longDate':'':locale}}</strong> </mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEndDate></mat-datepicker>
+        </mat-form-field>
+    </form>
+    <app-establishment-search-bar></app-establishment-search-bar>
+    <app-establishment-relation-search-list [resultEstablishmentId]="resultEstablishmentId"
+        [validForm]="relationForm.valid" (originEstablishmentId)="onChangeOriginId($event)" (closeDialog)="onNoClick()">
+    </app-establishment-relation-search-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button color="warn" (click)="onNoClick()">{{'action.cancel'|translate}}</button>
+</div>

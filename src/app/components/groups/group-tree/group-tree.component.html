@@ -1,0 +1,49 @@
+<ng-container *ngIf="isExpanded; else collapseButton">
+  <button mat-icon-button color="primary" class="expandButton" (click)="treeControl.collapseAll(); isExpanded = false;">
+    <mat-icon>unfold_less</mat-icon>
+  </button>
+</ng-container>
+<ng-template #collapseButton>
+  <button mat-icon-button color="primary" class="expandButton" (click)="treeControl.expandAll(); isExpanded = true;">
+    <mat-icon>unfold_more</mat-icon>
+  </button>
+</ng-template>
+<h3 *ngIf="!administration">{{'survey.groups'|translate}}</h3>
+<button mat-stroked-button *ngIf="editMode" color="primary" id="create-group-button"
+  (click)="openCreateGroupDialog()">{{'group.create'|translate}}</button>
+<button *ngIf="administration" mat-button color="primary" class="admin-title" title="{{administration.useName}}"
+  (click)="isShowed = !isShowed">{{administration.useName}}</button>
+
+<mat-tree #groupTree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="isShowed">
+  <!-- This is the tree node template for leaf nodes -->
+  <mat-tree-node *matTreeNodeDef="let group" matTreeNodePadding matTreeNodePaddingIndent="12" [ngClass]="{ 'background-highlight': activeNode === group && administration,
+    'background-highlight-all-group': activeNode === group && !administration, 
+    'missing-group': missingGroupsAnswered?.includes(group.id), 
+    'missing-parent-group': missingParentGroupsAnswered?.includes(group.id) }">
+    <!-- use a disabled button to provide padding for tree leaf -->
+    <button mat-icon-button disabled></button>
+    <button mat-button class="button-title" (click)="onChangeSelectedGroup(group); activeNode = group"
+      title="{{group.title}}" [color]="group.color">{{group.title}}</button>
+  </mat-tree-node>
+
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-tree-node *matTreeNodeDef="let group;when: hasChild" matTreeNodePadding matTreeNodePaddingIndent="12" [ngClass]="{ 'background-highlight': activeNode === group && administration,
+    'background-highlight-all-group': activeNode === group && !administration, 
+    'missing-group': missingGroupsAnswered?.includes(group.id),
+    'missing-parent-group': missingParentGroupsAnswered?.includes(group.id) }">
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + group.title" [color]="group.color">
+      <mat-icon mat-button class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(group) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    <button mat-button class="button-title" title="{{group.title}}" [color]="group.color"
+      (click)="onChangeSelectedGroup(group); treeControl.expand(group); activeNode = group">{{group.title}}</button>
+  </mat-tree-node>
+
+</mat-tree>
+
+<ng-container *ngFor="let physicLib of associatedPhysicLib">
+  <app-group-subgroup-physic-lib [physicLib]="physicLib" [allGroupList]="allGroupList"
+    [missingGroupsAnswered]="missingGroupsAnswered" [missingParentGroupsAnswered]="missingParentGroupsAnswered">
+  </app-group-subgroup-physic-lib>
+</ng-container>

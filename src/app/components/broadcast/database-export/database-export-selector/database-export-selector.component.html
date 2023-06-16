@@ -1,0 +1,37 @@
+<div>
+  <mat-form-field appearance="fill" class="espace">
+    <mat-label>{{'info.encoding'|translate}}</mat-label>
+    <mat-select [(ngModel)]="encodingSelected">
+      <mat-option *ngFor="let encoding of encodingFormats | keyvalue" [value]="encoding.value">
+        {{'info.' + encoding.value|translate}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="espace">
+    <mat-label>{{'info.level'|translate}}</mat-label>
+    <mat-select [(ngModel)]="typeSelected">
+      <mat-option *ngFor="let adminType of administrationTypes | keyvalue:returnZero" [value]="adminType.value">
+        {{'db.administrationTypes.' + adminType.value | translate}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+<mat-checkbox [(ngModel)]="generalInfo" class="espace margin-bottom">{{'info.generalInfo'|translate}}</mat-checkbox>
+<mat-icon id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="right" (click)="tooltip.toggle()"
+  [matTooltip]="'broadcast.exportData.generalInfoExplanation'|translate" class="general-info-tooltip">help
+</mat-icon>
+
+<mat-form-field appearance="fill" class="espace block">
+  <mat-label>{{'info.years'|translate}}</mat-label>
+  <mat-select [(ngModel)]="yearSelected">
+    <mat-option *ngIf="!generalInfo" value="all">{{'info.all'|translate}}</mat-option>
+    <mat-option *ngFor="let date of dateList" [value]="date">{{date}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-flat-button color="primary" [disabled]="yearSelected == null || typeSelected == null 
+|| encodingSelected == null || (generalInfo && yearSelected === 'all')" (click)="downloadFile()"
+  class="espace block">{{'action.download'|translate}}</button>

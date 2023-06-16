@@ -1,0 +1,13 @@
+{
+  "elasticsearchUrl": "http://localhost:9200",
+  "elasticsearchUsername": "adminesgbu",
+  "elasticsearchPassword": "123456",
+  "apiUrl": "http://localhost:8000",
+  "log": true,
+  "mercureUrl": "http://localhost:3000/.well-known/mercure",
+  "platform": "local"
+}
+
+
+
+

@@ -1,0 +1,43 @@
+<mat-toolbar class="app-toolbar menu mat-elevation-z5">
+  <button mat-icon-button (click)="snav.toggle();sendResizeWindow()" *ngIf="currentUser?.id !== 1">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img src="assets/img/ESGBU_blanc_RVB.svg" class="clickable" routerLink="/" alt="{{'app.name'|translate}}"
+    width="100px" height="45px" /><span id="app-version">{{appVersion}}</span>
+  <span *ngIf="appPlatform" id="platform">{{appPlatform}}</span>
+  <span class="spacer"></span>
+  <h2 class="title-bar" title="{{esgbuService.titleOfTitleObs | async}}">{{esgbuService.titleObs | async}}</h2>
+  <span class="spacer"></span>
+
+  <!-- <button mat-button id="info-update" #tooltip="matTooltip" matTooltipPosition="below" (click)="tooltip.toggle()"
+    matTooltip="{{'app.updateInfoMess'|translate}}" matTooltipClass="tooltipUpdateInfo" *ngIf="currentUser?.id > 1">
+    <mat-icon>update</mat-icon>
+    {{'app.updateInfoLabel'|translate}}
+  </button> -->
+
+  <app-loggin></app-loggin>
+  <a *ngFor="let lang of langs" (click)="onChangeLang(lang.language)"
+    class="fi fi-{{lang.country}} clickable" title="{{'app.lang.'+lang.country|translate}}"></a>
+</mat-toolbar>
+
+<mat-sidenav-container autosize class="main-container">
+  <mat-sidenav mode="side" [opened]="currentUser?.id !== 1" class="main-menu menu" #snav>
+    <ng-container *ngIf="currentUser?.id > 1">
+      <app-main-menu #mainMenu [broadcastAllMenuUrl]="broadcastMenu?.allMenuUrl"
+        [footerAllMenuUrl]="footerBar?.allMenuUrl"></app-main-menu>
+      <div class="vertical-space"></div>
+    </ng-container>
+    <app-broadcast-main-menu #broadcastMenu id="broadcast-menu" [mainMenuAllMenuUrl]="mainMenu?.allMenuUrl"
+      [footerAllMenuUrl]="footerBar?.allMenuUrl">
+    </app-broadcast-main-menu>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-loader></app-loader>
+    <section class="content-viewer">
+      <router-outlet></router-outlet>
+    </section>
+    <app-footer-bar #footerBar></app-footer-bar>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

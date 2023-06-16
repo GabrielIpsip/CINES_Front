@@ -1,0 +1,40 @@
+#footer {
+  width: 100%;
+  z-index: 10000;
+  text-align: left;
+  border-top: 1px solid rgba(150, 150, 150, 0.637);
+  padding-top: 4px;
+  padding-bottom: 4px;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  max-height: 37px;
+  overflow-x: auto;
+}
+
+
+#api-version {
+  text-decoration: none;
+  color: grey;
+  font-size: 13px;
+}
+
+#footer a .mat-button {
+  text-decoration: none;
+  color: black;
+  margin-left: 5px;
+}
+
+#powered-cines {
+  font-style: italic;
+  font-size: 13px;
+  text-decoration: none;
+  color: black;
+}
+
+#cines {
+  color: #134444;
+  font-size: 14px;
+  font-style: normal;
+  margin-left: 2px;
+}

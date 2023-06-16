@@ -1,0 +1,55 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+
+  <mat-step [editable]="false" [completed]="false">
+    <ng-template matStepLabel>{{'user.firstConnection.CGUTitle'|translate}}</ng-template>
+
+    <h1>Conditions d'utilisation</h1>
+
+    <p>Avant de demander la création de votre profil dans l'application, veuillez prendre connaissance des conditions
+      générales d'utilisation.</p>
+
+    <p>L'application est destinée aux personnes habilitées à répondre à l'enquête pour leur établissement. Le profil
+      utilisateur est défini par
+      l'appartenance à une structure documentaire et un rôle dans l'alimentation de l'enquête. L'utilisateur devra
+      fournir ses coordonnées
+      professionnelles à jour et vérifier l'exactitude des informations le concernant.</p>
+
+    <p>Le DiCoDoc se réserve le droit de refuser une demande d'inscription au service si l'utilisateur ne remplit pas les
+      conditions d'utilisation.</p>
+
+    <p>L'utilisateur pourra à l'issue de ses missions pour son établissement demander sa désinscription.</p>
+
+    <p>L'application permet de saisir les données pour son établissement, de les transmettre au DiCoDoc administrateur de
+      l'enquête, de les exporter.</p>
+
+    <button mat-flat-button color="accent" (click)="onAcceptCondition(stepper)">{{'action.confirm'|translate}}</button>
+  </mat-step>
+
+  <mat-step [editable]="true" [completed]="false">
+    <ng-template matStepLabel>{{'user.firstConnection.createUserTitle'|translate}}</ng-template>
+    <app-user-view [user]="user" [firstConnection]="true"></app-user-view>
+    <button mat-flat-button color="primary" (click)="onCreateUser(stepper)"
+      [disabled]="!userView?.userForm?.valid">{{'action.create'|translate}}</button>
+  </mat-step>
+
+  <mat-step [editable]="true" [completed]="false">
+    <ng-template matStepLabel>{{'user.firstConnection.createRoleTitle'|translate}}</ng-template>
+    <app-user-role-list (disabledAddRoleEvent)="onDisableButton($event)" [editMode]="true" [firstConnection]="true">
+    </app-user-role-list>
+    <button mat-stroked-button matStepperPrevious>{{'action.return'|translate}}</button>
+    <button mat-flat-button color="primary" (click)="onCreateRole(stepper)"
+      [disabled]="disabledAddRole">{{'action.choose'|translate}}</button>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>{{'user.firstConnection.doneTitle'|translate}}</ng-template>
+    <p>{{'user.firstConnection.doneMess'|translate}}</p>
+    <p>{{'user.firstConnection.mailMess'|translate}}</p>
+    <p><strong>{{'user.firstConnection.doneConfirmMess'|translate}}</strong></p>
+    <div>
+      <button mat-stroked-button matStepperPrevious>{{'action.return'|translate}}</button>
+      <button mat-flat-button color="accent" (click)="onConfirm()">{{'action.confirm'|translate}}</button>
+    </div>
+  </mat-step>
+
+</mat-horizontal-stepper>

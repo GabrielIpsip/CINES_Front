@@ -1,0 +1,30 @@
+<form [formGroup]="searchFields" id="number-form-container">
+
+  <mat-form-field class="full-width no-padding-bottom" [appearance]="appearance">
+    <mat-label>{{dataType.name}}</mat-label>
+    <mat-select #selectNumberRadio formControlName="{{controlName}}" multiple>
+      <mat-option *ngIf="min !== quart1" [value]="min + '|' + quart1" (click)="selectNumberRadio.close()">
+        {{min|number:'.0-2':locale}}{{unitSymbol}} - {{quart1|number:'.0-2':locale}}{{unitSymbol}}
+      </mat-option>
+      <mat-option *ngIf="quart1 !== quart2" [value]="quart1 + '|' + quart2" (click)="selectNumberRadio.close()">
+        {{quart1|number:'.0-2':locale}}{{unitSymbol}} - {{quart2|number:'.0-2':locale}}{{unitSymbol}}
+      </mat-option>
+      <mat-option *ngIf="quart2 !== quart3" [value]="quart2 + '|' + quart3" (click)="selectNumberRadio.close()">
+        {{quart2|number:'.0-2':locale}}{{unitSymbol}} - {{quart3|number:'.0-2':locale}}{{unitSymbol}}
+      </mat-option>
+      <mat-option *ngIf="quart3 !== quart4" [value]="quart3 + '|' + quart4" (click)="selectNumberRadio.close()">
+        {{quart3|number:'.0-2':locale}}{{unitSymbol}} - {{quart4|number:'.0-2':locale}}{{unitSymbol}}
+      </mat-option>
+      <mat-option *ngIf="quart4 !== max" [value]="quart4 + '|' + max" (click)="selectNumberRadio.close()">
+        {{quart4|number:'.0-2':locale}}{{unitSymbol}} - {{max|number:'.0-2':locale}}{{unitSymbol}}
+      </mat-option>
+    </mat-select>
+
+    <mat-icon *ngIf="dataType.measureUnit != null && dataType.measureUnit.length > 2" matSuffix id="help"
+      color="primary" #tooltip="matTooltip" matTooltipPosition="right" (click)="tooltip.toggle()"
+      matTooltip="{{'dataType.measureUnit'|translate}} : {{dataType.measureUnit}}" matTooltipClass="help-tooltip">
+      help
+    </mat-icon>
+  </mat-form-field>
+
+</form>

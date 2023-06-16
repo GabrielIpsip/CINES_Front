@@ -1,0 +1,117 @@
+/* You can add global styles to this file, and also import other style files */
+$roboto-font-path: "~roboto-fontface/fonts" !default;
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface";
+
+@import 'material-icons/iconfont/material-icons.scss';
+
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+@import "../node_modules/jsoneditor/dist/jsoneditor.min.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+h2 {
+  font-size: large;
+}
+
+.mat-tooltip {
+  font-size: 14px;
+}
+
+.static-content {
+  max-width: 1024px;
+  margin-top: -15px;
+}
+
+.mat-sort-header-arrow {
+  color: #ff4081;
+}
+
+// For remove horizontal scrollbar in group sidenav.
+.mat-drawer-inner-container {
+  overflow-x: hidden !important;
+}
+
+/* Success styling. */
+
+$success-color: #226632;
+
+.mat-button.mat-success,
+.mat-stroked-button.mat-success {
+  color: $success-color;
+}
+.mat-button.mat-success:hover,
+.mat-stroked-button.mat-success:hover {
+  background-color: #f0fff3;
+}
+
+.mat-raised-button.mat-success,
+.mat-flat-button.mat-success,
+.mat-fab.mat-success,
+.mat-mini-fab.mat-success {
+  color: #f0fff3;
+  background-color:$success-color;
+}
+
+.mat-icon-button.mat-success {
+  color: $success-color;
+}
+
+.mat-success .mat-progress-bar-fill::after {
+  background-color: $success-color;
+}
+
+.success {
+  color: $success-color;
+}
+
+/* broadcast styling. */
+
+$broadcast-color: #673ab7;
+
+.mat-button.mat-broadcast,
+.mat-stroked-button.mat-broadcast {
+  color:$broadcast-color;
+}
+.mat-button.mat-broadcast:hover,
+.mat-stroked-button.mat-broadcast:hover {
+  background-color: #dac4ff18;
+}
+
+.mat-raised-button.mat-broadcast,
+.mat-flat-button.mat-broadcast,
+.mat-fab.mat-broadcast,
+.mat-mini-fab.mat-broadcast {
+  color: #f8f4ff;
+  background-color: $broadcast-color;
+}
+
+.mat-icon-button.mat-broadcast {
+  color: $broadcast-color;
+}
+
+.mat-broadcast .mat-progress-bar-fill::after {
+  background-color: $broadcast-color;
+}
+
+.broadcast {
+  color: $broadcast-color;
+}
+
+// Fix issue in sticky header in mat-table
+
+.tab-custom-overflow .mat-tab-body-wrapper {
+  overflow: visible !important;
+}
+.tab-custom-overflow .mat-tab-body-active {
+  overflow: visible !important;
+}
+.tab-custom-overflow .mat-tab-body-content {
+  overflow: visible !important;
+}

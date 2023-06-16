@@ -1,0 +1,197 @@
+<mat-sidenav-container class="group-menu" autosize>
+
+  <mat-sidenav #groupSidenav mode="side" class="search-nav" id="form-container" [disableClose]="true" opened>
+
+    <nav class="custom-mode-tab-container">
+      <button mat-button (click)="setSimpleMode(true)" [ngClass]="isSimpleMode ? 'selected' : 'not-selected'">
+        {{'broadcast.simplifiedMode'|translate}}</button>
+      <button mat-button (click)="setSimpleMode(false)" [ngClass]="!isSimpleMode ? 'selected' : 'not-selected'">
+        {{'broadcast.advancedMode'|translate}}</button>
+    </nav>
+
+    <form [formGroup]="searchFields">
+
+      <button mat-mini-fab color="warn" id="trash-icon" (click)="cleanAllForm()" #tooltip="matTooltip"
+        matTooltipPosition="right" matTooltip="{{'broadcast.resetFacets'|translate}}">
+        <mat-icon><img id="clean-icon" src="assets/img/broom-cleaning.svg" /></mat-icon>
+      </button>
+
+      <h4>{{'info.years'|translate}}</h4>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label [ngClass]="{'all-years-label' : f.dateForm.value?.length === 0}">
+          {{'info.' + (f.dateForm.value?.length > 0 ? 'years' : 'allYears')|translate}}</mat-label>
+        <mat-select formControlName="dateForm" multiple>
+          <mat-option *ngFor="let date of dateList" [value]="date">{{date}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <h4>{{'db.administrationTypes.institution'|translate}}</h4>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'establishment.establishmentName'|translate}}</mat-label>
+        <input matInput formControlName="establishmentNameForm">
+        <mat-checkbox matSuffix formControlName="establishmentExactNameCheckBox">{{'info.exact'|translate}}
+        </mat-checkbox>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'establishment.establishmentPostalCode'|translate}}</mat-label>
+        <input matInput formControlName="establishmentPostalCodeForm" maxlength="5">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'establishment.establishmentAddress'|translate}}</mat-label>
+        <input matInput formControlName="establishmentAddressForm">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'establishment.establishmentDepartment'|translate}}</mat-label>
+        <mat-select #establishmentDepartmentForm formControlName="establishmentDepartmentForm" multiple>
+          <mat-option *ngFor="let department of departmentList" [value]="department"
+            (click)="establishmentDepartmentForm.close()">{{department}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'establishment.establishmentRegion'|translate}}</mat-label>
+        <mat-select #establishmentRegionForm formControlName="establishmentRegionForm" multiple>
+          <mat-option *ngFor="let region of regionList" [value]="region" (click)="establishmentRegionForm.close()">
+            {{region}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'establishment.establishmentType'|translate}}</mat-label>
+        <mat-select #establishmentTypeForm formControlName="establishmentTypeForm" multiple>
+          <mat-option *ngFor="let type of typeList" [value]="type" (click)="establishmentTypeForm.close()">{{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </form>
+
+    <app-data-selector-data-type *ngIf="!isSimpleMode" [searchFields]="searchFields"
+      [dataSelector]="establishmentDataSelector">
+    </app-data-selector-data-type>
+
+    <app-data-selector-simple-data-type *ngIf="isSimpleMode" [searchFields]="searchFields"
+      [dataSelector]="establishmentDataSelector"></app-data-selector-simple-data-type>
+
+    <h4>{{'db.administrationTypes.documentaryStructure'|translate}}</h4>
+
+    <form [formGroup]="searchFields">
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'docStruct.docStructName'|translate}}</mat-label>
+        <input matInput formControlName="docStructNameForm">
+        <mat-checkbox matSuffix formControlName="docStructExactNameCheckBox">{{'info.exact'|translate}}</mat-checkbox>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'docStruct.docStructPostalCode'|translate}}</mat-label>
+        <input matInput formControlName="docStructPostalCodeForm" maxlength="5">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'docStruct.docStructAddress'|translate}}</mat-label>
+        <input matInput formControlName="docStructAddressForm">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'docStruct.docStructDepartment'|translate}}</mat-label>
+        <mat-select #docStructDepartmentForm formControlName="docStructDepartmentForm" multiple>
+          <mat-option *ngFor="let department of departmentList" [value]="department"
+            (click)="docStructDepartmentForm.close()">{{department}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'docStruct.docStructRegion'|translate}}</mat-label>
+        <mat-select #docStructRegionForm formControlName="docStructRegionForm" multiple>
+          <mat-option *ngFor="let region of regionList" [value]="region" (click)="docStructRegionForm.close()">
+            {{region}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </form>
+
+    <app-data-selector-data-type *ngIf="!isSimpleMode" [searchFields]="searchFields"
+      [dataSelector]="docStructDataSelector">
+    </app-data-selector-data-type>
+
+    <app-data-selector-simple-data-type *ngIf="isSimpleMode" [searchFields]="searchFields"
+      [dataSelector]="docStructDataSelector"></app-data-selector-simple-data-type>
+
+    <h4>{{'db.administrationTypes.physicalLibrary'|translate}}</h4>
+
+    <form [formGroup]="searchFields">
+
+      <mat-checkbox class="fict-check-box" formControlName="physicLibFictitiousCheckBox">
+        {{'physicLib.view.fictitious'|translate}}
+      </mat-checkbox>
+      <mat-checkbox class="fict-check-box" formControlName="physicLibPhysicalCheckBox">
+        {{'physicLib.view.physic'|translate}}
+      </mat-checkbox>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'physicLib.physicLibName'|translate}}</mat-label>
+        <input matInput formControlName="physicLibNameForm">
+        <mat-checkbox matSuffix formControlName="physicLibExactNameCheckBox">{{'info.exact'|translate}}</mat-checkbox>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'physicLib.physicLibPostalCode'|translate}}</mat-label>
+        <input matInput formControlName="physicLibPostalCodeForm" maxlength="5">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'physicLib.physicLibAddress'|translate}}</mat-label>
+        <input matInput formControlName="physicLibAddressForm">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'physicLib.physicLibDepartment'|translate}}</mat-label>
+        <mat-select #physicLibDepartmentForm formControlName="physicLibDepartmentForm" multiple>
+          <mat-option *ngFor="let department of departmentList" [value]="department"
+            (click)="physicLibDepartmentForm.close()">{{department}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width no-padding-bottom">
+        <mat-label>{{'physicLib.physicLibRegion'|translate}}</mat-label>
+        <mat-select #physicLibRegionForm formControlName="physicLibRegionForm" multiple>
+          <mat-option *ngFor="let region of regionList" [value]="region" (click)="physicLibRegionForm.close()">
+            {{region}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </form>
+
+    <app-data-selector-data-type *ngIf="!isSimpleMode" [searchFields]="searchFields"
+      [dataSelector]="physicLibDataSelector">
+    </app-data-selector-data-type>
+
+    <app-data-selector-simple-data-type *ngIf="isSimpleMode" [searchFields]="searchFields"
+      [dataSelector]="physicLibDataSelector"></app-data-selector-simple-data-type>
+
+    <div class="spacer"></div>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content id="content">
+    <section id="search-content">
+      <app-data-selector-search-list (selectedAdministrationType)="onTabChange($event)"
+        (validateSelection)="onValidateSelection()" [institutionList]="institutionsResultList"
+        [docStructList]="docStructResultList" [physicLibList]="physicLibResultList" [nbResult]="nbResult">
+      </app-data-selector-search-list>
+    </section>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

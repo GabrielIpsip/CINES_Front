@@ -1,0 +1,33 @@
+<ng-container *ngIf="currentSurvey; else noOpenSurvey">
+  <ng-container *ngIf="isDiCoDoc">
+
+    <button mat-button routerLink="/surveys/{{currentSurvey?.id}}">
+      <h1>{{currentSurvey?.name}}</h1>
+    </button>
+
+    <mat-card>
+      <mat-card-content>
+        <h2 class="global-progress-title">{{'survey.globalProgress'|translate}}</h2>
+        <section class="global-progress-section">
+          <mat-progress-bar class="global-progress-margin" [value]="globalProgress">
+          </mat-progress-bar>
+          <strong>{{globalProgress|number:'.0-2'}}%</strong>
+        </section>
+      </mat-card-content>
+    </mat-card>
+
+    <app-database-export-active-survey [survey]="currentSurvey"></app-database-export-active-survey>
+
+    <app-establishment-search [progressMode]="true" [totalProgressMode]="true" [survey]="currentSurvey">
+    </app-establishment-search>
+
+  </ng-container>
+
+  <ng-container *ngIf="isDocStructUser && !isDiCoDoc">
+    <app-survey-consult-current-doc-struct [survey]="currentSurvey"></app-survey-consult-current-doc-struct>
+  </ng-container>
+</ng-container>
+
+<ng-template #noOpenSurvey>
+  <h2>{{noSurveyCodeMessage|translate}}</h2>
+</ng-template>

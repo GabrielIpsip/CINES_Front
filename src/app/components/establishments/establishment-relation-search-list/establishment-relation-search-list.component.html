@@ -1,0 +1,23 @@
+<app-loader></app-loader>
+<ng-container *ngIf="!(loaderService.isLoading|async)">
+  <div *ngIf="searchResult | async as result">
+    <div *ngIf="result.length > 0; else noResult">
+      <ng-container *ngFor="let establishment of result">
+        <mat-card *ngIf="resultEstablishmentId != establishment.id">
+          <div class="establishment-name" title="{{establishment.useName}}">({{establishment.id}})
+            {{ establishment.useName }}</div>
+          <button class="add-relation-button" mat-flat-button color="accent" [disabled]="!validForm"
+            (click)="onAddRelation(establishment.id)">{{'action.add'|translate}}</button>
+        </mat-card>
+      </ng-container>
+    </div>
+    <ng-template #noResult>
+      <div class="error-message" *ngIf="(hasSearch | async)">
+        {{'error.noEstablishmentFound'|translate}}
+        <button class="create-establishment-button" mat-flat-button color="accent"
+        [disabled]="rightsChecker.disabled('/establishments/create')"
+          (click)="onCreateRelation()">{{'app.establishments.create'|translate}}</button></div>
+    </ng-template>
+    <div *ngIf="result.length === 1 && result[0].id == resultEstablishmentId; then noResult"></div>
+  </div>
+</ng-container>

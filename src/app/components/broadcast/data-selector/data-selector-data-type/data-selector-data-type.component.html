@@ -1,0 +1,71 @@
+<form [formGroup]="dataSelector.dataTypeSearchFields">
+
+  <mat-form-field appearance="outline" class="full-width no-padding-bottom data-type-selector"
+    *ngIf="getDataTypeBool()?.length > 0">
+    <mat-label>{{'dataType.boolData'|translate}}</mat-label>
+    <mat-select #dataTypeBoolSelect formControlName="dataTypeBoolForm" multiple>
+      <mat-option *ngFor="let dataType of getDataTypeBool()" [value]="dataType.code" title="{{dataType.name}}"
+        (click)="dataTypeBoolSelect.close()">
+        {{dataType.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <form [formGroup]="searchFields">
+    <ng-container *ngFor="let field of searchFields.controls|keyvalue">
+      <ng-container *ngIf="field.key.startsWith(dataSelector.getAdministrationType())
+        && dataSelector.getTypeOfField(field.key) === fieldTypeEnum.bool">
+        <mat-checkbox class="block" formControlName="{{field.key}}">
+          {{dataSelector.getDataTypeOfField(field.key).name}}
+        </mat-checkbox>
+      </ng-container>
+    </ng-container>
+  </form>
+
+  <mat-form-field appearance="outline" class="full-width no-padding-bottom data-type-selector"
+    *ngIf="getDataTypeText()?.length > 0">
+    <mat-label>{{'dataType.textData'|translate}}</mat-label>
+    <mat-select #dataTypeTextSelect formControlName="dataTypeTextForm" multiple>
+      <ng-container>
+        <mat-option *ngFor="let dataType of getDataTypeText()" [value]="dataType.code" title="{{dataType.name}}"
+          (click)="dataTypeTextSelect.close()">
+          {{dataType.name}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+
+  <form [formGroup]="searchFields">
+    <ng-container *ngFor="let field of searchFields.controls|keyvalue">
+
+      <app-data-selector-data-type-text *ngIf="field.key.startsWith(dataSelector.getAdministrationType())
+        && dataSelector.getTypeOfField(field.key) === fieldTypeEnum.text" [controlName]="field.key"
+        [dataType]="dataSelector.getDataTypeOfField(field.key)" [searchFields]="searchFields">
+      </app-data-selector-data-type-text>
+
+    </ng-container>
+  </form>
+
+  <mat-form-field appearance="outline" class="full-width no-padding-bottom data-type-selector"
+    *ngIf="getDataTypeNumber()?.length > 0">
+    <mat-label>{{'dataType.numberData'|translate}}</mat-label>
+    <mat-select #dataTypeNumberSelect formControlName="dataTypeNumberForm" multiple>
+      <mat-option *ngFor="let dataType of getDataTypeNumber()" [value]="dataType.code" title="{{dataType.name}}"
+        (click)="dataTypeNumberSelect.close()">
+        {{dataType.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <form [formGroup]="searchFields">
+    <ng-container *ngFor="let field of searchFields.controls|keyvalue">
+      <ng-container *ngIf="field.key.startsWith(dataSelector.getAdministrationType())
+        && dataSelector.getTypeOfField(field.key) === fieldTypeEnum.number">
+        <app-data-selector-data-type-number [dataType]="dataSelector.getDataTypeOfField(field.key)"
+          [controlName]="field.key" [searchFields]="searchFields"
+          [administrationType]="dataSelector.getAdministrationType()" [dataSelector]="dataSelector">
+        </app-data-selector-data-type-number>
+      </ng-container>
+    </ng-container>
+  </form>
+</form>

@@ -1,0 +1,10 @@
+<div *ngIf="physicLibToUpdate">
+  <div class="update-form">
+    <button *ngIf="physicLibView" mat-flat-button mat-line color="accent" (click)="updatePhysicLib()"
+      [disabled]="!physicLibView.isValid()">{{'docStruct.update'|translate}}</button>
+    <button mat-stroked-button mat-line
+      routerLink="/physical-libraries/{{physicLibId}}">{{'action.cancel'|translate}}</button>
+    <app-physical-library-view class="app-view" [physicLib]="physicLibToUpdate">
+    </app-physical-library-view>
+  </div>
+</div>

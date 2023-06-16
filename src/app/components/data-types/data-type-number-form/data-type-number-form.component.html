@@ -1,0 +1,36 @@
+<mat-form-field class="dynamic-input" [formGroup]=surveyForm>
+
+  <input class="right" type="text" matInput [formControl]="f" (change)="onChangeValue()" [lang]="defaultLang"
+    (keydown)="replaceSeparator($event)">
+  <mat-icon matPrefix id="help" color="primary" #tooltip="matTooltip" matTooltipPosition="left"
+    (click)="tooltip.toggle()" [matTooltip]="getInfoMessage()" matTooltipClass="tooltip" class="tooltip">help
+  </mat-icon>
+  <mat-error *ngIf="f.hasError('strMax')">
+    {{'error.max'|translate}}
+  </mat-error>
+  <mat-error *ngIf="f.hasError('strMin')">
+    {{'error.min'|translate}}
+  </mat-error>
+  <mat-error *ngIf="f.hasError('pattern')">
+    {{'error.value'|translate}}
+  </mat-error>
+  <mat-error *ngIf="f.hasError('integer')">
+    {{'error.integer'|translate}}
+  </mat-error>
+
+</mat-form-field>
+
+<mat-icon *ngIf="minAlertObs | async" class="warning" #tooltip="matTooltip" (click)="tooltip.toggle()"
+  matTooltipClass="tooltip" matTooltipPosition="right" [matTooltip]="getAlertMinMessage()">warning</mat-icon>
+
+<mat-icon *ngIf="maxAlertObs | async" class="warning" #tooltip="matTooltip" (click)="tooltip.toggle()"
+  matTooltipClass="tooltip" matTooltipPosition="right" [matTooltip]="getAlertMaxMessage()">warning</mat-icon>
+
+<mat-icon *ngIf="evolutionMinAlertObs | async" class="warning" #tooltip="matTooltip" (click)="tooltip.toggle()"
+  matTooltipClass="tooltip" matTooltipPosition="right" [matTooltip]="getAlertEvolutionMinMessage()">warning</mat-icon>
+
+<mat-icon *ngIf="evolutionMaxAlertObs | async" class="warning" #tooltip="matTooltip" (click)="tooltip.toggle()"
+  matTooltipClass="tooltip" matTooltipPosition="right" [matTooltip]="getAlertEvolutionMaxMessage()">warning</mat-icon>
+
+<mat-icon *ngIf="(depDocAlertObs | async)?.error" class="warning" #tooltip="matTooltip" (click)="tooltip.toggle()"
+  matTooltipClass="tooltip" matTooltipPosition="right" [matTooltip]="getAlertDepDocMessage()">warning</mat-icon>

@@ -1,0 +1,49 @@
+.mat-list-base .mat-list-item .mat-line:nth-child(n + 2) {
+  margin-left: 15px;
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+.mat-list-base .mat-list-item .mat-line:nth-child(1) {
+  color: grey;
+  margin-bottom: 3px;
+}
+
+.action-button {
+  display: inline-block;
+  margin-top: 15px;
+  margin-right: 5px;
+}
+
+.bib-title {
+  display: inline;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.info-chips {
+  display: inline-block;
+}
+
+.sidenav-info {
+  padding-top: 55px;
+  padding-left: 5px;
+  position: fixed;
+  min-width: 200px;
+}
+
+.app-divider {
+  margin-bottom: 10px;
+}
+
+.html {
+  padding: 0.5rem;
+  min-height: 20px;
+  max-height: 1000px;
+  overflow: auto;
+}
+
+.main-container {
+  height: 100%;
+  background-color: white;
+}

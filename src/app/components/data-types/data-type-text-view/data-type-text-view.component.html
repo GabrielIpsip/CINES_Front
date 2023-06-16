@@ -1,0 +1,42 @@
+<form [formGroup]="constraintForm">
+
+  <p>
+    <strong>{{'dataType.defaultValues'|translate}}</strong><br>
+    {{'- ' + ('dataType.texts.minInfo'|translate) + ' ' +  (MIN_LENGHT|number:'':currentLang)}}<br>
+    {{'- ' + ('dataType.texts.maxInfo'|translate) + ' ' + (MAX_LENGTH|number:'':currentLang)}}<br>
+    <br>{{'dataType.texts.textareaInfo'|translate:{value:(MAX_LENGTH|number:'':currentLang)} }}
+    <br>{{'dataType.texts.selectInfo'|translate}}
+  </p>
+
+  <mat-form-field class="number-form">
+    <mat-label>{{'dataType.texts.minLength'|translate}}</mat-label>
+    <input type="number" matInput formControlName="minLengthForm" placeholder="{{'dataType.texts.minLength'|translate}}"
+      (change)="updateValidators()" />
+    <mat-error *ngIf="f.minLengthForm.hasError('min')">
+      {{'error.min'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.minLengthForm.hasError('max')">
+      {{'error.max'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="number-form">
+    <mat-label>{{'dataType.texts.maxLength'|translate}}</mat-label>
+    <input type="number" matInput formControlName="maxLengthForm" placeholder="{{'dataType.texts.maxLength'|translate}}"
+      (change)="updateValidators()" />
+    <mat-error *ngIf="f.maxLengthForm.hasError('min')">
+      {{'error.min'|translate}}
+    </mat-error>
+    <mat-error *ngIf="f.maxLengthForm.hasError('max')">
+      {{'error.max'|translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'dataType.texts.regex'|translate}}</mat-label>
+    <input type="text" matInput formControlName="regexForm" placeholder="{{'dataType.texts.regex'|translate}}" />
+    <mat-error *ngIf="f.regexForm.hasError('maxlength')">
+      {{'error.tooLong'|translate}}
+    </mat-error>
+  </mat-form-field>
+</form>

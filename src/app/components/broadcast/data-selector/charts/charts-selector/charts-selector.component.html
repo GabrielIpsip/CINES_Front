@@ -1,0 +1,38 @@
+<section id="graphic-view">
+
+  <nav id="chart-selector-nav">
+    <mat-form-field appearance="fill" id="chart-selector-form">
+      <mat-label>{{'broadcast.chart.chooseChart'|translate}}</mat-label>
+      <mat-select (selectionChange)="onChangeSelectedChart($event)">
+        <mat-option *ngFor="let chart of chartsAvailable|keyvalue" [value]="chart.key"
+          [title]="'broadcast.chart.' + chart.key|translate" matTooltipClass="chart-img-tooltip"
+          [matTooltip]="getChartImg(chart.key)" matTooltipPosition="right">
+          {{'broadcast.chart.' + chart.key|translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <ng-container *ngIf="selectedChart != null">
+      <app-charts-year-selector #yearForm (selectedYear)="updateYearValue($event)"
+        [multiple]="selectedChart[1].multipleYearSelector">
+      </app-charts-year-selector>
+
+      <app-charts-administration-selector *ngIf="selectedYear?.length > 0"
+        (selectedAdministration)="updateAdministrationValue($event)"
+        [multiple]="selectedChart[1].multipleAdministrationSelector" [selectedYear]="selectedYear">
+      </app-charts-administration-selector>
+
+      <app-charts-variable-selector *ngIf="selectedAdministration?.length > 0"
+        (selectedVariable)="updateVariableValue($event)" [multiple]="selectedChart[1].multipleVariableSelector"
+        [selectedAdministration]="selectedAdministration" [dataTypes]="dataTypes">
+      </app-charts-variable-selector>
+
+    </ng-container>
+  </nav>
+
+  <app-charts-visualization
+    *ngIf="selectedChart != null && selectedAdministration?.length > 0 && selectedVariable?.length > 0"
+    [selectedChart]="selectedChart" [selectedAdministration]="selectedAdministration"
+    [selectedVariable]="selectedVariable" [dataTypes]="dataTypes"></app-charts-visualization>
+
+</section>

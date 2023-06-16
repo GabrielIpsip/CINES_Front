@@ -1,0 +1,59 @@
+.admin-title {
+  margin-right: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline;
+  max-width: 290px;
+}
+
+h3 {
+    margin-left: 10px;
+    display: inline;
+}
+
+.button-title {
+    margin-right: 10px;
+    margin-left: 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.modify-group {
+    position: relative;
+    top: -8px;
+    left: 4px;
+}
+
+.expandButton {
+  display: inline;
+}
+
+.expandButton mat-icon {
+  font-size: 25px;
+}
+
+.mat-tree {
+  width: 360px;
+}
+
+.background-highlight {
+  background-color: #303f9f48;
+}
+
+.background-highlight-all-group {
+  background-color: rgba(185, 184, 184, 0.322);
+}
+
+#create-group-button {
+  margin-left: 20px;
+}
+
+.missing-parent-group {
+  color: chocolate;
+}
+
+.missing-group {
+  color: firebrick !important;
+}

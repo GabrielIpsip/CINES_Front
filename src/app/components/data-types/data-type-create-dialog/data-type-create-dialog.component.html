@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{(data.dataType == null ? 'dataType.create' : 'dataType.edit')|translate}}</h1>
+
+<div mat-dialog-content>
+  <app-data-type-view [dataType]="data.dataType" [administrationType]="data.group.administrationType"
+    [groupList]="data.groupList" [nodes]="data.nodes">
+  </app-data-type-view>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">{{'action.cancel'|translate}}</button>
+  <button mat-flat-button color="primary" (click)="onApplyClick()" [disabled]="!dataTypeView?.isValid()">
+    {{'action.apply'|translate}}</button>
+</div>

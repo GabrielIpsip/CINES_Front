@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{'docStruct.search.searchEstablishmentLink'|translate}}</h1>
+<div mat-dialog-content>
+    <app-establishment-search-bar></app-establishment-search-bar>
+    <app-documentary-structure-establishment-search-list (establishment)="onChangeEstablishment($event)"
+        (closeDialog)="onNoClick()">
+    </app-documentary-structure-establishment-search-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button color="warn" (click)="onNoClick()">{{'action.cancel'|translate}}</button>
+</div>

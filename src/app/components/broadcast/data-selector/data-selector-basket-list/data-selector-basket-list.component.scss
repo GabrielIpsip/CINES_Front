@@ -1,0 +1,27 @@
+mat-card {
+  margin: 10px 5px 1px 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+#clean-button {
+  margin-top: 5px;
+}
+
+.remove-button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.admin-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 0px;
+  width: 95%;
+  padding: 0px;
+}

@@ -1,0 +1,165 @@
+<form [formGroup]="indicatorForm">
+
+    <h2>{{'indicator.informations'|translate}}</h2>
+
+    <mat-tab-group mat-stretch-tabs (selectedTabChange)="onChangeTab($event)" [selectedIndex]="selectedTabIndex"
+        class="tab-container">
+        <mat-tab *ngFor="let lang of langs; index as i" [label]="getTabLabel(i, lang)|translate">
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>{{'indicator.name'|translate}}</mat-label>
+                <input type="text" matInput [formControlName]="'names_' + lang.language"
+                    placeholder="{{'indicator.name'|translate}}"
+                    [required]="lang.language === esgbuService.DEFAULT_LANG" />
+                <mat-error *ngIf="f['names_' + lang.language].hasError('required')">
+                    {{'error.required'|translate}}
+                </mat-error>
+                <mat-error *ngIf="f['names_' + lang.language].hasError('maxlength')">
+                    {{'error.tooLong'|translate}}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>{{'indicator.description'|translate}}</mat-label>
+                <textarea matInput [formControlName]="'descriptions_' + lang.language"
+                    placeholder="{{'indicator.description'|translate}}"></textarea>
+                <mat-error *ngIf="f['descriptions_' + lang.language].hasError('maxlength')">
+                    {{'error.tooLong'|translate}}
+                </mat-error>
+            </mat-form-field>
+
+        </mat-tab>
+    </mat-tab-group>
+
+    <h2>{{'indicator.params'|translate}}</h2>
+
+    <mat-form-field>
+        <mat-label>{{'indicator.displayOrder'|translate}}</mat-label>
+        <input type="number" matInput formControlName="displayOrderForm"
+            placeholder="{{'indicator.displayOrder'|translate}}" required />
+        <mat-error *ngIf="f.displayOrderForm.hasError('required')">
+            {{'error.required'|translate}}
+        </mat-error>
+        <mat-error *ngIf="f.displayOrderForm.hasError('min')">
+            {{'error.min'|translate}}
+        </mat-error>
+    </mat-form-field>
+
+    <div class="checkbox-form-field">
+        <mat-icon id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.activeExplanation'|translate" class="indicator-tooltip first-check-box">help
+        </mat-icon>
+        <mat-checkbox class="checkbox-indicator" formControlName="activeForm">
+            {{'indicator.activeCheckBox'|translate}}
+        </mat-checkbox>
+    </div>
+
+    <div class="checkbox-form-field">
+        <mat-icon id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.keyFigureExplanation'|translate" class="indicator-tooltip">help
+        </mat-icon>
+        <mat-checkbox class="checkbox-indicator" formControlName="keyFigureForm">
+            {{'indicator.keyFigure'|translate}}
+        </mat-checkbox>
+    </div>
+
+    <div class="checkbox-form-field">
+        <mat-icon id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.administratorExplanation'|translate" class="indicator-tooltip">help</mat-icon>
+        <mat-checkbox class="checkbox-indicator" formControlName="administratorForm">
+            {{'indicator.administrator'|translate}}
+        </mat-checkbox>
+    </div>
+
+    <mat-form-field class="input-form">
+        <mat-label>{{'indicator.prefix'|translate}}</mat-label>
+        <input matInput formControlName="prefixForm" placeholder="{{'indicator.prefix'|translate}}" />
+        <mat-icon matSuffix id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.prefixExplanation'|translate" class="indicator-tooltip">help</mat-icon>
+        <mat-error *ngIf="f.prefixForm.hasError('maxlength')">
+            {{'error.tooLong'|translate}}
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-form">
+        <mat-label>{{'indicator.suffix'|translate}}</mat-label>
+        <input matInput formControlName="suffixForm" placeholder="{{'indicator.suffix'|translate}}" />
+        <mat-icon matSuffix id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.suffixExplanation'|translate" class="indicator-tooltip">help</mat-icon>
+        <mat-error *ngIf="f.suffixForm.hasError('maxlength')">
+            {{'error.tooLong'|translate}}
+        </mat-error>
+    </mat-form-field>
+
+    <h2>{{'indicator.aggs'|translate}}</h2>
+
+    <p class="query-explanation">{{'indicator.queryExplanation1'|translate}}</p>
+
+    <div class="checkbox-form-field">
+        <mat-icon id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.globalExplanation'|translate" class="indicator-tooltip last-check-box">help
+        </mat-icon>
+        <mat-checkbox class="checkbox-indicator" formControlName="globalForm">
+            {{'indicator.global'|translate}}
+        </mat-checkbox>
+    </div>
+
+    <div class="checkbox-form-field">
+        <mat-icon id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.byRegionExplanation'|translate" class="indicator-tooltip">help
+        </mat-icon>
+        <mat-checkbox class="checkbox-indicator" formControlName="byRegionForm">
+            {{'indicator.byRegion'|translate}}
+        </mat-checkbox>
+    </div>
+
+    <div class="checkbox-form-field">
+        <mat-icon id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.byEstablishmentExplanation'|translate" class="indicator-tooltip">help
+        </mat-icon>
+        <mat-checkbox class="checkbox-indicator" formControlName="byEstablishmentForm">
+            {{'indicator.byEstablishment'|translate}}
+        </mat-checkbox>
+    </div>
+
+    <div class="checkbox-form-field">
+        <mat-icon id="help" color="primary" #tooltip="matTooltip" (click)="tooltip.toggle()"
+            [matTooltip]="'indicator.byDocStructExplanation'|translate" class="indicator-tooltip">help
+        </mat-icon>
+        <mat-checkbox class="checkbox-indicator" formControlName="byDocStructForm">
+            {{'indicator.byDocStruct'|translate}}
+        </mat-checkbox>
+    </div>
+
+    <div class="query-explanation">
+        <h2>{{'indicator.query'|translate}}</h2>
+        <p [innerHtml]="'indicator.queryExplanation2'|translate"></p>
+        <p>
+            <em>{{'indicator.queryExplanation3'|translate}}
+                <ul>
+                    <li>
+                        <a target="_blank" rel="noopener noreferrer"
+                            [href]="getApiUrl + 'database_export/elasticsearch/mapping_esgbu_institutions.json'">
+                            {{'indicator.mappingEsgbu'|translate}}</a>
+                    </li>
+                    <li> <a target="_blank" rel="noopener noreferrer"
+                            href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">
+                            {{'indicator.elasticsearchDoc'|translate}}</a>
+                    </li>
+                    <li> <a target="_blank" rel="noopener noreferrer" [href]="getApiUrl + 'docapi.html'">
+                            {{'indicator.docapi'|translate}}</a>
+                    </li>
+                </ul>
+            </em>
+        </p>
+        <strong>{{'indicator.queryExplanation4'|translate}}</strong>
+
+        <p>{{'indicator.queryExplanation5'|translate}}</p>
+        <ul>
+            <li [innerHtml]="'indicator.queryExplanation6'|translate"></li>
+            <li [innerHtml]="'indicator.queryExplanation7'|translate"></li>
+        </ul>
+    </div>
+
+    <json-editor [options]="editorOptions" formControlName="queryForm"></json-editor>
+</form>

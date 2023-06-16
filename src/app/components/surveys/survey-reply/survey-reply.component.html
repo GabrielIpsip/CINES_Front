@@ -1,0 +1,35 @@
+<mat-sidenav-container class="group-menu" autosize>
+
+  <mat-sidenav #groupSidenav mode="side" class="group-tree">
+    <app-group-tree [administration]="administration" [missingGroupsAnswered]="missingGroups"
+      [missingParentGroupsAnswered]="missingParentGroups"></app-group-tree>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="group-content">
+    <div class="header">
+      <button mat-flat-button class="change-button" color="primary" (click)="groupSidenav.toggle()">
+        <ng-container *ngIf="groupSidenav.opened; else showBlock">
+          {{'survey.hideGroup'|translate}}
+        </ng-container>
+        <ng-template #showBlock>
+          {{'survey.showGroup'|translate}}
+        </ng-template>
+      </button>
+      <button mat-button class="admin-link" [routerLink]="administrationLink">
+        <h1>{{administrationUseName}}</h1>
+      </button>
+
+      <app-survey-reply-progress-status class="progress-status"
+        (missingDataValuesEmitter)="onChangeMissingDataValues($event)"
+        (missingGroupsEmitter)="onChangeMissingGroups($event)"
+        (missingParentGroupsEmitter)="onChangeMissingParentGroups($event)">
+      </app-survey-reply-progress-status>
+
+      <mat-divider></mat-divider>
+      <h2 class="group-title">{{groupTitle | async}}</h2>
+      <p *ngIf="groupInstruction" class="group-instruction">{{groupInstruction}}</p>
+    </div>
+    <app-survey-reply-data-list [missingDataTypesAnswered]="missingDataValues"></app-survey-reply-data-list>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

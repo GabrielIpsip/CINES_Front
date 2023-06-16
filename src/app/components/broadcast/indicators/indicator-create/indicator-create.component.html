@@ -1,0 +1,4 @@
+<app-return-button></app-return-button>
+<button mat-flat-button color="primary" class="create-button"
+    (click)="onClickCreateButton()" [disabled]="!isValidForm">{{'indicator.createTheIndicator'|translate}}</button>
+<app-indicator-view #indicatorView></app-indicator-view>

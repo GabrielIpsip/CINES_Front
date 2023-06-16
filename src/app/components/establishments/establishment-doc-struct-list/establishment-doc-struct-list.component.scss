@@ -1,0 +1,22 @@
+mat-card {
+  margin: 10px 5px 1px 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+mat-card:hover {
+  background-color: #4a5bb92d;
+  cursor: pointer;
+}
+
+mat-card:active {
+  background-color: #efefef;
+}
+
+#doc-struct-history {
+  margin-right: 15px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}

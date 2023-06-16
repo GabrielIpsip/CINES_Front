@@ -1,0 +1,6 @@
+<button *ngIf="physicLibView" mat-flat-button mat-line color="primary" (click)="createPhysicLib()"
+  [disabled]="!physicLibView.isValid()">{{'physicLib.create'|translate}}</button>
+
+<div *ngIf="physicLibToCreate">
+  <app-physical-library-view [physicLib]="physicLibToCreate"></app-physical-library-view>
+</div>

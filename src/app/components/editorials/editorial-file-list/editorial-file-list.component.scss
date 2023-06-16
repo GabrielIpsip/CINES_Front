@@ -1,0 +1,42 @@
+.mat-list-icon.insert_drive_file {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-list-icon.table_chart {
+  color: #226632;
+}
+
+.mat-list-icon.picture_as_pdf {
+  color: #bf360c;
+}
+
+.mat-list-icon.description {
+  color: #000091;
+}
+
+.mat-list-icon.image {
+  color: #ffc107;
+}
+
+
+.file-list-item {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete-button {
+  color: red;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+}
+
+.delete-button mat-icon {
+  font-size: 20px;
+}
+
+.file-list-name {
+  font-size: 20px;
+}

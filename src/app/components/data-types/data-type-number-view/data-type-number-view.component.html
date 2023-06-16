@@ -1,0 +1,90 @@
+<p>
+  <strong>{{'dataType.defaultValues'|translate}}</strong><br>
+  {{'- ' + ('dataType.numbers.minInfo'|translate) + ' ' +  (MIN|number:'':currentLang)}}<br>
+  {{'- ' + ('dataType.numbers.maxInfo'|translate) + ' ' + (MAX|number:'':currentLang)}}
+</p>
+
+<form [formGroup]="constraintForm">
+
+  <div class="column">
+    <mat-form-field class="number-form">
+      <mat-label>{{'dataType.numbers.min'|translate}}</mat-label>
+      <input type="number" matInput formControlName="minForm" placeholder="{{'dataType.numbers.min'|translate}}"
+        (change)="updateValidators()" />
+      <mat-error *ngIf="f.minForm.hasError('min')">
+        {{'error.min'|translate}}
+      </mat-error>
+      <mat-error *ngIf="f.minForm.hasError('max')">
+        {{'error.max'|translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="number-form">
+      <mat-label>{{'dataType.numbers.max'|translate}}</mat-label>
+      <input type="number" matInput formControlName="maxForm" placeholder="{{'dataType.numbers.max'|translate}}"
+        (change)="updateValidators()" />
+      <mat-error *ngIf="f.maxForm.hasError('min')">
+        {{'error.min'|translate}}
+      </mat-error>
+      <mat-error *ngIf="f.maxForm.hasError('max')">
+        {{'error.max'|translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="column">
+    <mat-form-field class="number-form">
+      <mat-label>{{'dataType.numbers.minAlertForm'|translate}}</mat-label>
+      <input type="number" matInput formControlName="minAlertForm"
+        placeholder="{{'dataType.numbers.minAlertForm'|translate}}" (change)="updateValidators()" />
+      <mat-error *ngIf="f.minAlertForm.hasError('min')">
+        {{'error.min'|translate}}
+      </mat-error>
+      <mat-error *ngIf="f.minAlertForm.hasError('max')">
+        {{'error.max'|translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="number-form">
+      <mat-label>{{'dataType.numbers.maxAlertForm'|translate}}</mat-label>
+      <input type="number" matInput formControlName="maxAlertForm"
+        placeholder="{{'dataType.numbers.maxAlertForm'|translate}}" (change)="updateValidators()" />
+      <mat-error *ngIf="f.maxAlertForm.hasError('min')">
+        {{'error.min'|translate}}
+      </mat-error>
+      <mat-error *ngIf="f.maxAlertForm.hasError('max')">
+        {{'error.max'|translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="column">
+    <mat-form-field class="number-form">
+      <mat-label>{{'dataType.numbers.evolutionMin'|translate}}</mat-label>
+      <input type="number" matInput formControlName="evolutionMinForm"
+        placeholder="{{'dataType.numbers.evolutionMin'|translate}}" (change)="updateValidators()" />
+      <mat-error *ngIf="f.evolutionMinForm.hasError('min')">
+        {{'error.min'|translate}}
+      </mat-error>
+      <mat-error *ngIf="f.evolutionMinForm.hasError('max')">
+        {{'error.max'|translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="number-form">
+      <mat-label>{{'dataType.numbers.evolutionMax'|translate}}</mat-label>
+      <input type="number" matInput formControlName="evolutionMaxForm"
+        placeholder="{{'dataType.numbers.evolutionMax'|translate}}" (change)="updateValidators()" />
+      <mat-error *ngIf="f.evolutionMaxForm.hasError('min')">
+        {{'error.min'|translate}}
+      </mat-error>
+      <mat-error *ngIf="f.evolutionMaxForm.hasError('max')">
+        {{'error.max'|translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox formControlName="isDecimalForm">{{'dataType.numbers.isDecimal'|translate}}
+  </mat-checkbox>
+
+</form>

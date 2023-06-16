@@ -1,0 +1,21 @@
+<mat-sidenav-container autosize class="main-container">
+
+  <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+    <app-documentary-structure-relation [modificationMode]="true"></app-documentary-structure-relation>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <div *ngIf="docStructToUpdate">
+      <div class="update-form">
+        <button *ngIf="docStructView" mat-flat-button mat-line color="accent" (click)="updateDocStruct()"
+          [disabled]="!docStructView.isValid()">{{'docStruct.update'|translate}}</button>
+        <button mat-stroked-button mat-line
+          routerLink="/documentary-structures/{{docStructId}}">{{'action.cancel'|translate}}</button>
+        <app-documentary-structure-view class="app-view" [docStruct]="docStructToUpdate">
+        </app-documentary-structure-view>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

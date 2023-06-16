@@ -1,0 +1,27 @@
+<mat-sidenav-container autosize class="main-container">
+
+  <mat-sidenav-content>
+    <app-return-button></app-return-button>
+
+    <mat-tab-group *ngIf="routeContent != null">
+      <mat-tab *ngFor="let lang of availableLang" [label]="'app.langName.' + lang.language | translate">
+
+        <button mat-flat-button color="accent" class="save-button"
+          (click)="saveRouteContent(lang, true)">{{'action.apply'|translate}}</button>
+
+        <button mat-flat-button color="primary" class="save-button"
+          (click)="saveRouteContent(lang, false)">{{'action.save'|translate}}</button>
+
+        <angular-editor *ngIf="routeContent.has(lang.language)" [config]="editorConfig"
+          placeholder="{{'action.addComment'|translate}}" [(ngModel)]="routeContent.get(lang.language).content">
+        </angular-editor>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-sidenav-content>
+
+  <mat-sidenav class="sidenav-info" opened mode="side" position="end" [disableClose]="true">
+    <app-routes-files-list [routeName]="routeName" [showImage]="true" [editMode]="true">
+    </app-routes-files-list>
+  </mat-sidenav>
+
+</mat-sidenav-container>

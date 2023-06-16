@@ -1,0 +1,52 @@
+.relation-name {
+  font-size: 20px;
+}
+
+.mat-list-base .mat-list-item .mat-line:nth-child(n+2) {
+  font-size: 13px;
+  margin-left: 5px;
+  color: grey;
+}
+
+h2 {
+  display: inline;
+  margin-left: 5px;
+}
+
+.mat-list-base .mat-list-item.mat-2-line, .mat-list-base .mat-list-option.mat-2-line {
+  height: 40px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.mat-list-base {
+padding-top: 0px;
+}
+
+.add {
+  display: inline-block;
+  bottom: 4px;
+  margin-right: 20px;
+}
+
+a {
+  color:#283593;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.delete mat-icon {
+  font-size: 15px;
+}
+
+.delete {
+margin-bottom: 19px;
+}
+
+h4 {
+max-width: 400px;
+}
+
+.relation-list {
+  padding-bottom: 45px;
+}

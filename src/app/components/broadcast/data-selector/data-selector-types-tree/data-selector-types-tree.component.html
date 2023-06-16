@@ -1,0 +1,48 @@
+<mat-card class="title-tree-section">
+
+  <ng-container *ngIf="isAllExpanded; else collapseButton">
+    <button mat-flat-button color="accent" class="expandButton" (click)="toggleAllNode()">
+      <mat-icon>unfold_less</mat-icon>
+    </button>
+  </ng-container>
+  <ng-template #collapseButton>
+    <button mat-flat-button color="accent" class="expandButton" (click)="toggleAllNode()">
+      <mat-icon>unfold_more</mat-icon>
+    </button>
+  </ng-template>
+
+  <h2 *ngIf="title != null" id="title">{{title}}</h2>
+
+</mat-card>
+
+<button mat-button class="select-all-button" (click)="selectAllNode()" color="accent">
+  <mat-icon>{{isAllSelected ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
+  {{isAllSelected ? ('info.unselectAll'|translate) : ('info.selectAll'|translate)}}
+</button>
+
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)"
+      (click)="onClickNode(node)" (change)="todoLeafItemSelectionToggle(node)"
+      [title]="node.code != null ? node.code : ''">{{node.name}}
+    </mat-checkbox>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    <mat-checkbox [checked]="descendantsAllSelected(node)" [indeterminate]="descendantsPartiallySelected(node)"
+      (change)="todoItemSelectionToggle(node)" (click)="onClickNode(node)">{{node.name}}</mat-checkbox>
+  </mat-tree-node>
+
+</mat-tree>

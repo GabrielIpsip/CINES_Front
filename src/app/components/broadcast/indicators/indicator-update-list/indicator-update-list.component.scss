@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+}
+
+th {
+  font-size: 14px;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: #4a5bb92d;
+  cursor: pointer;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.filter {
+  font-size: 14px;
+  max-width: 650px;
+  width: 99%;
+}
+
+.block {
+  display: block;
+}

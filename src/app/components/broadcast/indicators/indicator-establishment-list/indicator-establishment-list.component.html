@@ -1,0 +1,58 @@
+<mat-form-field appearance="fill" class="select-establishment">
+    <mat-label>{{'indicator.establishmentList'|translate}}</mat-label>
+    <mat-select (selectionChange)="addEstablishmentId($event.value)" [disabled]="filterEstablishmentList?.length === 0">
+        <mat-option *ngFor="let establishment of filterEstablishmentList" [value]="establishment.id"
+            (click)="addEstablishmentId(establishment.id)">
+            {{establishment.useName}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field id="establishment-filter">
+    <mat-label>{{'indicator.filterEstablishmentList'|translate}}</mat-label>
+    <input matInput type="text" [(ngModel)]="selectionFilter">
+    <button mat-button *ngIf="selectionFilter" matSuffix mat-icon-button aria-label="Clear"
+        (click)="selectionFilter=''">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+
+<button *ngIf="establishmentIdUsed.length > 0" mat-stroked-button color="warn" (click)="establishmentIdUsed = []"
+    id="clean-all">
+    {{'action.cleanSelection'|translate}}</button>
+
+<app-indicator-export *ngIf="establishmentIdUsed.length > 0" [isKeyFigure]="isKeyFigure"
+    [aggregationType]="aggregationType.byEstablishment" [dateUsed]="dateUsed" [indicators]="establishmentIndicators"
+    [keysUsed]="establishmentIdUsed">
+</app-indicator-export>
+
+
+<button mat-flat-button color="primary" *ngIf="hasHiddenCard()" class="display-all-button" (click)="resetHiddenCard()">
+    <mat-icon>visibility</mat-icon>{{'indicator.displayAll'|translate}}
+</button>
+
+<mat-divider></mat-divider>
+
+<div [id]="indicatorExportComponent.getCardListId(aggregationType.byEstablishment)">
+    <div *ngFor="let establishmentId of establishmentIdUsed; let i = index">
+        <h2 class="inline no-top-margin">{{getEstablishmentUseNameById(establishmentId)}}</h2>
+
+        <button mat-button class="inline" matSuffix mat-icon-button aria-label="Clear"
+            (click)="establishmentIdUsed.splice(i, 1)" class="delete-icon-button">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <ng-container *ngFor="let year of dateUsed">
+            <ng-container *ngIf="establishmentIndicators.get(year)?.has(establishmentId)">
+                <h3>{{year}}</h3>
+
+                <app-indicator-card-chart
+                    [indicators]="establishmentIndicators.get(year).get(establishmentId).indicators"
+                    [keyFigure]="isKeyFigure" [aggregationType]="aggregationType.byEstablishment">
+                </app-indicator-card-chart>
+
+            </ng-container>
+        </ng-container>
+        <mat-divider *ngIf="i !== establishmentIdUsed.length - 1"></mat-divider>
+    </div>
+</div>

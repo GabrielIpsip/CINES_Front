@@ -1,0 +1,40 @@
+<ng-container *ngIf="!isSelectMenu; else selectMenu">
+
+  <mat-form-field [appearance]="longText ? 'outline' : ''" class="dynamic-input" [formGroup]=surveyForm
+    [ngClass]="{'long-text' : longText}">
+
+    <ng-container *ngIf="!longText; else longTextField">
+      <input type="text" matInput #textInput maxlength="{{maxLength}}" [formControl]="f" (change)="onChangeValue()">
+    </ng-container>
+
+    <ng-template #longTextField>
+      <textarea type="text" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
+        cdkAutosizeMaxRows="5" maxlength="{{maxLength}}" [formControl]="f"
+        placeholder="{{'info.longTextPlaceHolder'|translate}}" (change)="onChangeValue()"></textarea>
+    </ng-template>
+
+    <mat-icon *ngIf="regex && constraint.regex != null" matPrefix id="help" class="tooltip" color="primary"
+      #tooltip="matTooltip" matTooltipPosition="right" (click)="tooltip.toggle()"
+      matTooltip="{{'dataType.texts.pattern'|translate}} : {{constraint.regex}}" matTooltipClass="tooltip">help
+    </mat-icon>
+    <mat-error *ngIf="f.hasError('maxlength')">
+      {{'error.tooLong'|translate}}. Max: {{maxLength}}
+    </mat-error>
+    <mat-error *ngIf="f.hasError('minlength')">
+      {{'error.tooShort'|translate}}. Min: {{minLength}}
+    </mat-error>
+    <mat-error *ngIf="f.hasError('pattern')">
+      {{'error.value'|translate}}
+    </mat-error>
+
+  </mat-form-field>
+
+</ng-container>
+
+<ng-template #selectMenu>
+  <mat-form-field [formGroup]=surveyForm>
+    <mat-select (selectionChange)="onChangeValue($event)" [value]="selectValue">
+      <mat-option *ngFor="let value of selectMenuValues" [value]="value">{{value}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>

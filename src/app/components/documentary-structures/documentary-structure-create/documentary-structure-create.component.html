@@ -1,0 +1,5 @@
+<button *ngIf="docStructView" mat-flat-button mat-line color="primary" (click)="createDocStruct()"
+            [disabled]="!docStructView.isValid()">{{'docStruct.create'|translate}}</button>
+<div *ngIf="docStructToCreate">
+    <app-documentary-structure-view [docStruct]="docStructToCreate"></app-documentary-structure-view>
+</div>
